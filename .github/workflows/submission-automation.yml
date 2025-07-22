@@ -1,0 +1,47 @@
+name: Submission Issue Automation
+
+on:
+  issues:
+    types: [closed]
+
+permissions:
+  contents: write
+  issues: write
+
+jobs:
+  process-submission:
+    runs-on: ubuntu-latest
+    if: github.event.action == 'closed' && startsWith(github.event.issue.title, 'Submission')
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+        with:
+          token: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: Extract Submission Info, Create Project Folder and Update Table
+        id: extract-submission
+        run: |
+          node scripts/submission_extract.js
+        env:
+          ISSUE_BODY: ${{ github.event.issue.body }}
+          ISSUE_USER: ${{ github.event.issue.user.login }}
+
+      - name: Comment on issue
+        uses: actions/github-script@v7
+        with:
+          github-token: ${{ secrets.GITHUB_TOKEN }}
+          script: |
+            const { owner, repo } = context.repo;
+            const issue_number = context.payload.issue.number;
+            try {
+              await github.rest.issues.createComment({
+                owner,
+                repo,
+                issue_number,
+                body: `✅ Submission processed successfully!\n\n- 项目信息已归档\n- README.md Submission 区域已自动更新\n\n感谢你的提交！🎉`
+              });
+              console.log(`Comment posted on issue #${issue_number}`);
+            } catch (error) {
+              console.error(`Error posting comment: ${error.message}`);
+              core.setFailed(`Error posting comment: ${error.message}`);
+            } 

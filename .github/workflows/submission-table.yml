@@ -1,0 +1,32 @@
+name: Update Submission Status & Sync README
+
+on:
+  push:
+    branches:
+      - main
+    paths:
+      - 'submission/*/**'
+  pull_request:
+    branches:
+      - main
+    types: [closed]
+    paths:
+      - 'submission/*/**'
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+jobs:
+  update-and-sync:
+    if: github.event_name == 'push' || (github.event_name == 'pull_request' && github.event.pull_request.merged == true) || github.event_name == 'workflow_dispatch'
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: Update Submission Status Table
+        run: |
+          node scripts/update_submission_status.js

@@ -1,0 +1,54 @@
+name: Signup Issue Automation
+
+on:
+  issues:
+    types: [closed]
+
+permissions:
+  contents: write
+  issues: write
+
+jobs:
+  process-signup:
+    runs-on: ubuntu-latest
+    if: github.event.action == 'closed' && github.event.issue.state_reason == 'completed' && startsWith(github.event.issue.title, 'Registration')
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+        with:
+          token: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: Extract Signup Info, Create Registration File and Update Table
+        id: extract-signup
+        run: |
+          node scripts/signup_extract.js
+        env:
+          ISSUE_BODY: ${{ github.event.issue.body }}
+          ISSUE_USER: ${{ github.event.issue.user.login }}
+
+      - name: Comment on issue
+        uses: actions/github-script@v7
+        with:
+          github-token: ${{ secrets.GITHUB_TOKEN }}
+          script: |
+            const { owner, repo } = context.repo;
+            const issue_number = context.payload.issue.number;
+            const name = '${{ steps.extract-signup.outputs.name }}';
+
+            try {
+              await github.rest.issues.createComment({
+                owner,
+                repo,
+                issue_number,
+                body: `✅ Signup processed successfully!
+
+                - ✅ Registration file \`${name}.md\` has been created
+                - 📧 Please check your email for the collaboration invitation
+
+                Welcome to the project! 🎉`
+              });
+              console.log(`Comment posted on issue #${issue_number}`);
+            } catch (error) {
+              console.error(`Error posting comment: ${error.message}`);
+              core.setFailed(`Error posting comment: ${error.message}`);
+            }
