@@ -17,6 +17,8 @@
 
 [Submit ➡️](https://github.com/CasualHackathon/Template/issues/new?title=Registration&body=Name%5B%E5%A7%93%E5%90%8D%5D:%0A%0ABrief%20personal%20introduction%20including%20skills%20and%20experience%20(One%20sentence)%5B%E7%AE%80%E7%9F%AD%E4%BB%8B%E7%BB%8D%E4%B8%AA%E4%BA%BA%E6%8A%80%E8%83%BD%E4%B8%8E%E7%BB%8F%E9%AA%8C%5D%0ADescription%5B%E4%B8%AA%E4%BA%BA%E4%BB%8B%E7%BB%8D%5D:%0A%0ATelegram%20%7C%20WeChat%20%7C%20Discord%20%7C%20Email%20%7C%20X(Twitter)%20%7C%20GitHub%0AContactMethod%5B%E8%81%94%E7%B3%BB%E6%96%B9%E5%BC%8F%5D:%0A%0Ae.g.,%20@username,%20email@example.com%0AContact%5B%E8%81%94%E7%B3%BB%E8%B4%A6%E5%8F%B7%5D:)
 
+- Note: Please do not modify other people's information.
+
 <!-- Registration star -->
 | Name | Description | Contact | Operate |
 | ---- | ----------- | ------- | ------- |
