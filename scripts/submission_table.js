@@ -60,7 +60,7 @@ function updateSubmissionTable() {
             if (files.length > 0) submitted = '🟢';
         }
         const issueBody = encodeURIComponent(
-            `ProjectName[项目名称]:${r.projectName}\nProjectDescription[项目描述]:${r.projectDescription}\nProjectMembers[项目成员]:${r.projectMembers}`
+            `ProjectName[项目名称]:${r.projectName}\nProjectDescription[项目描述]:${r.projectDescription}\nProjectMembers[项目成员]:${r.projectMembers}\nWalletAddress[钱包地址]:${r.walletAddress}`
         );
         const issueTitle = encodeURIComponent(`Submission - ${r.projectName}`);
         const issueUrl = `${repoUrl}/issues/new?title=${issueTitle}&body=${issueBody}`;
