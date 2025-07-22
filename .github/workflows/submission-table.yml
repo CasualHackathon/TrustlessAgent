@@ -29,8 +29,6 @@ jobs:
         with:
           token: ${{ secrets.GITHUB_TOKEN }}
           fetch-depth: 0
-          # 确保在 PR 合并后切换到 main 分支
-          ref: ${{ github.event_name == 'pull_request' && github.event.pull_request.merged == true && 'main' || github.ref }}
 
       - name: Configure Git
         run: |
@@ -39,4 +37,16 @@ jobs:
 
       - name: Update Submission Status Table
         run: |
-          node scripts/update_submission_status.js
+          node -e "require('./scripts/submission_table').updateSubmissionTable()"
+
+      - name: Check for changes and commit
+        run: |
+          if git diff --quiet README.md; then
+            echo "没有需要提交的更改"
+          else
+            echo "检测到 README.md 变更，正在提交..."
+            git add README.md
+            git commit -m "🤖 Auto-update: Update submission status table"
+            git push origin main
+            echo "提交并推送成功"
+          fi
