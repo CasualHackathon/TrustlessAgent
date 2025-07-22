@@ -6,17 +6,10 @@ on:
       - main
     paths:
       - 'submission/*/**'
-  pull_request:
-    branches:
-      - main
-    types: [closed]
-    paths:
-      - 'submission/*/**'
   workflow_dispatch:
 
 jobs:
   update-and-sync:
-    if: github.event_name == 'push' || (github.event_name == 'pull_request' && github.event.pull_request.merged == true) || github.event_name == 'workflow_dispatch'
     runs-on: ubuntu-latest
     permissions:
       contents: write
