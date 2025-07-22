@@ -30,4 +30,11 @@ jobs:
       - name: Update submission status table
         run: |
           node -e "require('./scripts/submission_table').updateSubmissionTable()"
-          echo "✅ Submission status table updated"
+
+      - name: Commit changes
+        uses: stefanzweifel/git-auto-commit-action@v5
+        with:
+          commit_message: '🤖 Auto-update: Update submission status table'
+          file_pattern: 'README.md'
+          commit_user_name: 'github-actions[bot]'
+          commit_user_email: 'github-actions[bot]@users.noreply.github.com'
