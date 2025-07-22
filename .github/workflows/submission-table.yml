@@ -29,6 +29,8 @@ jobs:
         with:
           token: ${{ secrets.GITHUB_TOKEN }}
           fetch-depth: 0
+          # 确保在 PR 合并后切换到 main 分支
+          ref: ${{ github.event_name == 'pull_request' && github.event.pull_request.merged == true && 'main' || github.ref }}
 
       - name: Configure Git
         run: |
