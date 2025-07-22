@@ -49,6 +49,8 @@ function parseFields(bodyStr) {
     return fields;
 }
 
+
+const displayName = getDisplayName(githubUser);
 const fields = parseFields(cleanBody);
 const projectName = fields['ProjectName[项目名称]'] || '';
 const projectDescription = fields['ProjectDescription[项目描述]'] || '';
@@ -59,9 +61,6 @@ if (!projectName || !walletAddress || !projectDescription || !projectMembers) {
     console.error('字段不全');
     process.exit(1);
 }
-
-
-const displayName = getDisplayName(githubUser);
 
 const submissionDir = path.join(__dirname, '../submission', `${githubUser}`);
 if (!fs.existsSync(submissionDir)) {
