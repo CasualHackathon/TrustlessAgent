@@ -20,8 +20,7 @@
 <!-- Registration star -->
 | Name | Description | Contact | Operate |
 | ---- | ----------- | ------- | ------- |
-| Alice | name is Alice22 | 123123(tg2) | [Edit](https://github.com/CasualHackathon/Template/issues/new?title=Registration%20-%20Alice&body=Name%5B%E5%A7%93%E5%90%8D%5D%3A%20Alice%0ADescription%5B%E4%B8%AA%E4%BA%BA%E4%BB%8B%E7%BB%8D%5D%3A%20name%20is%20Alice22%0AContactMethod%5B%E8%81%94%E7%B3%BB%E6%96%B9%E5%BC%8F%5D%3A%20tg2%0AContact%5B%E8%81%94%E7%B3%BB%E8%B4%A6%E5%8F%B7%5D%3A%20123123) |
-| 11 | 22 | 44(33) | [Edit](https://github.com/CasualHackathon/Template/issues/new?title=Registration%20-%2011&body=Name%5B%E5%A7%93%E5%90%8D%5D%3A%2011%0ADescription%5B%E4%B8%AA%E4%BA%BA%E4%BB%8B%E7%BB%8D%5D%3A%2022%0AContactMethod%5B%E8%81%94%E7%B3%BB%E6%96%B9%E5%BC%8F%5D%3A%2033%0AContact%5B%E8%81%94%E7%B3%BB%E8%B4%A6%E5%8F%B7%5D%3A%2044) |
+| name | description | contact(contactMethod) | [Edit](https://github.com/CasualHackathon/Template/issues/new?title=Registration%20-%20name&body=Name%5B%E5%A7%93%E5%90%8D%5D%3A%20name%0ADescription%5B%E4%B8%AA%E4%BA%BA%E4%BB%8B%E7%BB%8D%5D%3A%20description%0AContactMethod%5B%E8%81%94%E7%B3%BB%E6%96%B9%E5%BC%8F%5D%3A%20contactMethod%0AContact%5B%E8%81%94%E7%B3%BB%E8%B4%A6%E5%8F%B7%5D%3A%20contact) |
 
 <!-- Registration end -->
 
