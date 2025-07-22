@@ -14,15 +14,12 @@ on:
       - 'submission/*/**'
   workflow_dispatch:
 
-permissions:
-  contents: write
-  pull-requests: write
-  issues: write
-
 jobs:
   update-and-sync:
     if: github.event_name == 'push' || (github.event_name == 'pull_request' && github.event.pull_request.merged == true) || github.event_name == 'workflow_dispatch'
     runs-on: ubuntu-latest
+    permissions:
+      contents: write
     steps:
       - name: Checkout repository
         uses: actions/checkout@v4
@@ -30,23 +27,21 @@ jobs:
           token: ${{ secrets.GITHUB_TOKEN }}
           fetch-depth: 0
 
-      - name: Configure Git
-        run: |
-          git config --global user.name "github-actions[bot]"
-          git config --global user.email "github-actions[bot]@users.noreply.github.com"
-
-      - name: Update Submission Status Table
+      - name: Update submission status table
         run: |
           node -e "require('./scripts/submission_table').updateSubmissionTable()"
 
-      - name: Check for changes and commit
+      - name: Commit and push changes
         run: |
-          if git diff --quiet README.md; then
-            echo "没有需要提交的更改"
-          else
-            echo "检测到 README.md 变更，正在提交..."
+          git config --global user.name "github-actions[bot]"
+          git config --global user.email "github-actions[bot]@users.noreply.github.com"
+          
+          if ! git diff --quiet README.md; then
             git add README.md
             git commit -m "🤖 Auto-update: Update submission status table"
-            git push origin main
-            echo "提交并推送成功"
+            git pull --rebase origin main
+            git push
+            echo "✅ Submission status table updated and committed"
+          else
+            echo "ℹ️ No changes to commit"
           fi
