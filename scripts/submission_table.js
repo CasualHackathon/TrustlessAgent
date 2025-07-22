@@ -43,6 +43,7 @@ function updateSubmissionTable() {
             projectName: parseField(content, 'Project'),
             projectDescription: parseField(content, 'Description'),
             projectMembers: parseField(content, 'Members'),
+            walletAddress: parseField(content, 'WalletAddress'),
         };
     }).filter(Boolean);
 
@@ -65,8 +66,7 @@ function updateSubmissionTable() {
         const issueTitle = encodeURIComponent(`Submission - ${r.projectName}`);
         const issueUrl = `${repoUrl}/issues/new?title=${issueTitle}&body=${issueBody}`;
         // | ${r.name} 
-        table += `| ${r.projectName} | ${r.projectDescription} | ${r.projectMembers} | ${submitted} | [Edit](${issueUrl}) &#124; [Folder](${repoUrl}/tree/main/submission/${r.folder}) |
-`;
+        table += `| ${r.projectName} | ${r.projectDescription} | ${r.projectMembers} | ${submitted} | [Edit](${issueUrl}) &#124; [Folder](${repoUrl}/tree/main/submission/${r.folder}) |`;
     });
 
     let readme = fs.readFileSync(readmePath, 'utf8');
@@ -78,4 +78,5 @@ function updateSubmissionTable() {
     console.log('README.md Submission 区域已更新');
 }
 
+updateSubmissionTable
 module.exports = { updateSubmissionTable };

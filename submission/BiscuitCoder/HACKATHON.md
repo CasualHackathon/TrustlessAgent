@@ -5,4 +5,4 @@
 **Project**: AAwalelt  
 **Description**: this is a 7702 wallet app  
 **Members**: Alice
- **WalletAddress**: 0xxxxxx
+**WalletAddress**: 0xxxxxx

@@ -15,7 +15,7 @@
 
 ## 📝 Registration
 
-[Registration ➡️](https://github.com/CasualHackathon/Template/issues/new?title=Registration&body=Name%5B姓名%5D%3A%0ADescription%5B个人介绍%5D%3A%0AContactMethod%5B联系方式%5D%3A%0AContact%5B联系账号%5D%3A)
+[Submit ➡️](https://github.com/CasualHackathon/Template/issues/new?title=Registration&body=Name%5B姓名%5D%3A%0ADescription%5B个人介绍%5D%3A%0AContactMethod%5B联系方式%5D%3A%0AContact%5B联系账号%5D%3A)
 
 <!-- Registration star -->
 | Name | Description | Contact | Operate |
@@ -25,14 +25,15 @@
 <!-- Registration end -->
 
 
-## 🏗️ Submission
+## 🎯 Submission
 
-[Submit Project ➡️](https://github.com/CasualHackathon/Template/issues/new?title=Submission&body=ProjectName%5B项目名称%5D:%0AProjectDescription%5B项目描述%5D:%0AWalletAddress%5B钱包地址%5D:)
+[Submit ➡️](https://github.com/CasualHackathon/Template/issues/new?title=Submission&body=ProjectName%5B项目名称%5D:%0AProjectDescription%5B项目描述%5D:%0AWalletAddress%5B钱包地址%5D:)
+Please complete the registration before submitting.
 
 <!-- Submission start -->
 | Project | Description | Members | Submitted | Operate |
 | ----------- | ----------------- | -------------- | ------ | -------- |
-| AAwalelt | this is a 7702 wallet app | Alice | 🟢 | [Edit](https://github.com/CasualHackathon/Template/issues/new?title=Submission%20-%20AAwalelt&body=ProjectName%5B%E9%A1%B9%E7%9B%AE%E5%90%8D%E7%A7%B0%5D%3AAAwalelt%0AProjectDescription%5B%E9%A1%B9%E7%9B%AE%E6%8F%8F%E8%BF%B0%5D%3Athis%20is%20a%207702%20wallet%20app%0AProjectMembers%5B%E9%A1%B9%E7%9B%AE%E6%88%90%E5%91%98%5D%3AAlice%0AWalletAddress%5B%E9%92%B1%E5%8C%85%E5%9C%B0%E5%9D%80%5D%3Aundefined) &#124; [Folder](https://github.com/CasualHackathon/Template/tree/main/submission/BiscuitCoder) |
+| AAwalelt | this is a 7702 wallet app | Alice | 🟢 | [Edit](https://github.com/CasualHackathon/Template/issues/new?title=Submission%20-%20AAwalelt&body=ProjectName%5B%E9%A1%B9%E7%9B%AE%E5%90%8D%E7%A7%B0%5D%3AAAwalelt%0AProjectDescription%5B%E9%A1%B9%E7%9B%AE%E6%8F%8F%E8%BF%B0%5D%3Athis%20is%20a%207702%20wallet%20app%0AProjectMembers%5B%E9%A1%B9%E7%9B%AE%E6%88%90%E5%91%98%5D%3AAlice%0AWalletAddress%5B%E9%92%B1%E5%8C%85%E5%9C%B0%E5%9D%80%5D%3A0xxxxxx) &#124; [Folder](https://github.com/CasualHackathon/Template/tree/main/submission/BiscuitCoder) |
 
 <!-- Submission end -->
 

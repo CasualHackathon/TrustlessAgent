@@ -67,7 +67,7 @@ if (!fs.existsSync(submissionDir)) {
     fs.mkdirSync(submissionDir, { recursive: true });
 }
 const filename = path.join(submissionDir, 'HACKATHON.md');
-const content = `# ${projectName}\n\n**Name**: ${displayName}  \n**githubUser**: ${githubUser}  \n**Project**: ${projectName}  \n**Description**: ${projectDescription}  \n**Members**: ${projectMembers}\n **WalletAddress**: ${walletAddress}`;
+const content = `# ${projectName}\n\n**Name**: ${displayName}  \n**githubUser**: ${githubUser}  \n**Project**: ${projectName}  \n**Description**: ${projectDescription}  \n**Members**: ${projectMembers}\n**WalletAddress**: ${walletAddress}`;
 fs.writeFileSync(filename, content, 'utf8');
 console.log(`项目信息已写入: ${filename}`);
 
