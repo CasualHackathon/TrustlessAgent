@@ -38,7 +38,7 @@
 <!-- Submission start -->
 | Project | Description | Members | Submitted | Operate |
 | ----------- | ----------------- | -------------- | ------ | -------- |
-| 7702-wallet | A 7702 wallet multi-signature application | KK,VV | ⚪  | [Edit](https://github.com/CasualHackathon/Template/issues/new?title=Submission%20-%207702-wallet&body=ProjectName%5B%E9%A1%B9%E7%9B%AE%E5%90%8D%E7%A7%B0%5D%3A7702-wallet%0AProjectDescription%5B%E9%A1%B9%E7%9B%AE%E6%8F%8F%E8%BF%B0%5D%3AA%207702%20wallet%20multi-signature%20application%0AProjectMembers%5B%E9%A1%B9%E7%9B%AE%E6%88%90%E5%91%98%5D%3AKK%2CVV%0AWalletAddress%5B%E9%92%B1%E5%8C%85%E5%9C%B0%E5%9D%80%5D%3A0xxxxxxxx) &#124; [Folder](https://github.com/CasualHackathon/Template/tree/main/submission/BiscuitCoder) |
+| 7702-wallet | A 7702 wallet multi-signature application | KK,VV | 🟢 | [Edit](https://github.com/CasualHackathon/Template/issues/new?title=Submission%20-%207702-wallet&body=ProjectName%5B%E9%A1%B9%E7%9B%AE%E5%90%8D%E7%A7%B0%5D%3A7702-wallet%0AProjectDescription%5B%E9%A1%B9%E7%9B%AE%E6%8F%8F%E8%BF%B0%5D%3AA%207702%20wallet%20multi-signature%20application%0AProjectMembers%5B%E9%A1%B9%E7%9B%AE%E6%88%90%E5%91%98%5D%3AKK%2CVV%0AWalletAddress%5B%E9%92%B1%E5%8C%85%E5%9C%B0%E5%9D%80%5D%3A0xxxxxxxx) &#124; [Folder](https://github.com/CasualHackathon/Template/tree/main/submission/BiscuitCoder) |
 
 <!-- Submission end -->
 
