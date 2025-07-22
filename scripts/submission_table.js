@@ -47,6 +47,8 @@ function updateSubmissionTable() {
         };
     }).filter(Boolean);
 
+    console.log(rows);
+
     const readmePath = path.join(__dirname, '../README.md');
     const repoUrl = 'https://github.com/CasualHackathon/Template'; // TODO: 替换为你的仓库地址
     // | Name 
@@ -66,7 +68,7 @@ function updateSubmissionTable() {
         const issueTitle = encodeURIComponent(`Submission - ${r.projectName}`);
         const issueUrl = `${repoUrl}/issues/new?title=${issueTitle}&body=${issueBody}`;
         // | ${r.name} 
-        table += `| ${r.projectName} | ${r.projectDescription} | ${r.projectMembers} | ${submitted} | [Edit](${issueUrl}) &#124; [Folder](${repoUrl}/tree/main/submission/${r.folder}) |`;
+        table += `| ${r.projectName} | ${r.projectDescription} | ${r.projectMembers} | ${submitted} | [Edit](${issueUrl}) &#124; [Folder](${repoUrl}/tree/main/submission/${r.folder}) |\n`;
     });
 
     let readme = fs.readFileSync(readmePath, 'utf8');
@@ -78,5 +80,5 @@ function updateSubmissionTable() {
     console.log('README.md Submission 区域已更新');
 }
 
-updateSubmissionTable
+updateSubmissionTable()
 module.exports = { updateSubmissionTable };

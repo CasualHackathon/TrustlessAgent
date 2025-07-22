@@ -66,24 +66,12 @@ const projectDescription = fields['ProjectDescription[项目描述]'] || '';
 const projectMembers = fields['ProjectMembers[项目成员]'] || displayName;
 const walletAddress = fields['WalletAddress[钱包地址]'] || '';
 
-if (!projectName || !walletAddress) {
+if (!projectName || !walletAddress || !projectMembers) {
     console.error('字段不全');
     process.exit(1);
 }
 
-
-// 检查是否已有提交记录，如果有则验证是否为本人操作
 const submissionDir = path.join(__dirname, '../submission', `${githubUser}`);
-const existingHackathonFile = path.join(submissionDir, 'HACKATHON.md');
-
-if (fs.existsSync(existingHackathonFile)) {
-    const existingGithubUser = parseFieldFromFile(existingHackathonFile, 'githubUser');
-    if (existingGithubUser && existingGithubUser !== githubUser) {
-        console.error(`权限错误：用户 ${githubUser} 试图修改 ${existingGithubUser} 的项目提交，操作被拒绝`);
-        process.exit(1);
-    }
-}
-
 if (!fs.existsSync(submissionDir)) {
     fs.mkdirSync(submissionDir, { recursive: true });
 }
