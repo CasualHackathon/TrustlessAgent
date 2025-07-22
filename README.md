@@ -32,7 +32,7 @@
 <!-- Submission start -->
 | Name | Project | Description | Members | Submitted | Operate |
 | ---- | ----------- | ----------------- | -------------- | ------ | -------- |
-| Alice | AAWallet | This is a AAWallet app | Alice,Bob | 🟢 | [Edit](https://github.com/CasualHackathon/Template/issues/new?title=Submission%20-%20AAWallet&body=ProjectName%5B%E9%A1%B9%E7%9B%AE%E5%90%8D%E7%A7%B0%5D%3AAAWallet%0AProjectDescription%5B%E9%A1%B9%E7%9B%AE%E6%8F%8F%E8%BF%B0%5D%3AThis%20is%20a%20AAWallet%20app%0AProjectMembers%5B%E9%A1%B9%E7%9B%AE%E6%88%90%E5%91%98%5D%3AAlice%2CBob) |
+| Alice | AAWallet | This is a AAWallet app | Alice,Bob | ⚪  | [Edit](https://github.com/CasualHackathon/Template/issues/new?title=Submission%20-%20AAWallet&body=ProjectName%5B%E9%A1%B9%E7%9B%AE%E5%90%8D%E7%A7%B0%5D%3AAAWallet%0AProjectDescription%5B%E9%A1%B9%E7%9B%AE%E6%8F%8F%E8%BF%B0%5D%3AThis%20is%20a%20AAWallet%20app%0AProjectMembers%5B%E9%A1%B9%E7%9B%AE%E6%88%90%E5%91%98%5D%3AAlice%2CBob) |
 
 <!-- Submission end -->
 
