@@ -30,9 +30,9 @@
 [Submit Project ➡️](https://github.com/CasualHackathon/Template/issues/new?title=Submission&body=ProjectName%5B项目名称%5D:%0AProjectDescription%5B项目描述%5D:%0AProjectMembers%5B项目成员%5D:%0AWalletAddress%5B钱包地址%5D:)
 
 <!-- Submission start -->
-| Name | Project | Description | Members | Submitted | Operate |
+| Project | Description | Members | Submitted | Operate |
 | ---- | ----------- | ----------------- | -------------- | ------ | -------- |
-| Alice | AAWallet | This is a AAWallet app | Alice,Bob | ⚪  | [Edit](https://github.com/CasualHackathon/Template/issues/new?title=Submission%20-%20AAWallet&body=ProjectName%5B%E9%A1%B9%E7%9B%AE%E5%90%8D%E7%A7%B0%5D%3AAAWallet%0AProjectDescription%5B%E9%A1%B9%E7%9B%AE%E6%8F%8F%E8%BF%B0%5D%3AThis%20is%20a%20AAWallet%20app%0AProjectMembers%5B%E9%A1%B9%E7%9B%AE%E6%88%90%E5%91%98%5D%3AAlice%2CBob) &#124; [Folder](https://github.com/CasualHackathon/Template/tree/main/submission/BiscuitCoder) |
+| AAWallet | This is a AAWallet app | Alice,Bob | ⚪  | [Edit](https://github.com/CasualHackathon/Template/issues/new?title=Submission%20-%20AAWallet&body=ProjectName%5B%E9%A1%B9%E7%9B%AE%E5%90%8D%E7%A7%B0%5D%3AAAWallet%0AProjectDescription%5B%E9%A1%B9%E7%9B%AE%E6%8F%8F%E8%BF%B0%5D%3AThis%20is%20a%20AAWallet%20app%0AProjectMembers%5B%E9%A1%B9%E7%9B%AE%E6%88%90%E5%91%98%5D%3AAlice%2CBob) &#124; [Folder](https://github.com/CasualHackathon/Template/tree/main/submission/BiscuitCoder) |
 
 <!-- Submission end -->
 

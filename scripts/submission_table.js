@@ -62,7 +62,8 @@ function updateSubmissionTable() {
         );
         const issueTitle = encodeURIComponent(`Submission - ${r.projectName}`);
         const issueUrl = `${repoUrl}/issues/new?title=${issueTitle}&body=${issueBody}`;
-        table += `| ${r.name} | ${r.projectName} | ${r.projectDescription} | ${r.projectMembers} | ${submitted} | [Edit](${issueUrl}) |\n`;
+        table += `| ${r.name} | ${r.projectName} | ${r.projectDescription} | ${r.projectMembers} | ${submitted} | [Edit](${issueUrl}) &#124; [Folder](${repoUrl}/tree/main/submission/${r.folder}) |
+`;
     });
 
     let readme = fs.readFileSync(readmePath, 'utf8');
