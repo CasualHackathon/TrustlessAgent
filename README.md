@@ -32,7 +32,7 @@
 <!-- Submission start -->
 | Project | Description | Members | Submitted | Operate |
 | ----------- | ----------------- | -------------- | ------ | -------- |
-| AAwalelt | this is a 7702 wallet app | Alice | ⚪  | [Edit](https://github.com/CasualHackathon/Template/issues/new?title=Submission%20-%20AAwalelt&body=ProjectName%5B%E9%A1%B9%E7%9B%AE%E5%90%8D%E7%A7%B0%5D%3AAAwalelt%0AProjectDescription%5B%E9%A1%B9%E7%9B%AE%E6%8F%8F%E8%BF%B0%5D%3Athis%20is%20a%207702%20wallet%20app%0AProjectMembers%5B%E9%A1%B9%E7%9B%AE%E6%88%90%E5%91%98%5D%3AAlice) &#124; [Folder](https://github.com/CasualHackathon/Template/tree/main/submission/BiscuitCoder) |
+| AAwalelt | this is a 7702 wallet app | Alice | 🟢 | [Edit](https://github.com/CasualHackathon/Template/issues/new?title=Submission%20-%20AAwalelt&body=ProjectName%5B%E9%A1%B9%E7%9B%AE%E5%90%8D%E7%A7%B0%5D%3AAAwalelt%0AProjectDescription%5B%E9%A1%B9%E7%9B%AE%E6%8F%8F%E8%BF%B0%5D%3Athis%20is%20a%207702%20wallet%20app%0AProjectMembers%5B%E9%A1%B9%E7%9B%AE%E6%88%90%E5%91%98%5D%3AAlice) &#124; [Folder](https://github.com/CasualHackathon/Template/tree/main/submission/BiscuitCoder) |
 
 <!-- Submission end -->
 
