@@ -30,18 +30,4 @@ jobs:
       - name: Update submission status table
         run: |
           node -e "require('./scripts/submission_table').updateSubmissionTable()"
-
-      - name: Commit and push changes
-        run: |
-          git config --global user.name "github-actions[bot]"
-          git config --global user.email "github-actions[bot]@users.noreply.github.com"
-          
-          if ! git diff --quiet README.md; then
-            git add README.md
-            git commit -m "🤖 Auto-update: Update submission status table"
-            git pull --rebase origin main
-            git push
-            echo "✅ Submission status table updated and committed"
-          else
-            echo "ℹ️ No changes to commit"
-          fi
+          echo "✅ Submission status table updated"
