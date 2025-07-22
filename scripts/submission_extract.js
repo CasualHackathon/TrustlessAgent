@@ -52,10 +52,10 @@ function parseFields(bodyStr) {
 const fields = parseFields(cleanBody);
 const projectName = fields['ProjectName[项目名称]'] || '';
 const projectDescription = fields['ProjectDescription[项目描述]'] || '';
-const projectMembers = fields['ProjectMembers[项目成员]'] || '';
+const projectMembers = fields['ProjectMembers[项目成员]'] || displayName;
 const walletAddress = fields['WalletAddress[钱包地址]'] || '';
 
-if (!projectName || !walletAddress) {
+if (!projectName || !walletAddress || !projectDescription || !projectMembers) {
     console.error('字段不全');
     process.exit(1);
 }

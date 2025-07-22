@@ -48,7 +48,9 @@ function updateSubmissionTable() {
 
     const readmePath = path.join(__dirname, '../README.md');
     const repoUrl = 'https://github.com/CasualHackathon/Template'; // TODO: 替换为你的仓库地址
-    let table = '| Name | Project | Description | Members | Submitted | Operate |\n| ---- | ----------- | ----------------- | -------------- | ------ | -------- |\n';
+    // | Name 
+    // ---- |
+    let table = '| Project | Description | Members | Submitted | Operate |\n| ----------- | ----------------- | -------------- | ------ | -------- |\n';
     rows.forEach(r => {
         // 判断项目资源文件夹是否有内容，使用 folder
         const submissionDir = path.join(submissionRoot, r.folder);
@@ -62,7 +64,8 @@ function updateSubmissionTable() {
         );
         const issueTitle = encodeURIComponent(`Submission - ${r.projectName}`);
         const issueUrl = `${repoUrl}/issues/new?title=${issueTitle}&body=${issueBody}`;
-        table += `| ${r.name} | ${r.projectName} | ${r.projectDescription} | ${r.projectMembers} | ${submitted} | [Edit](${issueUrl}) &#124; [Folder](${repoUrl}/tree/main/submission/${r.folder}) |
+        // | ${r.name} 
+        table += `| ${r.projectName} | ${r.projectDescription} | ${r.projectMembers} | ${submitted} | [Edit](${issueUrl}) &#124; [Folder](${repoUrl}/tree/main/submission/${r.folder}) |
 `;
     });
 
