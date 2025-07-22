@@ -2,6 +2,22 @@ const fs = require('fs');
 const path = require('path');
 const { updateSubmissionTable } = require('./submission_table');
 
+// 通用字段解析方法
+function parseFieldFromFile(filePath, fieldName) {
+    if (!fs.existsSync(filePath)) {
+        return '';
+    }
+    const content = fs.readFileSync(filePath, 'utf8');
+    const lines = content.split('\n');
+    const pattern = `**${fieldName}**:`;
+    for (const line of lines) {
+        if (line.startsWith(pattern)) {
+            return line.slice(pattern.length).replace(/\s+$/, '').trim();
+        }
+    }
+    return '';
+}
+
 // 获取 githubUser 对应的报名姓名
 function getDisplayName(githubUser) {
     const registrationDir = path.join(__dirname, '../registration');
@@ -10,23 +26,17 @@ function getDisplayName(githubUser) {
         console.error(`用户 ${githubUser} 未在 registration 中完成注册，请先完成报名`);
         process.exit(1);
     }
-    const regContent = fs.readFileSync(regFile, 'utf8');
-    const lines = regContent.split('\n');
-    const pattern = `**Name[姓名]**:`;
-    for (const line of lines) {
-        if (line.startsWith(pattern)) {
-            return line.slice(pattern.length).replace(/\s+$/, '').trim();
-        }
-    }
-    return githubUser;
+    return parseFieldFromFile(regFile, 'Name[姓名]') || githubUser;
 }
 
 // 从环境变量获取 issue body
-const body = process.env.ISSUE_BODY || `
-ProjectName[项目名称]:projectName
-ProjectDescription[项目描述]:projectDescription
-ProjectMembers[项目成员]:projectMembers
-WalletAddress[钱包地址]:walletAddress`;
+const body = process.env.ISSUE_BODY || `ProjectName[项目名称]:projectName
+
+Brief description about your project in one sentence（简要描述您的项目）
+ProjectDescription[项目描述]:ProjectDescription
+
+ Your wallet address or ENS domain on Ethereum mainnet（您在以太坊主网上的钱包地址或 ENS 域名）
+WalletAddress[钱包地址]:test.eth`;
 const githubUser = process.env.ISSUE_USER || 'githubUser';
 
 // 预处理：去除每一行的前后空格
@@ -49,7 +59,6 @@ function parseFields(bodyStr) {
     return fields;
 }
 
-
 const displayName = getDisplayName(githubUser);
 const fields = parseFields(cleanBody);
 const projectName = fields['ProjectName[项目名称]'] || '';
@@ -57,12 +66,24 @@ const projectDescription = fields['ProjectDescription[项目描述]'] || '';
 const projectMembers = fields['ProjectMembers[项目成员]'] || displayName;
 const walletAddress = fields['WalletAddress[钱包地址]'] || '';
 
-if (!projectName || !walletAddress || !projectDescription || !projectMembers) {
+if (!projectName || !walletAddress) {
     console.error('字段不全');
     process.exit(1);
 }
 
+
+// 检查是否已有提交记录，如果有则验证是否为本人操作
 const submissionDir = path.join(__dirname, '../submission', `${githubUser}`);
+const existingHackathonFile = path.join(submissionDir, 'HACKATHON.md');
+
+if (fs.existsSync(existingHackathonFile)) {
+    const existingGithubUser = parseFieldFromFile(existingHackathonFile, 'githubUser');
+    if (existingGithubUser && existingGithubUser !== githubUser) {
+        console.error(`权限错误：用户 ${githubUser} 试图修改 ${existingGithubUser} 的项目提交，操作被拒绝`);
+        process.exit(1);
+    }
+}
+
 if (!fs.existsSync(submissionDir)) {
     fs.mkdirSync(submissionDir, { recursive: true });
 }

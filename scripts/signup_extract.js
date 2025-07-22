@@ -2,9 +2,15 @@ const fs = require('fs');
 const path = require('path');
 
 // 从环境变量获取 issue body
-const body = process.env.ISSUE_BODY || `Name[姓名]:username
+const body = process.env.ISSUE_BODY || `Name[姓名]:name
+
+Brief personal introduction including skills and experience (One sentence)[简短介绍个人技能与经验]
 Description[个人介绍]:description
+
+Telegram | WeChat | Discord | Email | X(Twitter) | GitHub
 ContactMethod[联系方式]:contactMethod
+
+e.g., @username, email@example.com
 Contact[联系账号]:contact`;
 const githubUser = process.env.ISSUE_USER || 'githubUser';
 
