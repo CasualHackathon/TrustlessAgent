@@ -27,7 +27,11 @@
 
 ## 🎯 Submission
 
-[Submit ➡️](https://github.com/CasualHackathon/Template/issues/new?title=Submission&body=ProjectName%5B项目名称%5D:%0AProjectDescription%5B项目描述%5D:%0AWalletAddress%5B钱包地址%5D:) (Please complete the registration before submitting.)
+[Submit ➡️](https://github.com/CasualHackathon/Template/issues/new?title=Submission&body=ProjectName%5B项目名称%5D:%0AProjectDescription%5B项目描述%5D:%0AWalletAddress%5B钱包地址%5D:) 
+
+- Complete registration before submitting
+- Fork this repository, place your project resources in `/submission/[your-github-account]`, then submit a PR
+- Do not modify or delete the `HACKATHON.md` file in your folder
 
 <!-- Submission start -->
 | Project | Description | Members | Submitted | Operate |
