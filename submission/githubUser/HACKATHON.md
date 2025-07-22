@@ -4,5 +4,5 @@
 **githubUser**: githubUser  
 **Project**: projectName  
 **Description**: ProjectDescription  
-**Members**: 
+**Members**: name
 **WalletAddress**: test.eth
