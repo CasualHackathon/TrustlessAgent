@@ -59,7 +59,7 @@ class GitManager {
             // 正确转义提交信息
             const escapedMessage = message.replace(/["\\$`]/g, '\\$&');
             execSync(`git commit -m "${escapedMessage}"`, { stdio: 'inherit' });
-            // execSync('git push', { stdio: 'inherit' });
+            execSync('git push', { stdio: 'inherit' });
             console.log('提交成功');
         } catch (error) {
             console.error('提交失败:', error.message);
