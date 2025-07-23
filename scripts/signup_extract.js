@@ -8,7 +8,7 @@
 const RegistrationProcessor = require('./processors/registration-processor');
 
 // 从环境变量获取参数
-const issueBody = process.env.ISSUE_BODY || `Name[姓名]:name
+const issueBody = process.env.ISSUE_BODY || `Name[姓名]:test
 
 Brief personal introduction including skills and experience (One sentence)[简短介绍个人技能与经验]
 Description[个人介绍]:description
