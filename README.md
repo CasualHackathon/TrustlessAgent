@@ -20,9 +20,6 @@
 - Note: Please do not modify other people's information.
 
 <!-- Registration star -->
-| Name | Description | Contact | Operate |
-| ---- | ----------- | ------- | ------- |
-| test | description | contact22(contactMethod) | [Edit](https://github.com/CasualHackathon/Template/issues/new?title=Registration%20-%20test&body=Name%5B%E5%A7%93%E5%90%8D%5D%3A%20test%0ADescription%5B%E4%B8%AA%E4%BA%BA%E4%BB%8B%E7%BB%8D%5D%3A%20description%0AContactMethod%5B%E8%81%94%E7%B3%BB%E6%96%B9%E5%BC%8F%5D%3A%20contactMethod%0AContact%5B%E8%81%94%E7%B3%BB%E8%B4%A6%E5%8F%B7%5D%3A%20contact22) |
 
 <!-- Registration end -->
 
@@ -36,9 +33,6 @@
 - Do not modify or delete the `HACKATHON.md` file in your folder, nor modify others' files.
 
 <!-- Submission start -->
-| Project | Description | Members | Submitted | Operate |
-| ----------- | ----------------- | -------------- | ------ | -------- |
-| projectName | ProjectDescription | test | ⚪ | [Edit](https://github.com/CasualHackathon/Template/issues/new?title=Submission%20-%20projectName&body=ProjectName%5B%E9%A1%B9%E7%9B%AE%E5%90%8D%E7%A7%B0%5D%3AprojectName%0AProjectDescription%5B%E9%A1%B9%E7%9B%AE%E6%8F%8F%E8%BF%B0%5D%3AProjectDescription%0AProjectMembers%5B%E9%A1%B9%E7%9B%AE%E6%88%90%E5%91%98%5D%3Atest%0AWalletAddress%5B%E9%92%B1%E5%8C%85%E5%9C%B0%E5%9D%80%5D%3Atest.eth) &#124; [Folder](https://github.com/CasualHackathon/Template/tree/main/submission/githubUser) |
 
 <!-- Submission end -->
 
