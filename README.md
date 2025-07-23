@@ -38,6 +38,7 @@
 <!-- Submission start -->
 | Project | Description | Members | Submitted | Operate |
 | ----------- | ----------------- | -------------- | ------ | -------- |
+| projectName | ProjectDescription | test | ⚪ | [Edit](https://github.com/CasualHackathon/Template/issues/new?title=Submission%20-%20projectName&body=ProjectName%5B%E9%A1%B9%E7%9B%AE%E5%90%8D%E7%A7%B0%5D%3AprojectName%0AProjectDescription%5B%E9%A1%B9%E7%9B%AE%E6%8F%8F%E8%BF%B0%5D%3AProjectDescription%0AProjectMembers%5B%E9%A1%B9%E7%9B%AE%E6%88%90%E5%91%98%5D%3Atest%0AWalletAddress%5B%E9%92%B1%E5%8C%85%E5%9C%B0%E5%9D%80%5D%3Atest.eth) &#124; [Folder](https://github.com/CasualHackathon/Template/tree/main/submission/githubUser) |
 
 <!-- Submission end -->
 
