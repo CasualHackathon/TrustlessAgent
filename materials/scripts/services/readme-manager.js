@@ -12,7 +12,7 @@ class ReadmeManager {
      * @returns {string} README 文件路径
      */
     static getReadmePath() {
-        return path.join(__dirname, '../../README.md');
+        return path.join(__dirname, '../../../README.md');
     }
 
     /**

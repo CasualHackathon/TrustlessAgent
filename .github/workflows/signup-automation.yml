@@ -21,7 +21,7 @@ jobs:
       - name: Extract Signup Info, Create Registration File and Update Table
         id: extract-signup
         run: |
-          node scripts/signup_extract.js
+          node materials/scripts/signup_extract.js
         env:
           ISSUE_BODY: ${{ github.event.issue.body }}
           ISSUE_USER: ${{ github.event.issue.user.login }}

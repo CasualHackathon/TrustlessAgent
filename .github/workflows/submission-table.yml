@@ -22,7 +22,7 @@ jobs:
 
       - name: Update submission status table
         run: |
-          node -e "require('./scripts/submission_table').updateSubmissionTable()"
+          node -e "require('./materials/scripts/submission_table').updateSubmissionTable()"
 
       - name: Commit changes
         uses: stefanzweifel/git-auto-commit-action@v5

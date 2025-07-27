@@ -5,14 +5,14 @@
 
 // 目录路径配置
 const DIRECTORIES = {
-    REGISTRATION: '../../registration',
-    SUBMISSION: '../../submission',
+    REGISTRATION: '../../../registration',
+    SUBMISSION: '../../../submission',
     SCRIPTS: __dirname
 };
 
 // 文件名配置
 const FILE_NAMES = {
-    README: '../README.md',
+    README: '../../README.md',
     HACKATHON_INFO: 'HACKATHON.md'
 };
 

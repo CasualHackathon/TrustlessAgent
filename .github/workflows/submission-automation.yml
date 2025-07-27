@@ -21,7 +21,7 @@ jobs:
       - name: Extract Submission Info, Create Project Folder and Update Table
         id: extract-submission
         run: |
-          node scripts/submission_extract.js
+          node materials/scripts/submission_extract.js
         env:
           ISSUE_BODY: ${{ github.event.issue.body }}
           ISSUE_USER: ${{ github.event.issue.user.login }}
