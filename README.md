@@ -41,7 +41,7 @@
 <!-- Submission start -->
 | Project | Description | Members | Submitted | Operate |
 | ----------- | ----------------- | -------------- | ------ | -------- |
-| 一个有意思的想法 | test ProjectDescription... | rgba | 🟢 | [Edit](https://github.com/CasualHackathon/Template/issues/new?title=Submission%20-%20%E4%B8%80%E4%B8%AA%E6%9C%89%E6%84%8F%E6%80%9D%E7%9A%84%E6%83%B3%E6%B3%95&body=ProjectName%5B%E9%A1%B9%E7%9B%AE%E5%90%8D%E7%A7%B0%5D%3A%E4%B8%80%E4%B8%AA%E6%9C%89%E6%84%8F%E6%80%9D%E7%9A%84%E6%83%B3%E6%B3%95%0AProjectDescription%5B%E9%A1%B9%E7%9B%AE%E6%8F%8F%E8%BF%B0%5D%3Atest%20ProjectDescription...%0AProjectMembers%5B%E9%A1%B9%E7%9B%AE%E6%88%90%E5%91%98%5D%3Argba%0AWalletAddress%5B%E9%92%B1%E5%8C%85%E5%9C%B0%E5%9D%80%5D%3A0xxxxxxxx) &#124; [Folder](https://github.com/CasualHackathon/Template/tree/main/submission/kk-rgba) |
+| 一个有意思的想法~ | test ProjectDescription... | rgba | 🟢 | [Edit](https://github.com/CasualHackathon/Template/issues/new?title=Submission%20-%20%E4%B8%80%E4%B8%AA%E6%9C%89%E6%84%8F%E6%80%9D%E7%9A%84%E6%83%B3%E6%B3%95~&body=ProjectName%5B%E9%A1%B9%E7%9B%AE%E5%90%8D%E7%A7%B0%5D%3A%E4%B8%80%E4%B8%AA%E6%9C%89%E6%84%8F%E6%80%9D%E7%9A%84%E6%83%B3%E6%B3%95~%0AProjectDescription%5B%E9%A1%B9%E7%9B%AE%E6%8F%8F%E8%BF%B0%5D%3Atest%20ProjectDescription...%0AProjectMembers%5B%E9%A1%B9%E7%9B%AE%E6%88%90%E5%91%98%5D%3Argba%0AWalletAddress%5B%E9%92%B1%E5%8C%85%E5%9C%B0%E5%9D%80%5D%3A0xxxxxxxx) &#124; [Folder](https://github.com/CasualHackathon/Template/tree/main/submission/kk-rgba) |
 
 <!-- Submission end -->
 
