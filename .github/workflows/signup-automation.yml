@@ -9,7 +9,7 @@ permissions:
   issues: write
 
 concurrency:
-  group: hackathon-automation
+  group: hackathon-automation-${{ github.event.issue.number }}
   cancel-in-progress: false
 
 jobs:
