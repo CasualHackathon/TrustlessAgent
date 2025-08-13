@@ -56,6 +56,18 @@ class GitManager {
             try {
                 if (!this.hasChangesToCommit()) {
                     console.log('没有需要提交的更改');
+                    // 检查是否有未推送的提交
+                    try {
+                        const result = execSync('git log @{u}..HEAD --oneline', { encoding: 'utf8' });
+                        if (result.trim()) {
+                            console.log('发现未推送的提交，尝试推送...');
+                            execSync('git push', { stdio: 'inherit' });
+                            console.log('推送成功');
+                            return;
+                        }
+                    } catch (checkError) {
+                        console.log('检查未推送提交时出错:', checkError.message);
+                    }
                     return;
                 }
 
@@ -79,9 +91,17 @@ class GitManager {
                         try {
                             // 拉取并合并远程更改
                             execSync('git pull --no-rebase origin main', { stdio: 'inherit' });
-                            console.log('远程更改已合并，重试推送...');
-                            // 下一次循环会重新尝试推送
-                            continue;
+                            console.log('远程更改已合并');
+
+                            // 立即尝试推送合并后的结果
+                            try {
+                                execSync('git push', { stdio: 'inherit' });
+                                console.log('合并后推送成功');
+                                return;
+                            } catch (mergedPushError) {
+                                console.log('合并后推送失败，继续重试:', mergedPushError.message);
+                                continue;
+                            }
                         } catch (pullError) {
                             console.log('拉取失败:', pullError.message);
                             if (attempt === maxRetries) {
