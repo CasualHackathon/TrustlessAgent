@@ -48,7 +48,7 @@ jobs:
                 owner,
                 repo,
                 issue_number,
-                body: `✅ Registration processed successfully! ${github.event.action === 'opened' ? '(Auto)' : '(Manual)'}`
+                body: `✅ Registration processed successfully! ${context.payload.action === 'opened' ? '(Auto)' : '(Manual)'}`
               });
               
               // 只有在自动触发时才关闭 issue
