@@ -1,8 +1,8 @@
-# test
+# 一个有意思的想法
 
-**Name**: rgba  
-**githubUser**: kk-rgba  
-**Project**: test  
-**Description**: test ProjectDescription  
-**Members**: rgba
-**WalletAddress**: 0xxxxxxxx
+**undefined**: rgba  
+**GithubUser[Github用户名]**: kk-rgba  
+**ProjectName[项目名称]**: 一个有意思的想法  
+**ProjectDescription[项目描述]**: test ProjectDescription  
+**ProjectMembers[项目成员]**: rgba  
+**WalletAddress[钱包地址]**: 0xxxxxxxx
