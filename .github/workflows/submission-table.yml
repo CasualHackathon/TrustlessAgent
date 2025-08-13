@@ -8,6 +8,10 @@ on:
       - 'submission/*/**'
   workflow_dispatch:
 
+concurrency:
+  group: hackathon-automation
+  cancel-in-progress: false
+
 jobs:
   update-and-sync:
     runs-on: ubuntu-latest
