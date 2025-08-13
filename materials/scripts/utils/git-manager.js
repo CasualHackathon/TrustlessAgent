@@ -56,6 +56,15 @@ class GitManager {
                 return;
             }
 
+            console.log('拉取最新代码...');
+            try {
+                // 先拉取最新代码，避免冲突
+                execSync('git pull --rebase origin main', { stdio: 'inherit' });
+                console.log('代码已更新到最新版本');
+            } catch (pullError) {
+                console.log('拉取代码出现问题，继续尝试提交:', pullError.message);
+            }
+
             // 正确转义提交信息
             const escapedMessage = message.replace(/["\\$`]/g, '\\$&');
             execSync(`git commit -m "${escapedMessage}"`, { stdio: 'inherit' });
