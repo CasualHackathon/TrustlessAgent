@@ -20,12 +20,6 @@
 - Note: Please do not modify other people's information.
 
 <!-- Registration star -->
-| Name | Description | Contact | Operate |
-| ---- | ----------- | ------- | ------- |
-| Alice | 浣熊市热心市民~ | tg213466111322(tg) | [Edit](https://github.com/CasualHackathon/Template/issues/new?title=Registration%20-%20Alice&body=Name%5B%E5%A7%93%E5%90%8D%5D%3A%20Alice%0ADescription%5B%E4%B8%AA%E4%BA%BA%E4%BB%8B%E7%BB%8D%5D%3A%20%E6%B5%A3%E7%86%8A%E5%B8%82%E7%83%AD%E5%BF%83%E5%B8%82%E6%B0%91~%0AContactMethod%5B%E8%81%94%E7%B3%BB%E6%96%B9%E5%BC%8F%5D%3A%20tg%0AContact%5B%E8%81%94%E7%B3%BB%E8%B4%A6%E5%8F%B7%5D%3A%20tg213466111322) |
-| Blue | 实习计划助教 | bblue_7023(WeChat) | [Edit](https://github.com/CasualHackathon/Template/issues/new?title=Registration%20-%20Blue&body=Name%5B%E5%A7%93%E5%90%8D%5D%3A%20Blue%0ADescription%5B%E4%B8%AA%E4%BA%BA%E4%BB%8B%E7%BB%8D%5D%3A%20%E5%AE%9E%E4%B9%A0%E8%AE%A1%E5%88%92%E5%8A%A9%E6%95%99%0AContactMethod%5B%E8%81%94%E7%B3%BB%E6%96%B9%E5%BC%8F%5D%3A%20WeChat%0AContact%5B%E8%81%94%E7%B3%BB%E8%B4%A6%E5%8F%B7%5D%3A%20bblue_7023) |
-| nanako | ETHPanda 的运营一枚 | nanakosesyo@gmailcom(TG @nanakodesuu) | [Edit](https://github.com/CasualHackathon/Template/issues/new?title=Registration%20-%20nanako&body=Name%5B%E5%A7%93%E5%90%8D%5D%3A%20nanako%0ADescription%5B%E4%B8%AA%E4%BA%BA%E4%BB%8B%E7%BB%8D%5D%3A%20ETHPanda%20%E7%9A%84%E8%BF%90%E8%90%A5%E4%B8%80%E6%9E%9A%0AContactMethod%5B%E8%81%94%E7%B3%BB%E6%96%B9%E5%BC%8F%5D%3A%20TG%20%40nanakodesuu%0AContact%5B%E8%81%94%E7%B3%BB%E8%B4%A6%E5%8F%B7%5D%3A%20nanakosesyo%40gmailcom) |
-| rgba | 一枚测试人员 | kktst331(X) | [Edit](https://github.com/CasualHackathon/Template/issues/new?title=Registration%20-%20rgba&body=Name%5B%E5%A7%93%E5%90%8D%5D%3A%20rgba%0ADescription%5B%E4%B8%AA%E4%BA%BA%E4%BB%8B%E7%BB%8D%5D%3A%20%E4%B8%80%E6%9E%9A%E6%B5%8B%E8%AF%95%E4%BA%BA%E5%91%98%0AContactMethod%5B%E8%81%94%E7%B3%BB%E6%96%B9%E5%BC%8F%5D%3A%20X%0AContact%5B%E8%81%94%E7%B3%BB%E8%B4%A6%E5%8F%B7%5D%3A%20kktst331) |
 
 <!-- Registration end -->
 
@@ -39,9 +33,6 @@
 - Do not modify or delete the `HACKATHON.md` file in your folder, nor modify others' files.
 
 <!-- Submission start -->
-| Project | Description | Members | Submitted | Operate |
-| ----------- | ----------------- | -------------- | ------ | -------- |
-| 一个有意思的想法~ | test ProjectDescription... | rgba | 🟢 | [Edit](https://github.com/CasualHackathon/Template/issues/new?title=Submission%20-%20%E4%B8%80%E4%B8%AA%E6%9C%89%E6%84%8F%E6%80%9D%E7%9A%84%E6%83%B3%E6%B3%95~&body=ProjectName%5B%E9%A1%B9%E7%9B%AE%E5%90%8D%E7%A7%B0%5D%3A%E4%B8%80%E4%B8%AA%E6%9C%89%E6%84%8F%E6%80%9D%E7%9A%84%E6%83%B3%E6%B3%95~%0AProjectDescription%5B%E9%A1%B9%E7%9B%AE%E6%8F%8F%E8%BF%B0%5D%3Atest%20ProjectDescription...%0AProjectMembers%5B%E9%A1%B9%E7%9B%AE%E6%88%90%E5%91%98%5D%3Argba%0AWalletAddress%5B%E9%92%B1%E5%8C%85%E5%9C%B0%E5%9D%80%5D%3A0xxxxxxxx) &#124; [Folder](https://github.com/CasualHackathon/Template/tree/main/submission/kk-rgba) |
 
 <!-- Submission end -->
 
