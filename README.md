@@ -22,7 +22,7 @@
 <!-- Registration star -->
 | Name | Description | Contact | Operate |
 | ---- | ----------- | ------- | ------- |
-| Alice | 浣熊市热心市民~ | tg2134(tg) | [Edit](https://github.com/CasualHackathon/Template/issues/new?title=Registration%20-%20Alice&body=Name%5B%E5%A7%93%E5%90%8D%5D%3A%20Alice%0ADescription%5B%E4%B8%AA%E4%BA%BA%E4%BB%8B%E7%BB%8D%5D%3A%20%E6%B5%A3%E7%86%8A%E5%B8%82%E7%83%AD%E5%BF%83%E5%B8%82%E6%B0%91~%0AContactMethod%5B%E8%81%94%E7%B3%BB%E6%96%B9%E5%BC%8F%5D%3A%20tg%0AContact%5B%E8%81%94%E7%B3%BB%E8%B4%A6%E5%8F%B7%5D%3A%20tg2134) |
+| Alice | 浣熊市热心市民~ | tg213466(tg) | [Edit](https://github.com/CasualHackathon/Template/issues/new?title=Registration%20-%20Alice&body=Name%5B%E5%A7%93%E5%90%8D%5D%3A%20Alice%0ADescription%5B%E4%B8%AA%E4%BA%BA%E4%BB%8B%E7%BB%8D%5D%3A%20%E6%B5%A3%E7%86%8A%E5%B8%82%E7%83%AD%E5%BF%83%E5%B8%82%E6%B0%91~%0AContactMethod%5B%E8%81%94%E7%B3%BB%E6%96%B9%E5%BC%8F%5D%3A%20tg%0AContact%5B%E8%81%94%E7%B3%BB%E8%B4%A6%E5%8F%B7%5D%3A%20tg213466) |
 
 <!-- Registration end -->
 
