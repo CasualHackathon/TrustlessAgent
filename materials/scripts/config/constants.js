@@ -27,6 +27,7 @@ const FIELD_NAMES = {
     },
     // 项目提交字段
     SUBMISSION: {
+        NAME: 'Name[姓名]',
         PROJECT_NAME: 'ProjectName[项目名称]',
         GITHUB_USER: 'GithubUser[Github用户名]',
         PROJECT_DESCRIPTION: 'ProjectDescription[项目描述]',
