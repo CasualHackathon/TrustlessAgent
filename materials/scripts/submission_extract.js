@@ -13,7 +13,7 @@ const issueBody = process.env.ISSUE_BODY || `ProjectName[项目名称]:projectNa
 Brief description about your project in one sentence（简要描述您的项目）
 ProjectDescription[项目描述]:ProjectDescription
 
- Your wallet address or ENS domain on Ethereum mainnet（您在以太坊主网上的钱包地址或 ENS 域名）
+Your wallet address or ENS domain on Ethereum mainnet（您在以太坊主网上的钱包地址或 ENS 域名）
 WalletAddress[钱包地址]:test.eth`;
 
 const githubUser = process.env.ISSUE_USER || 'githubUser';
