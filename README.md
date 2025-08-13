@@ -22,7 +22,7 @@
 <!-- Registration star -->
 | Name | Description | Contact | Operate |
 | ---- | ----------- | ------- | ------- |
-| Alice | 我是一个经验丰富的合约开发 | alicexxx(X) | [Edit](https://github.com/CasualHackathon/Template/issues/new?title=Registration%20-%20Alice&body=Name%5B%E5%A7%93%E5%90%8D%5D%3A%20Alice%0ADescription%5B%E4%B8%AA%E4%BA%BA%E4%BB%8B%E7%BB%8D%5D%3A%20%E6%88%91%E6%98%AF%E4%B8%80%E4%B8%AA%E7%BB%8F%E9%AA%8C%E4%B8%B0%E5%AF%8C%E7%9A%84%E5%90%88%E7%BA%A6%E5%BC%80%E5%8F%91%0AContactMethod%5B%E8%81%94%E7%B3%BB%E6%96%B9%E5%BC%8F%5D%3A%20X%0AContact%5B%E8%81%94%E7%B3%BB%E8%B4%A6%E5%8F%B7%5D%3A%20alicexxx) |
+| Alice | 我是一个经验丰富的合约开发，我还会前端 | alicexxx(X) | [Edit](https://github.com/CasualHackathon/Template/issues/new?title=Registration%20-%20Alice&body=Name%5B%E5%A7%93%E5%90%8D%5D%3A%20Alice%0ADescription%5B%E4%B8%AA%E4%BA%BA%E4%BB%8B%E7%BB%8D%5D%3A%20%E6%88%91%E6%98%AF%E4%B8%80%E4%B8%AA%E7%BB%8F%E9%AA%8C%E4%B8%B0%E5%AF%8C%E7%9A%84%E5%90%88%E7%BA%A6%E5%BC%80%E5%8F%91%EF%BC%8C%E6%88%91%E8%BF%98%E4%BC%9A%E5%89%8D%E7%AB%AF%0AContactMethod%5B%E8%81%94%E7%B3%BB%E6%96%B9%E5%BC%8F%5D%3A%20X%0AContact%5B%E8%81%94%E7%B3%BB%E8%B4%A6%E5%8F%B7%5D%3A%20alicexxx) |
 
 <!-- Registration end -->
 
