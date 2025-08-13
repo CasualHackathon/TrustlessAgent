@@ -46,40 +46,71 @@ class GitManager {
     }
 
     /**
-     * 提交变更
+     * 提交变更（带重试机制）
      * @param {string} message - 提交信息
      */
     static commitChanges(message) {
-        try {
-            if (!this.hasChangesToCommit()) {
-                console.log('没有需要提交的更改');
-                return;
-            }
+        const maxRetries = 3;
 
-            console.log('拉取最新代码...');
+        for (let attempt = 1; attempt <= maxRetries; attempt++) {
             try {
-                // 先拉取最新代码，避免冲突
-                execSync('git pull --rebase origin main', { stdio: 'inherit' });
-                console.log('代码已更新到最新版本');
-            } catch (pullError) {
-                console.log('拉取代码出现问题，继续尝试提交:', pullError.message);
-            }
+                if (!this.hasChangesToCommit()) {
+                    console.log('没有需要提交的更改');
+                    return;
+                }
 
-            // 正确转义提交信息
-            const escapedMessage = message.replace(/["\\$`]/g, '\\$&');
-            execSync(`git commit -m "${escapedMessage}"`, { stdio: 'inherit' });
-            execSync('git push', { stdio: 'inherit' });
-            console.log('提交成功');
-        } catch (error) {
-            console.error('提交失败:', error.message);
-            // 输出更详细的错误信息
-            if (error.status) {
-                console.error('退出代码:', error.status);
+                console.log(`开始提交 (尝试 ${attempt}/${maxRetries})...`);
+
+                // 正确转义提交信息
+                const escapedMessage = message.replace(/["\\$`]/g, '\\$&');
+                execSync(`git commit -m "${escapedMessage}"`, { stdio: 'inherit' });
+                console.log('本地提交完成');
+
+                // 尝试推送
+                try {
+                    execSync('git push', { stdio: 'inherit' });
+                    console.log('推送成功');
+                    return;
+                } catch (pushError) {
+                    console.log(`推送失败 (尝试 ${attempt}/${maxRetries}):`, pushError.message);
+
+                    if (attempt < maxRetries) {
+                        console.log('拉取远程更改并重试...');
+                        try {
+                            // 拉取并合并远程更改
+                            execSync('git pull --no-rebase origin main', { stdio: 'inherit' });
+                            console.log('远程更改已合并，重试推送...');
+                            // 下一次循环会重新尝试推送
+                            continue;
+                        } catch (pullError) {
+                            console.log('拉取失败:', pullError.message);
+                            if (attempt === maxRetries) {
+                                throw pushError;
+                            }
+                        }
+                    } else {
+                        throw pushError;
+                    }
+                }
+            } catch (error) {
+                console.error(`提交失败 (尝试 ${attempt}/${maxRetries}):`, error.message);
+
+                if (attempt === maxRetries) {
+                    // 最后一次尝试失败，输出详细错误信息
+                    if (error.status) {
+                        console.error('退出代码:', error.status);
+                    }
+                    if (error.stderr) {
+                        console.error('错误输出:', error.stderr.toString());
+                    }
+                    throw error;
+                }
+
+                // 等待一段时间后重试
+                console.log(`等待 ${attempt * 2} 秒后重试...`);
+                const { setTimeout } = require('timers/promises');
+                setTimeout(attempt * 2000);
             }
-            if (error.stderr) {
-                console.error('错误输出:', error.stderr.toString());
-            }
-            throw error;
         }
     }
 
