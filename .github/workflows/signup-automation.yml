@@ -44,12 +44,7 @@ jobs:
                 owner,
                 repo,
                 issue_number,
-                body: `✅ Signup processed successfully!
-
-                - ✅ Registration file \`${name}.md\` has been created
-                - 📧 Please check your email for the collaboration invitation
-
-                Welcome to the project! 🎉`
+                body: `✅ Signup processed successfully!`
               });
               console.log(`Comment posted on issue #${issue_number}`);
             } catch (error) {

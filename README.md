@@ -56,17 +56,17 @@
     <tr>
         <td  align="center" valign="middle">
             <a href="https://lxdao.io/" target="_blank">
-                <img src="./materials/LXDAO.png" alt="LXDAO" width="130" />
+                <img src="./materials/images/LXDAO.png" alt="LXDAO" width="130" />
             </a>
         </td>
          <td align="center" valign="middle">
             <a href="https://defihacklabs.io/" target="_blank">
-                <img src="./materials/defihacklabs.png" alt="defihacklabs" width="130" />
+                <img src="./materials/images/defihacklabs.png" alt="defihacklabs" width="130" />
             </a>
         </td>
         <td  align="center" valign="middle">
             <a href="https://ethpanda.org/" target="_blank">
-                <img src="./materials/ETHPanda.png" alt="ETHPanda" width="130" />
+                <img src="./materials/images/ETHPanda.png" alt="ETHPanda" width="130" />
             </a>
         </td>
     </tr>
@@ -78,27 +78,27 @@
     <tr>
         <td align="center" valign="middle">
             <a href="https://learnblockchain.cn/" target="_blank">
-                <img src="./materials/learnblockchain.png" alt="learnblockchain" width="130" />
+                <img src="./materials/images/learnblockchain.png" alt="learnblockchain" width="130" />
             </a>
         </td>
         <td align="center" valign="middle">
             <a href="https://seedao.xyz/" target="_blank">
-                <img src="./materials/SEEDDAO.png" alt="SEEDDAO" width="130" />
+                <img src="./materials/images/SEEDDAO.png" alt="SEEDDAO" width="130" />
             </a>
         </td>
         <td align="center" valign="middle">
             <a href="https://openbuild.xyz/" target="_blank">
-                <img src="./materials/OpenBuild.png" alt="OpenBuild" width="130" />
+                <img src="./materials/images/OpenBuild.png" alt="OpenBuild" width="130" />
             </a>
         </td>
         <td align="center" valign="middle">
             <a href="https://x.com/BUPT3DAO" target="_blank">
-                <img src="./materials/bupt3.png" alt="bupt3" width="130" />
+                <img src="./materials/images/imagesbupt3.png" alt="bupt3" width="130" />
             </a>
         </td>
         <td align="center" valign="middle">
             <a href="https://x.com/THUBA_DAO/" target="_blank">
-                <img src="./materials/thuba.png" alt="THUBA_DAO" width="130" />
+                <img src="./materials/images/thuba.png" alt="THUBA_DAO" width="130" />
             </a>
         </td>
     </tr>

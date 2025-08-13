@@ -18,23 +18,23 @@ class SubmissionProcessor {
      */
     static processSubmission(issueBody, githubUser) {
         console.log('开始处理项目提交...');
-        
+
         // 验证用户是否已注册
         const displayName = UserManager.getUserDisplayName(githubUser);
-        
+
         // 解析字段
         const fields = parseIssueFields(issueBody);
         const submissionData = this.extractSubmissionData(fields, displayName);
-        
+
         // 验证必填字段
         this.validateSubmissionData(submissionData);
-        
+
         // 创建项目文件
         this.createSubmissionFile(githubUser, submissionData);
-        
+
         // 更新提交表格
         this.updateSubmissionTable();
-        
+
         // 提交到 Git
         const submissionFile = this.getSubmissionFilePath(githubUser);
         const readmePath = ReadmeManager.getReadmePath();
@@ -43,7 +43,7 @@ class SubmissionProcessor {
             submissionFile,
             readmePath
         );
-        
+
         console.log('项目提交处理完成');
     }
 
@@ -68,7 +68,7 @@ class SubmissionProcessor {
      */
     static validateSubmissionData(submissionData) {
         const { projectName, walletAddress, projectMembers } = submissionData;
-        
+
         if (!projectName || !walletAddress || !projectMembers) {
             console.error('项目提交字段不全，缺少必填信息');
             process.exit(1);
@@ -93,10 +93,10 @@ class SubmissionProcessor {
     static createSubmissionFile(githubUser, submissionData) {
         const submissionDir = path.join(__dirname, DIRECTORIES.SUBMISSION, githubUser);
         FileManager.ensureDirectoryExists(submissionDir);
-        
+
         const content = this.generateSubmissionFileContent(githubUser, submissionData);
         const filePath = this.getSubmissionFilePath(githubUser);
-        
+
         FileManager.writeFileContent(filePath, content);
         console.log(`项目信息已写入: ${filePath}`);
     }
@@ -110,15 +110,15 @@ class SubmissionProcessor {
     static generateSubmissionFileContent(githubUser, submissionData) {
         const displayName = UserManager.getUserDisplayName(githubUser);
         const { projectName, projectDescription, projectMembers, walletAddress } = submissionData;
-        
+
         return `# ${projectName}
 
-**Name**: ${displayName}  
-**githubUser**: ${githubUser}  
-**Project**: ${projectName}  
-**Description**: ${projectDescription}  
-**Members**: ${projectMembers}
-**WalletAddress**: ${walletAddress}`;
+**${FIELD_NAMES.SUBMISSION.NAME}**: ${displayName}  
+**${FIELD_NAMES.SUBMISSION.GITHUB_USER}**: ${githubUser}  
+**${FIELD_NAMES.SUBMISSION.PROJECT_NAME}**: ${projectName}  
+**${FIELD_NAMES.SUBMISSION.PROJECT_DESCRIPTION}**: ${projectDescription}  
+**${FIELD_NAMES.SUBMISSION.PROJECT_MEMBERS}**: ${projectMembers}  
+**${FIELD_NAMES.SUBMISSION.WALLET_ADDRESS}**: ${walletAddress}`;
     }
 
     /**
@@ -127,24 +127,31 @@ class SubmissionProcessor {
     static updateSubmissionTable() {
         const submissionRoot = path.join(__dirname, DIRECTORIES.SUBMISSION);
         const userFolders = FileManager.getSubDirectories(submissionRoot);
-        
+
         const rows = userFolders.map(folder => {
             const submissionFile = path.join(submissionRoot, folder, FILE_NAMES.HACKATHON_INFO);
             const content = FileManager.readFileContent(submissionFile);
-            
+
             if (!content) return null;
-            
+
             const displayName = UserManager.getUserDisplayName(folder);
-            
+
             return {
                 folder: folder,
                 name: displayName,
-                projectName: parseFieldFromContent(content, 'Project'),
-                projectDescription: parseFieldFromContent(content, 'Description'),
-                projectMembers: parseFieldFromContent(content, 'Members'),
-                walletAddress: parseFieldFromContent(content, 'WalletAddress')
+                projectName: parseFieldFromContent(content, FIELD_NAMES.SUBMISSION.PROJECT_NAME),
+                projectDescription: parseFieldFromContent(content, FIELD_NAMES.SUBMISSION.PROJECT_DESCRIPTION),
+                projectMembers: parseFieldFromContent(content, FIELD_NAMES.SUBMISSION.PROJECT_MEMBERS),
+                walletAddress: parseFieldFromContent(content, FIELD_NAMES.SUBMISSION.WALLET_ADDRESS)
             };
         }).filter(Boolean);
+
+        // 按项目名称首字母升序排序
+        rows.sort((a, b) => {
+            const nameA = (a.projectName || '').toLowerCase();
+            const nameB = (b.projectName || '').toLowerCase();
+            return nameA.localeCompare(nameB);
+        });
 
         const tableContent = this.generateSubmissionTable(rows, submissionRoot);
         ReadmeManager.updateReadmeSection('SUBMISSION', tableContent);
@@ -158,24 +165,24 @@ class SubmissionProcessor {
      */
     static generateSubmissionTable(rows, submissionRoot) {
         let table = '| Project | Description | Members | Submitted | Operate |\n| ----------- | ----------------- | -------------- | ------ | -------- |\n';
-        
+
         rows.forEach(row => {
             // 检查项目是否已提交文件
             const submissionDir = path.join(submissionRoot, row.folder);
             const files = FileManager.getDirectoryFiles(submissionDir)
                 .filter(file => file !== '.DS_Store' && file !== FILE_NAMES.HACKATHON_INFO);
-            
+
             const submitted = files.length > 0 ? STATUS_INDICATORS.SUBMITTED : STATUS_INDICATORS.NOT_SUBMITTED;
-            
+
             // 生成操作链接
             const issueTitle = `Submission - ${row.projectName}`;
             const issueBody = `${FIELD_NAMES.SUBMISSION.PROJECT_NAME}:${row.projectName}\n${FIELD_NAMES.SUBMISSION.PROJECT_DESCRIPTION}:${row.projectDescription}\n${FIELD_NAMES.SUBMISSION.PROJECT_MEMBERS}:${row.projectMembers}\n${FIELD_NAMES.SUBMISSION.WALLET_ADDRESS}:${row.walletAddress}`;
             const issueUrl = ReadmeManager.generateIssueUrl(issueTitle, issueBody);
             const folderUrl = ReadmeManager.generateFolderUrl(`submission/${row.folder}`);
-            
+
             table += `| ${row.projectName} | ${row.projectDescription} | ${row.projectMembers} | ${submitted} | [Edit](${issueUrl}) &#124; [Folder](${folderUrl}) |\n`;
         });
-        
+
         return table;
     }
 }

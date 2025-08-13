@@ -42,7 +42,7 @@ jobs:
                 owner,
                 repo,
                 issue_number,
-                body: `✅ Submission processed successfully!\n\n- 项目信息已归档\n- README.md Submission 区域已自动更新\n\n感谢你的提交！🎉`
+                body: `✅ Submission processed successfully!`
               });
               console.log(`Comment posted on issue #${issue_number}`);
             } catch (error) {
