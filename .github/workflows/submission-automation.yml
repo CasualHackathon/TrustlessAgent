@@ -2,7 +2,7 @@ name: Submission Issue Automation
 
 on:
   issues:
-    types: [opened]
+    types: [opened, closed]
 
 permissions:
   contents: write
@@ -15,7 +15,9 @@ concurrency:
 jobs:
   process-submission:
     runs-on: ubuntu-latest
-    if: github.event.action == 'opened' && startsWith(github.event.issue.title, 'Submission')
+    if: |
+      (github.event.action == 'opened' && startsWith(github.event.issue.title, 'Submission')) ||
+      (github.event.action == 'closed' && github.event.issue.state_reason == 'completed' && startsWith(github.event.issue.title, 'Submission') && github.actor != 'github-actions[bot]')
     steps:
       - name: Checkout repository
         uses: actions/checkout@v4
@@ -45,17 +47,19 @@ jobs:
                 owner,
                 repo,
                 issue_number,
-                body: `✅ Submission processed successfully!`
+                body: `✅ Submission processed successfully! ${github.event.action === 'opened' ? '(Auto)' : '(Manual)'}`
               });
               
-              // 自动关闭 issue
-              await github.rest.issues.update({
-                owner,
-                repo,
-                issue_number,
-                state: 'closed',
-                state_reason: 'completed'
-              });
+              // 只有在自动触发时才关闭 issue
+              if (context.payload.action === 'opened') {
+                await github.rest.issues.update({
+                  owner,
+                  repo,
+                  issue_number,
+                  state: 'closed',
+                  state_reason: 'completed'
+                });
+              }
               
               console.log(`✅ Issue #${issue_number} processed and closed successfully`);
             } catch (error) {
