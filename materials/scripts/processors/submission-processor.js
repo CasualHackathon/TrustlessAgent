@@ -103,15 +103,13 @@ class SubmissionProcessor {
     }
 
     /**
-     * 生成提交文件内容 - 直接保存原始issue内容
+     * 生成提交文件内容 - 完全原封不动保存issue内容
      * @param {string} projectName - 项目名称
      * @param {string} originalIssueBody - 原始issue内容
      * @returns {string} 文件内容
      */
     static generateSubmissionFileContent(projectName, originalIssueBody) {
-        return `# ${projectName}
-
-${originalIssueBody}`;
+        return originalIssueBody;
     }
 
     /**
@@ -130,14 +128,32 @@ ${originalIssueBody}`;
             // 从文件名获取项目名称（去掉.md扩展名）
             const projectName = file.replace('.md', '');
 
-            return {
-                fileName: file,
-                projectName: parseFieldFromContent(content, FIELD_NAMES.SUBMISSION.PROJECT_NAME) || projectName,
-                projectDescription: parseFieldFromContent(content, FIELD_NAMES.SUBMISSION.PROJECT_DESCRIPTION),
-                projectMembers: parseFieldFromContent(content, FIELD_NAMES.SUBMISSION.PROJECT_MEMBERS),
-                projectLeader: parseFieldFromContent(content, FIELD_NAMES.SUBMISSION.PROJECT_LEADER),
-                repositoryUrl: parseFieldFromContent(content, FIELD_NAMES.SUBMISSION.REPOSITORY_URL)
-            };
+            // 尝试解析字段，解析失败则返回null（会被过滤掉）
+            try {
+                const parsedProjectName = parseFieldFromContent(content, FIELD_NAMES.SUBMISSION.PROJECT_NAME) || projectName;
+                const projectDescription = parseFieldFromContent(content, FIELD_NAMES.SUBMISSION.PROJECT_DESCRIPTION);
+                const projectMembers = parseFieldFromContent(content, FIELD_NAMES.SUBMISSION.PROJECT_MEMBERS);
+                const projectLeader = parseFieldFromContent(content, FIELD_NAMES.SUBMISSION.PROJECT_LEADER);
+                const repositoryUrl = parseFieldFromContent(content, FIELD_NAMES.SUBMISSION.REPOSITORY_URL);
+
+                // 如果关键字段为空，跳过这个文件
+                if (!parsedProjectName || !projectMembers || !projectLeader || !repositoryUrl) {
+                    console.log(`跳过文件 ${file}：缺少关键字段`);
+                    return null;
+                }
+
+                return {
+                    fileName: file,
+                    projectName: parsedProjectName,
+                    projectDescription,
+                    projectMembers,
+                    projectLeader,
+                    repositoryUrl
+                };
+            } catch (error) {
+                console.log(`跳过文件 ${file}：解析失败 - ${error.message}`);
+                return null;
+            }
         }).filter(Boolean);
 
         // 按项目名称首字母升序排序

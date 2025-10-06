@@ -94,16 +94,13 @@ class RegistrationProcessor {
     }
 
     /**
-     * 生成注册文件内容 - 直接保存原始issue内容
+     * 生成注册文件内容 - 完全原封不动保存issue内容
      * @param {string} githubUser - GitHub 用户名
      * @param {string} originalIssueBody - 原始issue内容
      * @returns {string} 文件内容
      */
     static generateRegistrationFileContent(githubUser, originalIssueBody) {
-        return `# ${githubUser}
-
-${originalIssueBody}
-`;
+        return originalIssueBody;
     }
 
     /**
@@ -117,14 +114,32 @@ ${originalIssueBody}
             const filePath = path.join(registrationDir, file);
             const content = FileManager.readFileContent(filePath);
 
-            return {
-                name: parseFieldFromContent(content, FIELD_NAMES.REGISTRATION.NAME),
-                description: parseFieldFromContent(content, FIELD_NAMES.REGISTRATION.DESCRIPTION),
-                contact: parseFieldFromContent(content, FIELD_NAMES.REGISTRATION.CONTACT),
-                walletAddress: parseFieldFromContent(content, FIELD_NAMES.REGISTRATION.WALLET_ADDRESS),
-                teamWillingness: parseFieldFromContent(content, FIELD_NAMES.REGISTRATION.TEAM_WILLINGNESS)
-            };
-        });
+            // 尝试解析字段，解析失败则返回null（会被过滤掉）
+            try {
+                const name = parseFieldFromContent(content, FIELD_NAMES.REGISTRATION.NAME);
+                const description = parseFieldFromContent(content, FIELD_NAMES.REGISTRATION.DESCRIPTION);
+                const contact = parseFieldFromContent(content, FIELD_NAMES.REGISTRATION.CONTACT);
+                const walletAddress = parseFieldFromContent(content, FIELD_NAMES.REGISTRATION.WALLET_ADDRESS);
+                const teamWillingness = parseFieldFromContent(content, FIELD_NAMES.REGISTRATION.TEAM_WILLINGNESS);
+
+                // 如果关键字段为空，跳过这个文件
+                if (!name || !contact || !walletAddress) {
+                    console.log(`跳过文件 ${file}：缺少关键字段`);
+                    return null;
+                }
+
+                return {
+                    name,
+                    description,
+                    contact,
+                    walletAddress,
+                    teamWillingness
+                };
+            } catch (error) {
+                console.log(`跳过文件 ${file}：解析失败 - ${error.message}`);
+                return null;
+            }
+        }).filter(Boolean); // 过滤掉null值
 
         // 按项目名称首字母升序排序
         rows.sort((a, b) => {

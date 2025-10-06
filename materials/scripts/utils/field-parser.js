@@ -58,11 +58,24 @@ function parseIssueFields(bodyString) {
  */
 function parseFieldFromContent(content, fieldName) {
     const lines = content.split('\n');
-    const pattern = `**${fieldName}**:`;
+    const pattern = `**${fieldName}:**`;
 
-    for (const line of lines) {
+    for (let i = 0; i < lines.length; i++) {
+        const line = lines[i];
         if (line.startsWith(pattern)) {
-            return line.slice(pattern.length).replace(/\s+$/, '').trim();
+            // 检查当前行是否包含值（旧格式）
+            const value = line.slice(pattern.length).replace(/\s+$/, '').trim();
+            if (value) {
+                return value;
+            }
+
+            // 新格式：字段名在一行，值在下一行
+            if (i + 1 < lines.length) {
+                const nextLine = lines[i + 1].trim();
+                if (nextLine && !nextLine.startsWith('**') && !nextLine.startsWith('#')) {
+                    return nextLine;
+                }
+            }
         }
     }
 

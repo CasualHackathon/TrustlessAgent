@@ -24,8 +24,9 @@ class GitManager {
      */
     static addFiles(...filePaths) {
         try {
-            const filePathsString = filePaths.join(' ');
-            execSync(`git add ${filePathsString}`, { stdio: 'inherit' });
+            // 为每个文件路径添加引号以处理空格
+            const quotedPaths = filePaths.map(path => `"${path}"`).join(' ');
+            execSync(`git add ${quotedPaths}`, { stdio: 'inherit' });
         } catch (error) {
             console.error('添加文件到暂存区失败:', error.message);
             throw error;
