@@ -19,27 +19,27 @@ class SubmissionProcessor {
     static processSubmission(issueBody, githubUser) {
         console.log('开始处理项目提交...');
 
-        // 验证用户是否已注册
-        const displayName = UserManager.getUserDisplayName(githubUser);
+        // 简单验证：检查是否包含基本字段（不做复杂解析）
+        if (!issueBody.includes('**Project Name**') || !issueBody.includes('**Project Members**') || !issueBody.includes('**Project Leader**')) {
+            console.error('项目提交字段不全，缺少必填信息');
+            process.exit(1);
+        }
 
-        // 解析字段
-        const fields = parseIssueFields(issueBody);
-        const submissionData = this.extractSubmissionData(fields, displayName);
+        // 从issue内容中提取项目名称（用于文件名）
+        const projectNameMatch = issueBody.match(/\*\*Project Name\*\*[^>]*>([^\n]+)/);
+        const projectName = projectNameMatch ? projectNameMatch[1].trim() : `Project-${Date.now()}`;
 
-        // 验证必填字段
-        this.validateSubmissionData(submissionData);
-
-        // 创建项目文件 - 直接以项目名为文件名
-        this.createSubmissionFile(submissionData.projectName, issueBody);
+        // 直接保存原始issue内容
+        this.createSubmissionFile(projectName, issueBody);
 
         // 更新提交表格
         this.updateSubmissionTable();
 
         // 提交到 Git
-        const submissionFile = this.getSubmissionFilePath(submissionData.projectName);
+        const submissionFile = this.getSubmissionFilePath(projectName);
         const readmePath = ReadmeManager.getReadmePath();
         GitManager.commitWorkflow(
-            `Add submission for ${submissionData.projectName}`,
+            `Add submission for ${projectName}`,
             submissionFile,
             readmePath
         );
@@ -47,34 +47,6 @@ class SubmissionProcessor {
         console.log('项目提交处理完成');
     }
 
-    /**
-     * 从解析的字段中提取提交数据
-     * @param {Object} fields - 解析的字段
-     * @param {string} displayName - 用户显示名称
-     * @returns {Object} 提交数据
-     */
-    static extractSubmissionData(fields, displayName) {
-        return {
-            projectName: fields[FIELD_NAMES.SUBMISSION.PROJECT_NAME] || '',
-            projectDescription: fields[FIELD_NAMES.SUBMISSION.PROJECT_DESCRIPTION] || '',
-            projectMembers: fields[FIELD_NAMES.SUBMISSION.PROJECT_MEMBERS] || displayName,
-            projectLeader: fields[FIELD_NAMES.SUBMISSION.PROJECT_LEADER] || displayName,
-            repositoryUrl: fields[FIELD_NAMES.SUBMISSION.REPOSITORY_URL] || ''
-        };
-    }
-
-    /**
-     * 验证提交数据
-     * @param {Object} submissionData - 提交数据
-     */
-    static validateSubmissionData(submissionData) {
-        const { projectName, projectMembers, projectLeader } = submissionData;
-
-        if (!projectName || !projectMembers || !projectLeader) {
-            console.error('项目提交字段不全，缺少必填信息');
-            process.exit(1);
-        }
-    }
 
     /**
      * 获取提交文件路径
@@ -103,12 +75,13 @@ class SubmissionProcessor {
     }
 
     /**
-     * 生成提交文件内容 - 完全原封不动保存issue内容
+     * 生成提交文件内容 - 直接保存原始issue内容，不做任何处理
      * @param {string} projectName - 项目名称
      * @param {string} originalIssueBody - 原始issue内容
      * @returns {string} 文件内容
      */
     static generateSubmissionFileContent(projectName, originalIssueBody) {
+        // 直接返回原始issue内容，不做任何转换
         return originalIssueBody;
     }
 
@@ -163,23 +136,16 @@ class SubmissionProcessor {
             return nameA.localeCompare(nameB);
         });
 
-        const tableContent = this.generateSubmissionTable(rows, submissionRoot);
-        ReadmeManager.updateReadmeSection('SUBMISSION', tableContent);
-    }
-
-    /**
-     * 生成提交表格内容
-     * @param {Array} rows - 提交数据行
-     * @param {string} submissionRoot - 提交根目录
-     * @returns {string} 表格内容
-     */
-    static generateSubmissionTable(rows, submissionRoot) {
+        // 直接生成表格内容
         let table = '| Project | Description | Members | Leader | Repository | Operate |\n| ----------- | ----------------- | -------------- | ------- | ---------- | -------- |\n';
 
-        rows.forEach(row => {
-            // 生成操作链接
+        rows.forEach((row, index) => {
             const issueTitle = `Submission - ${row.projectName}`;
-            const issueBody = `## Project Submission Form\n\n**${FIELD_NAMES.SUBMISSION.PROJECT_NAME}:**\n\n${row.projectName}\n\n**${FIELD_NAMES.SUBMISSION.PROJECT_DESCRIPTION}:**\n\n${row.projectDescription}\n\n**${FIELD_NAMES.SUBMISSION.PROJECT_MEMBERS}:**\n\n${row.projectMembers}\n\n**${FIELD_NAMES.SUBMISSION.PROJECT_LEADER}:**\n\n${row.projectLeader}\n\n**${FIELD_NAMES.SUBMISSION.REPOSITORY_URL}:**\n\n${row.repositoryUrl}`;
+
+            // 直接读取MD文件内容作为编辑链接的body
+            const filePath = path.join(submissionRoot, row.fileName);
+            const issueBody = FileManager.readFileContent(filePath);
+
             const issueUrl = ReadmeManager.generateIssueUrl(issueTitle, issueBody);
 
             // 生成仓库链接：存在显示🔗，不存在显示❌
@@ -188,7 +154,7 @@ class SubmissionProcessor {
             table += `| ${row.projectName} | ${row.projectDescription} | ${row.projectMembers} | ${row.projectLeader} | ${repoLink} | [Edit](${issueUrl}) |\n`;
         });
 
-        return table;
+        ReadmeManager.updateReadmeSection('SUBMISSION', table);
     }
 }
 

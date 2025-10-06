@@ -24,50 +24,44 @@ function generateIssueUrl(title, body) {
 }
 
 // 生成注册链接
-const registrationLink = generateIssueUrl(`${GITHUB_CONFIG.ISSUE_TITLE_PREFIXES.REGISTRATION} - New User`, `## Registration Form
+const registrationLink = generateIssueUrl(`${GITHUB_CONFIG.ISSUE_TITLE_PREFIXES.REGISTRATION} - [Your Name Here]`, `## Registration Form
 
-**${FIELD_NAMES.REGISTRATION.NAME}:** (Please enter your full name)
+> 📝 **Please replace "[Your Name Here]" in the title above with your actual name, then fill in the content after each > arrow below.**
 
----
+**${FIELD_NAMES.REGISTRATION.NAME}** (Please enter your full name)
+>
 
-**${FIELD_NAMES.REGISTRATION.DESCRIPTION}:** (Brief personal introduction including skills and experience)
+**${FIELD_NAMES.REGISTRATION.DESCRIPTION}** (Brief personal introduction including skills and experience)
+>
 
----
+**${FIELD_NAMES.REGISTRATION.CONTACT}** (Format: Contact Method: Contact Account, e.g., Telegram: @username, WeChat: username, Email: email@example.com)
+>
 
-**${FIELD_NAMES.REGISTRATION.CONTACT}:** (Format: Contact Method: Contact Account, e.g., Telegram: @username, WeChat: username, Email: email@example.com)
+**${FIELD_NAMES.REGISTRATION.WALLET_ADDRESS}** (Your wallet address or ENS domain on Ethereum mainnet)
+>
 
----
-
-**${FIELD_NAMES.REGISTRATION.WALLET_ADDRESS}:** (Your wallet address or ENS domain on Ethereum mainnet)
-
----
-
-**${FIELD_NAMES.REGISTRATION.TEAM_WILLINGNESS}:** (Choose one: Yes | No | Maybe)
-
----`);
+**${FIELD_NAMES.REGISTRATION.TEAM_WILLINGNESS}** (Choose one: Yes | No | Maybe)
+>`);
 
 // 生成提交链接
-const submissionLink = generateIssueUrl(`${GITHUB_CONFIG.ISSUE_TITLE_PREFIXES.SUBMISSION} - New Project`, `## Project Submission Form
+const submissionLink = generateIssueUrl(`${GITHUB_CONFIG.ISSUE_TITLE_PREFIXES.SUBMISSION} - [Your Project Name Here]`, `## Project Submission Form
 
-**${FIELD_NAMES.SUBMISSION.PROJECT_NAME}:** (Enter your project name)
+> 📝 **Please replace "[Your Project Name Here]" in the title above with your actual project name, then fill in the content after each > arrow below.**
 
----
+**${FIELD_NAMES.SUBMISSION.PROJECT_NAME}** (Enter your project name)
+>
 
-**${FIELD_NAMES.SUBMISSION.PROJECT_DESCRIPTION}:** (Brief description about your project in one sentence)
+**${FIELD_NAMES.SUBMISSION.PROJECT_DESCRIPTION}** (Brief description about your project in one sentence)
+>
 
----
+**${FIELD_NAMES.SUBMISSION.PROJECT_MEMBERS}** (List all team members, comma-separated)
+>
 
-**${FIELD_NAMES.SUBMISSION.PROJECT_MEMBERS}:** (List all team members, comma-separated)
+**${FIELD_NAMES.SUBMISSION.PROJECT_LEADER}** (Project leader name)
+>
 
----
-
-**${FIELD_NAMES.SUBMISSION.PROJECT_LEADER}:** (Project leader name)
-
----
-
-**${FIELD_NAMES.SUBMISSION.REPOSITORY_URL}:** (Open source repository URL - project must be open source)
-
----`);
+**${FIELD_NAMES.SUBMISSION.REPOSITORY_URL}** (Open source repository URL - project must be open source)
+>`);
 
 console.log('\n📝 生成的链接:');
 console.log('注册链接:', registrationLink);

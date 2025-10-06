@@ -17,36 +17,38 @@ function parseIssueFields(bodyString) {
     const lines = cleanBody.split('\n');
     const fields = {};
 
-    for (const line of lines) {
-        // 支持新的英文格式 **Field Name:** 和旧的中文格式 Field[中文]:
-        if (line.startsWith('**') && line.includes(':**')) {
-            // 新格式: **Field Name:** 或 **Field Name:** 
-            const match = line.match(/^\*\*(.+?):\*\*\s*(.*)$/);
-            if (match) {
-                const key = match[1].trim();
-                const value = match[2].trim();
+    // 提取所有 **Field Name** 格式的字段名
+    const fieldNames = [];
+    const fieldValues = [];
 
-                // 如果当前行有值，直接使用
-                if (value) {
-                    fields[key] = value;
-                } else {
-                    // 查找下一个非空行作为值
-                    const currentIndex = lines.indexOf(line);
-                    for (let i = currentIndex + 1; i < lines.length; i++) {
-                        const nextLine = lines[i].trim();
-                        if (nextLine && !nextLine.startsWith('**') && !nextLine.startsWith('*') && nextLine !== '---') {
-                            fields[key] = nextLine;
-                            break;
-                        }
-                    }
-                }
-            }
-        } else {
-            // 旧格式: Field[中文]: 或 Field:
-            const colonIndex = line.indexOf(':') !== -1 ? line.indexOf(':') : line.indexOf('：');
-            if (colonIndex !== -1) {
-                const key = line.slice(0, colonIndex).trim();
-                const value = line.slice(colonIndex + 1).trim();
+    // 先收集所有字段名（排除指令行）
+    for (const line of lines) {
+        // 匹配 **Field Name** (description) 格式，但排除指令行
+        const match = line.match(/^\*\*(.+?)\*\*\s*\([^)]+\)$/);
+        if (match && !line.includes('Instructions') && !line.includes('Example')) {
+            fieldNames.push(match[1].trim());
+        }
+    }
+
+    // 再收集所有 > 格式的值（排除指令行）
+    for (const line of lines) {
+        if (line.startsWith('>') && !line.includes('Instructions') && !line.includes('Example') && !line.includes('**')) {
+            fieldValues.push(line.substring(1).trim());
+        }
+    }
+
+    // 按索引一一对应
+    for (let i = 0; i < Math.min(fieldNames.length, fieldValues.length); i++) {
+        fields[fieldNames[i]] = fieldValues[i];
+    }
+
+    // 兼容旧格式: Field[中文]: 或 Field:
+    for (const line of lines) {
+        const colonIndex = line.indexOf(':') !== -1 ? line.indexOf(':') : line.indexOf('：');
+        if (colonIndex !== -1 && !line.startsWith('**')) {
+            const key = line.slice(0, colonIndex).trim();
+            const value = line.slice(colonIndex + 1).trim();
+            if (value && !fields[key]) {
                 fields[key] = value;
             }
         }
@@ -63,21 +65,36 @@ function parseIssueFields(bodyString) {
  */
 function parseFieldFromContent(content, fieldName) {
     const lines = content.split('\n');
-    const pattern = `**${fieldName}:**`;
+    const pattern = `**${fieldName}**`;
 
     for (let i = 0; i < lines.length; i++) {
         const line = lines[i];
-        if (line.startsWith(pattern)) {
-            // 检查当前行是否包含值（格式：**Field:** value）
-            const value = line.slice(pattern.length).replace(/\s+$/, '').trim();
-            if (value) {
-                return value;
+        // 匹配 **FieldName** 或 **FieldName** (description) 格式
+        if (line.includes(pattern) && line.startsWith('**')) {
+            // 检查当前行是否包含值（格式：**Field** value）
+            // 但排除包含括号描述的情况
+            if (!line.includes('(') || line.includes(')') && !line.includes('(')) {
+                const value = line.slice(pattern.length).replace(/\s+$/, '').trim();
+                if (value) {
+                    return value;
+                }
             }
 
             // 新格式：字段名在一行，值在下一行
-            if (i + 1 < lines.length) {
-                const nextLine = lines[i + 1].trim();
-                if (nextLine && !nextLine.startsWith('**') && !nextLine.startsWith('#') && nextLine !== '---') {
+            for (let j = i + 1; j < lines.length; j++) {
+                const nextLine = lines[j].trim();
+
+                // 跳过空行
+                if (!nextLine) {
+                    continue;
+                }
+
+                // 检查是否是 > 格式的值
+                if (nextLine.startsWith('>')) {
+                    return nextLine.substring(1).trim();
+                }
+                // 检查是否是普通的值行
+                else if (!nextLine.startsWith('**') && !nextLine.startsWith('*') && !nextLine.startsWith('#') && nextLine !== '---') {
                     return nextLine;
                 }
             }
