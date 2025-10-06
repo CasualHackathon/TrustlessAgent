@@ -26,7 +26,7 @@
 | ---- | ----------- | ------- | -------------- | ---------------- | ------- |
 |  |  |  |  |  | [Edit](https://github.com/CasualHackathon/Template/issues/new?title=Registration%20-%20&body=%23%23%20Registration%20Form%0A%0A**Name%3A**%0A%0A%0A%0A**Description%3A**%0A%0A%0A%0A**Contact%3A**%0A%0A%0A%0A**Wallet%20Address%3A**%0A%0A%0A%0A**Team%20Willingness%3A**%0A%0A) |
 |  |  |  |  |  | [Edit](https://github.com/CasualHackathon/Template/issues/new?title=Registration%20-%20&body=%23%23%20Registration%20Form%0A%0A**Name%3A**%0A%0A%0A%0A**Description%3A**%0A%0A%0A%0A**Contact%3A**%0A%0A%0A%0A**Wallet%20Address%3A**%0A%0A%0A%0A**Team%20Willingness%3A**%0A%0A) |
-|  |  |  |  |  | [Edit](https://github.com/CasualHackathon/Template/issues/new?title=Registration%20-%20&body=%23%23%20Registration%20Form%0A%0A**Name%3A**%0A%0A%0A%0A**Description%3A**%0A%0A%0A%0A**Contact%3A**%0A%0A%0A%0A**Wallet%20Address%3A**%0A%0A%0A%0A**Team%20Willingness%3A**%0A%0A) |
+| Alice Johnson | 资深区块链开发者，专注于DeFi协议开发，有5年Solidity经验 | Telegram: @alice_johnson | 0x742d35Cc6634C0532925a3b8D4C9db96C4b4d8b6 | Yes | [Edit](https://github.com/CasualHackathon/Template/issues/new?title=Registration%20-%20Alice%20Johnson&body=%23%23%20Registration%20Form%0A%0A**Name%3A**%0A%0AAlice%20Johnson%0A%0A**Description%3A**%0A%0A%E8%B5%84%E6%B7%B1%E5%8C%BA%E5%9D%97%E9%93%BE%E5%BC%80%E5%8F%91%E8%80%85%EF%BC%8C%E4%B8%93%E6%B3%A8%E4%BA%8EDeFi%E5%8D%8F%E8%AE%AE%E5%BC%80%E5%8F%91%EF%BC%8C%E6%9C%895%E5%B9%B4Solidity%E7%BB%8F%E9%AA%8C%0A%0A**Contact%3A**%0A%0ATelegram%3A%20%40alice_johnson%0A%0A**Wallet%20Address%3A**%0A%0A0x742d35Cc6634C0532925a3b8D4C9db96C4b4d8b6%0A%0A**Team%20Willingness%3A**%0A%0AYes) |
 
 <!-- Registration end -->
 
@@ -46,7 +46,7 @@
 <!-- Submission start -->
 | Project | Description | Members | Leader | Repository | Operate |
 | ----------- | ----------------- | -------------- | ------- | ---------- | -------- |
-| 去中心化投票系统 |  |  |  | N/A | [Edit](https://github.com/CasualHackathon/Template/issues/new?title=Submission%20-%20%E5%8E%BB%E4%B8%AD%E5%BF%83%E5%8C%96%E6%8A%95%E7%A5%A8%E7%B3%BB%E7%BB%9F&body=%23%23%20Project%20Submission%20Form%0A%0A**Project%20Name%3A**%0A%0A%E5%8E%BB%E4%B8%AD%E5%BF%83%E5%8C%96%E6%8A%95%E7%A5%A8%E7%B3%BB%E7%BB%9F%0A%0A**Project%20Description%3A**%0A%0A%0A%0A**Project%20Members%3A**%0A%0A%0A%0A**Project%20Leader%3A**%0A%0A%0A%0A**Repository%20URL%3A**%0A%0A) &#124; [File](https://github.com/CasualHackathon/Template/blob/main/submission/去中心化投票系统.md) |
+| 去中心化投票系统 | 基于区块链的透明投票平台 | 张三, 李四 | 张三 | [🔗](https://github.com/zhangsan/voting-dapp) | [Edit](https://github.com/CasualHackathon/Template/issues/new?title=Submission%20-%20%E5%8E%BB%E4%B8%AD%E5%BF%83%E5%8C%96%E6%8A%95%E7%A5%A8%E7%B3%BB%E7%BB%9F&body=%23%23%20Project%20Submission%20Form%0A%0A**Project%20Name%3A**%0A%0A%E5%8E%BB%E4%B8%AD%E5%BF%83%E5%8C%96%E6%8A%95%E7%A5%A8%E7%B3%BB%E7%BB%9F%0A%0A**Project%20Description%3A**%0A%0A%E5%9F%BA%E4%BA%8E%E5%8C%BA%E5%9D%97%E9%93%BE%E7%9A%84%E9%80%8F%E6%98%8E%E6%8A%95%E7%A5%A8%E5%B9%B3%E5%8F%B0%0A%0A**Project%20Members%3A**%0A%0A%E5%BC%A0%E4%B8%89%2C%20%E6%9D%8E%E5%9B%9B%0A%0A**Project%20Leader%3A**%0A%0A%E5%BC%A0%E4%B8%89%0A%0A**Repository%20URL%3A**%0A%0Ahttps%3A%2F%2Fgithub.com%2Fzhangsan%2Fvoting-dapp) &#124; [File](https://github.com/CasualHackathon/Template/blob/main/submission/去中心化投票系统.md) |
 
 <!-- Submission end -->
 
