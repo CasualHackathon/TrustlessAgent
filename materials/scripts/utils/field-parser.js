@@ -20,21 +20,26 @@ function parseIssueFields(bodyString) {
     for (const line of lines) {
         // 支持新的英文格式 **Field Name:** 和旧的中文格式 Field[中文]:
         if (line.startsWith('**') && line.includes(':**')) {
-            // 新格式: **Field Name:**
-            const match = line.match(/^\*\*(.+?):\*\*$/);
+            // 新格式: **Field Name:** 或 **Field Name:** 
+            const match = line.match(/^\*\*(.+?):\*\*\s*(.*)$/);
             if (match) {
                 const key = match[1].trim();
-                // 查找下一个非空行作为值
-                const currentIndex = lines.indexOf(line);
-                let value = '';
-                for (let i = currentIndex + 1; i < lines.length; i++) {
-                    const nextLine = lines[i].trim();
-                    if (nextLine && !nextLine.startsWith('**') && !nextLine.startsWith('*')) {
-                        value = nextLine;
-                        break;
+                const value = match[2].trim();
+
+                // 如果当前行有值，直接使用
+                if (value) {
+                    fields[key] = value;
+                } else {
+                    // 查找下一个非空行作为值
+                    const currentIndex = lines.indexOf(line);
+                    for (let i = currentIndex + 1; i < lines.length; i++) {
+                        const nextLine = lines[i].trim();
+                        if (nextLine && !nextLine.startsWith('**') && !nextLine.startsWith('*') && nextLine !== '---') {
+                            fields[key] = nextLine;
+                            break;
+                        }
                     }
                 }
-                fields[key] = value;
             }
         } else {
             // 旧格式: Field[中文]: 或 Field:
@@ -63,7 +68,7 @@ function parseFieldFromContent(content, fieldName) {
     for (let i = 0; i < lines.length; i++) {
         const line = lines[i];
         if (line.startsWith(pattern)) {
-            // 检查当前行是否包含值（旧格式）
+            // 检查当前行是否包含值（格式：**Field:** value）
             const value = line.slice(pattern.length).replace(/\s+$/, '').trim();
             if (value) {
                 return value;
@@ -72,7 +77,7 @@ function parseFieldFromContent(content, fieldName) {
             // 新格式：字段名在一行，值在下一行
             if (i + 1 < lines.length) {
                 const nextLine = lines[i + 1].trim();
-                if (nextLine && !nextLine.startsWith('**') && !nextLine.startsWith('#')) {
+                if (nextLine && !nextLine.startsWith('**') && !nextLine.startsWith('#') && nextLine !== '---') {
                     return nextLine;
                 }
             }

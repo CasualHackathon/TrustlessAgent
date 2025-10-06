@@ -24,7 +24,7 @@ function generateIssueUrl(title, body) {
 }
 
 // 生成注册链接
-const registrationLink = generateIssueUrl(GITHUB_CONFIG.ISSUE_TITLE_PREFIXES.REGISTRATION, `## Registration Form
+const registrationLink = generateIssueUrl(`${GITHUB_CONFIG.ISSUE_TITLE_PREFIXES.REGISTRATION} - New User`, `## Registration Form
 
 **${FIELD_NAMES.REGISTRATION.NAME}:** (Please enter your full name)
 
@@ -47,7 +47,7 @@ const registrationLink = generateIssueUrl(GITHUB_CONFIG.ISSUE_TITLE_PREFIXES.REG
 ---`);
 
 // 生成提交链接
-const submissionLink = generateIssueUrl(GITHUB_CONFIG.ISSUE_TITLE_PREFIXES.SUBMISSION, `## Project Submission Form
+const submissionLink = generateIssueUrl(`${GITHUB_CONFIG.ISSUE_TITLE_PREFIXES.SUBMISSION} - New Project`, `## Project Submission Form
 
 **${FIELD_NAMES.SUBMISSION.PROJECT_NAME}:** (Enter your project name)
 

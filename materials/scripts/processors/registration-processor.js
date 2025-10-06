@@ -158,14 +158,14 @@ class RegistrationProcessor {
      * @returns {string} 表格内容
      */
     static generateRegistrationTable(rows) {
-        let table = '| Name | Description | Contact | Wallet Address | Team Willingness | Operate |\n| ---- | ----------- | ------- | -------------- | ---------------- | ------- |\n';
+        let table = '| Name | Description | Contact | Team Willingness | Operate |\n| ---- | ----------- | ------- | ---------------- | ------- |\n';
 
         rows.forEach(row => {
             const issueTitle = `${GITHUB_CONFIG.ISSUE_TITLE_PREFIXES.REGISTRATION} - ${row.name}`;
             const issueBody = `## Registration Form\n\n**${FIELD_NAMES.REGISTRATION.NAME}:**\n\n${row.name}\n\n**${FIELD_NAMES.REGISTRATION.DESCRIPTION}:**\n\n${row.description}\n\n**${FIELD_NAMES.REGISTRATION.CONTACT}:**\n\n${row.contact}\n\n**${FIELD_NAMES.REGISTRATION.WALLET_ADDRESS}:**\n\n${row.walletAddress}\n\n**${FIELD_NAMES.REGISTRATION.TEAM_WILLINGNESS}:**\n\n${row.teamWillingness}`;
             const issueUrl = ReadmeManager.generateIssueUrl(issueTitle, issueBody);
 
-            table += `| ${row.name} | ${row.description} | ${row.contact} | ${row.walletAddress} | ${row.teamWillingness} | [Edit](${issueUrl}) |\n`;
+            table += `| ${row.name} | ${row.description} | ${row.contact} | ${row.teamWillingness} | [Edit](${issueUrl}) |\n`;
         });
 
         return table;

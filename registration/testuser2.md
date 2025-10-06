@@ -1,14 +1,21 @@
-**Name:**
-Test User
+## Registration Form
 
-**Description:**
-测试用户
+**Name:** Bob Smith
 
-**Contact:**
-test@example.com
+---
 
-**Wallet Address:**
-0x1234567890abcdef1234567890abcdef12345678
+**Description:** 前端开发专家，精通React和Vue.js
 
-**Team Willingness:**
-Yes
+---
+
+**Contact:** WeChat: bobsmith2024
+
+---
+
+**Wallet Address:** 0x8ba1f109551bD432803012645Hac136c4c8c8c8c
+
+---
+
+**Team Willingness:** Maybe
+
+---

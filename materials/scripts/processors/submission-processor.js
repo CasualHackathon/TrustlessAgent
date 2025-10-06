@@ -68,9 +68,9 @@ class SubmissionProcessor {
      * @param {Object} submissionData - 提交数据
      */
     static validateSubmissionData(submissionData) {
-        const { projectName, projectMembers, projectLeader, repositoryUrl } = submissionData;
+        const { projectName, projectMembers, projectLeader } = submissionData;
 
-        if (!projectName || !projectMembers || !projectLeader || !repositoryUrl) {
+        if (!projectName || !projectMembers || !projectLeader) {
             console.error('项目提交字段不全，缺少必填信息');
             process.exit(1);
         }
@@ -137,7 +137,7 @@ class SubmissionProcessor {
                 const repositoryUrl = parseFieldFromContent(content, FIELD_NAMES.SUBMISSION.REPOSITORY_URL);
 
                 // 如果关键字段为空，跳过这个文件
-                if (!parsedProjectName || !projectMembers || !projectLeader || !repositoryUrl) {
+                if (!parsedProjectName || !projectMembers || !projectLeader) {
                     console.log(`跳过文件 ${file}：缺少关键字段`);
                     return null;
                 }
@@ -181,12 +181,11 @@ class SubmissionProcessor {
             const issueTitle = `Submission - ${row.projectName}`;
             const issueBody = `## Project Submission Form\n\n**${FIELD_NAMES.SUBMISSION.PROJECT_NAME}:**\n\n${row.projectName}\n\n**${FIELD_NAMES.SUBMISSION.PROJECT_DESCRIPTION}:**\n\n${row.projectDescription}\n\n**${FIELD_NAMES.SUBMISSION.PROJECT_MEMBERS}:**\n\n${row.projectMembers}\n\n**${FIELD_NAMES.SUBMISSION.PROJECT_LEADER}:**\n\n${row.projectLeader}\n\n**${FIELD_NAMES.SUBMISSION.REPOSITORY_URL}:**\n\n${row.repositoryUrl}`;
             const issueUrl = ReadmeManager.generateIssueUrl(issueTitle, issueBody);
-            const fileUrl = ReadmeManager.generateFileUrl(`submission/${row.fileName}`);
 
-            // 生成仓库链接
-            const repoLink = row.repositoryUrl ? `[🔗](${row.repositoryUrl})` : 'N/A';
+            // 生成仓库链接：存在显示🔗，不存在显示❌
+            const repoLink = row.repositoryUrl && row.repositoryUrl.trim() !== '' ? `[🔗](${row.repositoryUrl})` : '❌';
 
-            table += `| ${row.projectName} | ${row.projectDescription} | ${row.projectMembers} | ${row.projectLeader} | ${repoLink} | [Edit](${issueUrl}) &#124; [File](${fileUrl}) |\n`;
+            table += `| ${row.projectName} | ${row.projectDescription} | ${row.projectMembers} | ${row.projectLeader} | ${repoLink} | [Edit](${issueUrl}) |\n`;
         });
 
         return table;
