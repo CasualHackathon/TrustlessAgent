@@ -20,15 +20,15 @@ class RegistrationProcessor {
     static processRegistration(issueBody, githubUser) {
         console.log('开始处理注册请求...');
 
-        // 解析字段
+        // 解析字段用于验证
         const fields = parseIssueFields(issueBody);
         const registrationData = this.extractRegistrationData(fields);
 
         // 验证必填字段
         this.validateRegistrationData(registrationData, githubUser);
 
-        // 创建注册文件
-        this.createRegistrationFile(githubUser, registrationData);
+        // 创建注册文件 - 直接保存原始issue内容
+        this.createRegistrationFile(githubUser, issueBody);
 
         // 更新 README 表格
         this.updateRegistrationTable();
@@ -37,7 +37,7 @@ class RegistrationProcessor {
         const registrationFile = UserManager.getRegistrationFilePath(githubUser);
         const readmePath = ReadmeManager.getReadmePath();
         GitManager.commitWorkflow(
-            `Add registration for ${registrationData.name}`,
+            `Add registration for ${githubUser}`,
             registrationFile,
             readmePath
         );
@@ -57,8 +57,9 @@ class RegistrationProcessor {
         return {
             name: fields[FIELD_NAMES.REGISTRATION.NAME] || '',
             description: fields[FIELD_NAMES.REGISTRATION.DESCRIPTION] || '',
-            contactMethod: fields[FIELD_NAMES.REGISTRATION.CONTACT_METHOD] || '',
-            contact: fields[FIELD_NAMES.REGISTRATION.CONTACT] || ''
+            contact: fields[FIELD_NAMES.REGISTRATION.CONTACT] || '',
+            walletAddress: fields[FIELD_NAMES.REGISTRATION.WALLET_ADDRESS] || '',
+            teamWillingness: fields[FIELD_NAMES.REGISTRATION.TEAM_WILLINGNESS] || ''
         };
     }
 
@@ -68,9 +69,9 @@ class RegistrationProcessor {
      * @param {string} githubUser - GitHub 用户名
      */
     static validateRegistrationData(registrationData, githubUser) {
-        const { name, contact, contactMethod } = registrationData;
+        const { name, contact, walletAddress } = registrationData;
 
-        if (!name || !githubUser || !contact || !contactMethod) {
+        if (!name || !githubUser || !contact || !walletAddress) {
             console.error('注册字段不全，缺少必填信息');
             process.exit(1);
         }
@@ -79,13 +80,13 @@ class RegistrationProcessor {
     /**
      * 创建注册文件
      * @param {string} githubUser - GitHub 用户名
-     * @param {Object} registrationData - 注册数据
+     * @param {string} originalIssueBody - 原始issue内容
      */
-    static createRegistrationFile(githubUser, registrationData) {
+    static createRegistrationFile(githubUser, originalIssueBody) {
         const registrationDir = path.join(__dirname, DIRECTORIES.REGISTRATION);
         FileManager.ensureDirectoryExists(registrationDir);
 
-        const content = this.generateRegistrationFileContent(githubUser, registrationData);
+        const content = this.generateRegistrationFileContent(githubUser, originalIssueBody);
         const filePath = UserManager.getRegistrationFilePath(githubUser);
 
         FileManager.writeFileContent(filePath, content);
@@ -93,20 +94,15 @@ class RegistrationProcessor {
     }
 
     /**
-     * 生成注册文件内容
+     * 生成注册文件内容 - 直接保存原始issue内容
      * @param {string} githubUser - GitHub 用户名
-     * @param {Object} registrationData - 注册数据
+     * @param {string} originalIssueBody - 原始issue内容
      * @returns {string} 文件内容
      */
-    static generateRegistrationFileContent(githubUser, registrationData) {
-        const { name, description, contactMethod, contact } = registrationData;
-
+    static generateRegistrationFileContent(githubUser, originalIssueBody) {
         return `# ${githubUser}
 
-**${FIELD_NAMES.REGISTRATION.NAME}**: ${name}  
-**${FIELD_NAMES.REGISTRATION.DESCRIPTION}**: ${description}  
-**${FIELD_NAMES.REGISTRATION.CONTACT_METHOD}**: ${contactMethod}  
-**${FIELD_NAMES.REGISTRATION.CONTACT}**: ${contact}
+${originalIssueBody}
 `;
     }
 
@@ -124,8 +120,9 @@ class RegistrationProcessor {
             return {
                 name: parseFieldFromContent(content, FIELD_NAMES.REGISTRATION.NAME),
                 description: parseFieldFromContent(content, FIELD_NAMES.REGISTRATION.DESCRIPTION),
-                contactMethod: parseFieldFromContent(content, FIELD_NAMES.REGISTRATION.CONTACT_METHOD),
-                contact: parseFieldFromContent(content, FIELD_NAMES.REGISTRATION.CONTACT)
+                contact: parseFieldFromContent(content, FIELD_NAMES.REGISTRATION.CONTACT),
+                walletAddress: parseFieldFromContent(content, FIELD_NAMES.REGISTRATION.WALLET_ADDRESS),
+                teamWillingness: parseFieldFromContent(content, FIELD_NAMES.REGISTRATION.TEAM_WILLINGNESS)
             };
         });
 
@@ -146,14 +143,14 @@ class RegistrationProcessor {
      * @returns {string} 表格内容
      */
     static generateRegistrationTable(rows) {
-        let table = '| Name | Description | Contact | Operate |\n| ---- | ----------- | ------- | ------- |\n';
+        let table = '| Name | Description | Contact | Wallet Address | Team Willingness | Operate |\n| ---- | ----------- | ------- | -------------- | ---------------- | ------- |\n';
 
         rows.forEach(row => {
             const issueTitle = `${GITHUB_CONFIG.ISSUE_TITLE_PREFIXES.REGISTRATION} - ${row.name}`;
-            const issueBody = `${FIELD_NAMES.REGISTRATION.NAME}: ${row.name}\n${FIELD_NAMES.REGISTRATION.DESCRIPTION}: ${row.description}\n${FIELD_NAMES.REGISTRATION.CONTACT_METHOD}: ${row.contactMethod}\n${FIELD_NAMES.REGISTRATION.CONTACT}: ${row.contact}`;
+            const issueBody = `## Registration Form\n\n**${FIELD_NAMES.REGISTRATION.NAME}:**\n\n${row.name}\n\n**${FIELD_NAMES.REGISTRATION.DESCRIPTION}:**\n\n${row.description}\n\n**${FIELD_NAMES.REGISTRATION.CONTACT}:**\n\n${row.contact}\n\n**${FIELD_NAMES.REGISTRATION.WALLET_ADDRESS}:**\n\n${row.walletAddress}\n\n**${FIELD_NAMES.REGISTRATION.TEAM_WILLINGNESS}:**\n\n${row.teamWillingness}`;
             const issueUrl = ReadmeManager.generateIssueUrl(issueTitle, issueBody);
 
-            table += `| ${row.name} | ${row.description} | ${row.contact}(${row.contactMethod}) | [Edit](${issueUrl}) |\n`;
+            table += `| ${row.name} | ${row.description} | ${row.contact} | ${row.walletAddress} | ${row.teamWillingness} | [Edit](${issueUrl}) |\n`;
         });
 
         return table;

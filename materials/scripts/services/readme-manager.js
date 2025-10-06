@@ -23,13 +23,13 @@ class ReadmeManager {
     static updateReadmeSection(sectionType, tableContent) {
         const readmePath = this.getReadmePath();
         const markers = README_MARKERS[sectionType];
-        
+
         if (!markers) {
             throw new Error(`未知的区域类型: ${sectionType}`);
         }
 
         let readmeContent = FileManager.readFileContent(readmePath);
-        
+
         const updatedContent = readmeContent.replace(
             new RegExp(`(${this.escapeRegex(markers.START)})[\\s\\S]*?(${this.escapeRegex(markers.END)})`, 'g'),
             `$1\n${tableContent}\n$2`
@@ -67,6 +67,15 @@ class ReadmeManager {
      */
     static generateFolderUrl(folderPath) {
         return `${GITHUB_CONFIG.REPO_URL}/tree/main/${folderPath}`;
+    }
+
+    /**
+     * 生成文件链接
+     * @param {string} filePath - 文件路径
+     * @returns {string} 文件链接
+     */
+    static generateFileUrl(filePath) {
+        return `${GITHUB_CONFIG.REPO_URL}/blob/main/${filePath}`;
     }
 }
 

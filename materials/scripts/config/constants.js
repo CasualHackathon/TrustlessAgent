@@ -20,19 +20,19 @@ const FILE_NAMES = {
 const FIELD_NAMES = {
     // 注册字段
     REGISTRATION: {
-        NAME: 'Name[姓名]',
-        DESCRIPTION: 'Description[个人介绍]',
-        CONTACT_METHOD: 'ContactMethod[联系方式]',
-        CONTACT: 'Contact[联系账号]'
+        NAME: 'Name',
+        DESCRIPTION: 'Description',
+        CONTACT: 'Contact',
+        WALLET_ADDRESS: 'Wallet Address',
+        TEAM_WILLINGNESS: 'Team Willingness'
     },
     // 项目提交字段
     SUBMISSION: {
-        NAME: 'Name[姓名]',
-        PROJECT_NAME: 'ProjectName[项目名称]',
-        GITHUB_USER: 'GithubUser[Github用户名]',
-        PROJECT_DESCRIPTION: 'ProjectDescription[项目描述]',
-        PROJECT_MEMBERS: 'ProjectMembers[项目成员]',
-        WALLET_ADDRESS: 'WalletAddress[钱包地址]'
+        PROJECT_NAME: 'Project Name',
+        PROJECT_DESCRIPTION: 'Project Description',
+        PROJECT_MEMBERS: 'Project Members',
+        PROJECT_LEADER: 'Project Leader',
+        REPOSITORY_URL: 'Repository URL'
     }
 };
 
@@ -54,7 +54,7 @@ const GITHUB_CONFIG = {
 // README 更新标记
 const README_MARKERS = {
     REGISTRATION: {
-        START: '<!-- Registration star -->',
+        START: '<!-- Registration start -->',
         END: '<!-- Registration end -->'
     },
     SUBMISSION: {

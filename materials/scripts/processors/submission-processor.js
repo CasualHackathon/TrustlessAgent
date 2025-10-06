@@ -29,17 +29,17 @@ class SubmissionProcessor {
         // 验证必填字段
         this.validateSubmissionData(submissionData);
 
-        // 创建项目文件
-        this.createSubmissionFile(githubUser, submissionData);
+        // 创建项目文件 - 直接以项目名为文件名
+        this.createSubmissionFile(submissionData.projectName, issueBody);
 
         // 更新提交表格
         this.updateSubmissionTable();
 
         // 提交到 Git
-        const submissionFile = this.getSubmissionFilePath(githubUser);
+        const submissionFile = this.getSubmissionFilePath(submissionData.projectName);
         const readmePath = ReadmeManager.getReadmePath();
         GitManager.commitWorkflow(
-            `Add submission for ${githubUser}@${submissionData.projectName}`,
+            `Add submission for ${submissionData.projectName}`,
             submissionFile,
             readmePath
         );
@@ -58,7 +58,8 @@ class SubmissionProcessor {
             projectName: fields[FIELD_NAMES.SUBMISSION.PROJECT_NAME] || '',
             projectDescription: fields[FIELD_NAMES.SUBMISSION.PROJECT_DESCRIPTION] || '',
             projectMembers: fields[FIELD_NAMES.SUBMISSION.PROJECT_MEMBERS] || displayName,
-            walletAddress: fields[FIELD_NAMES.SUBMISSION.WALLET_ADDRESS] || ''
+            projectLeader: fields[FIELD_NAMES.SUBMISSION.PROJECT_LEADER] || displayName,
+            repositoryUrl: fields[FIELD_NAMES.SUBMISSION.REPOSITORY_URL] || ''
         };
     }
 
@@ -67,9 +68,9 @@ class SubmissionProcessor {
      * @param {Object} submissionData - 提交数据
      */
     static validateSubmissionData(submissionData) {
-        const { projectName, walletAddress, projectMembers } = submissionData;
+        const { projectName, projectMembers, projectLeader, repositoryUrl } = submissionData;
 
-        if (!projectName || !walletAddress || !projectMembers) {
+        if (!projectName || !projectMembers || !projectLeader || !repositoryUrl) {
             console.error('项目提交字段不全，缺少必填信息');
             process.exit(1);
         }
@@ -77,48 +78,40 @@ class SubmissionProcessor {
 
     /**
      * 获取提交文件路径
-     * @param {string} githubUser - GitHub 用户名
+     * @param {string} projectName - 项目名称
      * @returns {string} 提交文件路径
      */
-    static getSubmissionFilePath(githubUser) {
-        const submissionDir = path.join(__dirname, DIRECTORIES.SUBMISSION, githubUser);
-        return path.join(submissionDir, FILE_NAMES.HACKATHON_INFO);
+    static getSubmissionFilePath(projectName) {
+        const submissionDir = path.join(__dirname, DIRECTORIES.SUBMISSION);
+        return path.join(submissionDir, `${projectName}.md`);
     }
 
     /**
      * 创建提交文件
-     * @param {string} githubUser - GitHub 用户名
-     * @param {Object} submissionData - 提交数据
+     * @param {string} projectName - 项目名称
+     * @param {string} originalIssueBody - 原始issue内容
      */
-    static createSubmissionFile(githubUser, submissionData) {
-        const submissionDir = path.join(__dirname, DIRECTORIES.SUBMISSION, githubUser);
+    static createSubmissionFile(projectName, originalIssueBody) {
+        const submissionDir = path.join(__dirname, DIRECTORIES.SUBMISSION);
         FileManager.ensureDirectoryExists(submissionDir);
 
-        const content = this.generateSubmissionFileContent(githubUser, submissionData);
-        const filePath = this.getSubmissionFilePath(githubUser);
+        const content = this.generateSubmissionFileContent(projectName, originalIssueBody);
+        const filePath = this.getSubmissionFilePath(projectName);
 
         FileManager.writeFileContent(filePath, content);
         console.log(`项目信息已写入: ${filePath}`);
     }
 
     /**
-     * 生成提交文件内容
-     * @param {string} githubUser - GitHub 用户名
-     * @param {Object} submissionData - 提交数据
+     * 生成提交文件内容 - 直接保存原始issue内容
+     * @param {string} projectName - 项目名称
+     * @param {string} originalIssueBody - 原始issue内容
      * @returns {string} 文件内容
      */
-    static generateSubmissionFileContent(githubUser, submissionData) {
-        const displayName = UserManager.getUserDisplayName(githubUser);
-        const { projectName, projectDescription, projectMembers, walletAddress } = submissionData;
-
+    static generateSubmissionFileContent(projectName, originalIssueBody) {
         return `# ${projectName}
 
-**${FIELD_NAMES.SUBMISSION.NAME}**: ${displayName}  
-**${FIELD_NAMES.SUBMISSION.GITHUB_USER}**: ${githubUser}  
-**${FIELD_NAMES.SUBMISSION.PROJECT_NAME}**: ${projectName}  
-**${FIELD_NAMES.SUBMISSION.PROJECT_DESCRIPTION}**: ${projectDescription}  
-**${FIELD_NAMES.SUBMISSION.PROJECT_MEMBERS}**: ${projectMembers}  
-**${FIELD_NAMES.SUBMISSION.WALLET_ADDRESS}**: ${walletAddress}`;
+${originalIssueBody}`;
     }
 
     /**
@@ -126,23 +119,24 @@ class SubmissionProcessor {
      */
     static updateSubmissionTable() {
         const submissionRoot = path.join(__dirname, DIRECTORIES.SUBMISSION);
-        const userFolders = FileManager.getSubDirectories(submissionRoot);
+        const submissionFiles = FileManager.getDirectoryFiles(submissionRoot, '.md');
 
-        const rows = userFolders.map(folder => {
-            const submissionFile = path.join(submissionRoot, folder, FILE_NAMES.HACKATHON_INFO);
+        const rows = submissionFiles.map(file => {
+            const submissionFile = path.join(submissionRoot, file);
             const content = FileManager.readFileContent(submissionFile);
 
             if (!content) return null;
 
-            const displayName = UserManager.getUserDisplayName(folder);
+            // 从文件名获取项目名称（去掉.md扩展名）
+            const projectName = file.replace('.md', '');
 
             return {
-                folder: folder,
-                name: displayName,
-                projectName: parseFieldFromContent(content, FIELD_NAMES.SUBMISSION.PROJECT_NAME),
+                fileName: file,
+                projectName: parseFieldFromContent(content, FIELD_NAMES.SUBMISSION.PROJECT_NAME) || projectName,
                 projectDescription: parseFieldFromContent(content, FIELD_NAMES.SUBMISSION.PROJECT_DESCRIPTION),
                 projectMembers: parseFieldFromContent(content, FIELD_NAMES.SUBMISSION.PROJECT_MEMBERS),
-                walletAddress: parseFieldFromContent(content, FIELD_NAMES.SUBMISSION.WALLET_ADDRESS)
+                projectLeader: parseFieldFromContent(content, FIELD_NAMES.SUBMISSION.PROJECT_LEADER),
+                repositoryUrl: parseFieldFromContent(content, FIELD_NAMES.SUBMISSION.REPOSITORY_URL)
             };
         }).filter(Boolean);
 
@@ -164,23 +158,19 @@ class SubmissionProcessor {
      * @returns {string} 表格内容
      */
     static generateSubmissionTable(rows, submissionRoot) {
-        let table = '| Project | Description | Members | Submitted | Operate |\n| ----------- | ----------------- | -------------- | ------ | -------- |\n';
+        let table = '| Project | Description | Members | Leader | Repository | Operate |\n| ----------- | ----------------- | -------------- | ------- | ---------- | -------- |\n';
 
         rows.forEach(row => {
-            // 检查项目是否已提交文件
-            const submissionDir = path.join(submissionRoot, row.folder);
-            const files = FileManager.getDirectoryFiles(submissionDir)
-                .filter(file => file !== '.DS_Store' && file !== FILE_NAMES.HACKATHON_INFO);
-
-            const submitted = files.length > 0 ? STATUS_INDICATORS.SUBMITTED : STATUS_INDICATORS.NOT_SUBMITTED;
-
             // 生成操作链接
             const issueTitle = `Submission - ${row.projectName}`;
-            const issueBody = `${FIELD_NAMES.SUBMISSION.PROJECT_NAME}:${row.projectName}\n${FIELD_NAMES.SUBMISSION.PROJECT_DESCRIPTION}:${row.projectDescription}\n${FIELD_NAMES.SUBMISSION.PROJECT_MEMBERS}:${row.projectMembers}\n${FIELD_NAMES.SUBMISSION.WALLET_ADDRESS}:${row.walletAddress}`;
+            const issueBody = `## Project Submission Form\n\n**${FIELD_NAMES.SUBMISSION.PROJECT_NAME}:**\n\n${row.projectName}\n\n**${FIELD_NAMES.SUBMISSION.PROJECT_DESCRIPTION}:**\n\n${row.projectDescription}\n\n**${FIELD_NAMES.SUBMISSION.PROJECT_MEMBERS}:**\n\n${row.projectMembers}\n\n**${FIELD_NAMES.SUBMISSION.PROJECT_LEADER}:**\n\n${row.projectLeader}\n\n**${FIELD_NAMES.SUBMISSION.REPOSITORY_URL}:**\n\n${row.repositoryUrl}`;
             const issueUrl = ReadmeManager.generateIssueUrl(issueTitle, issueBody);
-            const folderUrl = ReadmeManager.generateFolderUrl(`submission/${row.folder}`);
+            const fileUrl = ReadmeManager.generateFileUrl(`submission/${row.fileName}`);
 
-            table += `| ${row.projectName} | ${row.projectDescription} | ${row.projectMembers} | ${submitted} | [Edit](${issueUrl}) &#124; [Folder](${folderUrl}) |\n`;
+            // 生成仓库链接
+            const repoLink = row.repositoryUrl ? `[🔗](${row.repositoryUrl})` : 'N/A';
+
+            table += `| ${row.projectName} | ${row.projectDescription} | ${row.projectMembers} | ${row.projectLeader} | ${repoLink} | [Edit](${issueUrl}) &#124; [File](${fileUrl}) |\n`;
         });
 
         return table;
