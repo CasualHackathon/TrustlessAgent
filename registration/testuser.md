@@ -1,16 +1,16 @@
 # testuser
 
 **Name:**
-张三
+Test User
 
 **Description:**
-全栈开发者，擅长React和Node.js
+测试用户，用于验证工作流程
 
 **Contact:**
-微信: zhangsan123
+Email: test@example.com
 
 **Wallet Address:**
 0x1234567890abcdef1234567890abcdef12345678
 
 **Team Willingness:**
-愿意组队
+Yes
