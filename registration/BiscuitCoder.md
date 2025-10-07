@@ -15,4 +15,4 @@
 >0x23432
 
 **Team Willingness** (Choose one: Yes | No | Maybe)
->
+>No
