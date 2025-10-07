@@ -6,13 +6,13 @@
 >pro test
 
 **Project Description** (Brief description about your project in one sentence)
->test edit desc
+>test edit desc2
 
 **Project Members** (List all team members, comma-separated)
->alice,bob
+>alice,bob2
 
 **Project Leader** (Project leader name)
->alice
+>alice2
 
 **Repository URL** (Open source repository URL - project must be open source)
->
+>https://github.com/CasualHackathon/T
