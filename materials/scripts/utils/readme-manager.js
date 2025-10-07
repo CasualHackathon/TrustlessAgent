@@ -3,29 +3,28 @@ const FileManager = require('./file-manager');
 const { README_MARKERS, GITHUB_CONFIG } = require('../config/constants');
 
 /**
- * README 管理类
  * README management utilities
  */
 class ReadmeManager {
     /**
-     * 获取 README 文件路径
-     * @returns {string} README 文件路径
+     * Get README file path
+     * @returns {string} README file path
      */
     static getReadmePath() {
         return path.join(__dirname, '../../../README.md');
     }
 
     /**
-     * 更新 README 中指定区域的内容
-     * @param {string} sectionType - 区域类型 ('REGISTRATION' 或 'SUBMISSION')
-     * @param {string} tableContent - 表格内容
+     * Update content in specified section of README
+     * @param {string} sectionType - Section type ('REGISTRATION' or 'SUBMISSION')
+     * @param {string} tableContent - Table content
      */
     static updateReadmeSection(sectionType, tableContent) {
         const readmePath = this.getReadmePath();
         const markers = README_MARKERS[sectionType];
 
         if (!markers) {
-            throw new Error(`未知的区域类型: ${sectionType}`);
+            throw new Error(`Unknown section type: ${sectionType}`);
         }
 
         let readmeContent = FileManager.readFileContent(readmePath);
@@ -36,22 +35,22 @@ class ReadmeManager {
         );
 
         FileManager.writeFileContent(readmePath, updatedContent);
-        console.log(`README.md ${sectionType} 区域已更新`);
+        console.log(`README.md ${sectionType} section updated`);
     }
 
     /**
-     * 转义正则表达式特殊字符
-     * @param {string} string - 需要转义的字符串
-     * @returns {string} 转义后的字符串
+     * Escape regex special characters
+     * @param {string} string - String to escape
+     * @returns {string} Escaped string
      */
     static escapeRegex(string) {
         return string.replace(/[.*+?^${}()|[\\]\\\\]/g, '\\\\$&');
     }
 
     /**
-     * 生成 GitHub Issue URL
-     * @param {string} title - Issue 标题
-     * @param {string} body - Issue 内容
+     * Generate GitHub Issue URL
+     * @param {string} title - Issue title
+     * @param {string} body - Issue content
      * @returns {string} Issue URL
      */
     static generateIssueUrl(title, body) {

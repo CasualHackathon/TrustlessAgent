@@ -27,25 +27,28 @@ jobs:
 
       - name: Extract Signup Info, Create Registration File and Update Table
         id: extract-signup
-        # 关键：允许步骤失败后继续执行后续步骤（否则错误处理步骤会被跳过）
+        # Key: Allow step to continue after failure (otherwise error handling step will be skipped)
         continue-on-error: true
         run: |
-          # 捕获脚本输出和错误信息
-          if node materials/scripts/signup_extract.js 2>&1 | tee script_output.log; then
-            # 脚本执行成功：设置成功状态
+          # Execute script and capture output
+          SCRIPT_OUTPUT=$(node materials/scripts/signup_extract.js 2>&1)
+          SCRIPT_EXIT_CODE=$?
+          
+          if [ $SCRIPT_EXIT_CODE -eq 0 ]; then
+            # Script executed successfully: set success status
             echo "script_success=true" >> $GITHUB_OUTPUT
-            echo "✅ 脚本执行成功"
+            echo "✅ Script executed successfully"
           else
-            # 脚本执行失败：设置失败状态+提取错误信息
+            # Script execution failed: set failure status + extract error message
             echo "script_success=false" >> $GITHUB_OUTPUT
-            if grep -q "ERROR_MESSAGE:" script_output.log; then
-              ERROR_MSG=$(grep "ERROR_MESSAGE:" script_output.log | sed 's/ERROR_MESSAGE: //')
+            if echo "$SCRIPT_OUTPUT" | grep -q "ERROR_MESSAGE:"; then
+              ERROR_MSG=$(echo "$SCRIPT_OUTPUT" | grep "ERROR_MESSAGE:" | sed 's/ERROR_MESSAGE: //')
               echo "error_message=$ERROR_MSG" >> $GITHUB_OUTPUT
             else
-              echo "error_message=❌ **处理失败**\n\n处理过程中发生未知错误，请检查提交格式是否正确。" >> $GITHUB_OUTPUT
+              echo "error_message=❌ **Processing Failed**\n\nAn unknown error occurred during processing. Please check if the submission format is correct." >> $GITHUB_OUTPUT
             fi
-            echo "❌ 脚本执行失败"
-            # 移除 exit 1：避免提前终止步骤，确保输出变量能正常写入
+            echo "❌ Script execution failed"
+            # Remove exit 1: avoid premature step termination, ensure output variables are written properly
           fi
         env:
           ISSUE_BODY: ${{ github.event.issue.body }}
@@ -53,19 +56,19 @@ jobs:
           GITHUB_OUTPUT: ${{ github.output }}
 
       - name: Handle Script Errors
-        # 关键：仅当 extract-signup 步骤输出的 script_success 为 false 时执行
+        # Key: Only execute when extract-signup step outputs script_success as false
         if: steps.extract-signup.outputs.script_success == 'false'
-        # 移除错误的 needs 字段！同一个 Job 内步骤默认按顺序执行，无需 needs
+        # Remove incorrect needs field! Steps within the same job execute in order by default, no needs required
         uses: actions/github-script@v7
         with:
           github-token: ${{ secrets.GITHUB_TOKEN }}
           script: |
             const { owner, repo } = context.repo;
             const issue_number = context.payload.issue.number;
-            // 从 extract-signup 步骤的输出中获取错误信息（若未获取到则用默认值）
-            const errorMessage = steps.extract-signup.outputs.error_message || '❌ **处理失败**\n\n处理过程中发生未知错误，请检查提交格式是否正确。';
+            // Get error message from extract-signup step output (use default if not available)
+            const errorMessage = steps.extract-signup.outputs.error_message || '❌ **Processing Failed**\n\nAn unknown error occurred during processing. Please check if the submission format is correct.';
             
-            // 向 Issue 中添加错误评论
+            // Add error comment to Issue
             await github.rest.issues.createComment({
               owner,
               repo,
@@ -73,12 +76,12 @@ jobs:
               body: errorMessage
             });
             
-            console.log(`❌ 错误已通过评论告知用户: Issue #${issue_number}`);
-            // 标记整个作业为失败（符合错误场景的预期状态）
+            console.log(`❌ Error reported to user via comment: Issue #${issue_number}`);
+            // Mark entire job as failed (expected state for error scenario)
             core.setFailed(errorMessage);
 
       - name: Commit & Push Changes
-        # 仅当脚本执行成功时才提交代码
+        # Only commit code when script execution is successful
         if: steps.extract-signup.outputs.script_success == 'true'
         env:
           GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
@@ -86,22 +89,22 @@ jobs:
           git config --global user.email "action@github.com"
           git config --global user.name "GitHub Action"
           
-          # 拉取最新代码，但保留本地更改
+          # Pull latest code but preserve local changes
           git fetch origin main
           git merge origin/main --no-edit || true
           
           git add .
-          # 仅当有变更时才提交
+          # Only commit when there are changes
           if git diff --staged --quiet; then
             echo "No changes to commit"
           else
             git commit -m "Add registration for ${{ github.event.issue.user.login }}"
             git push origin HEAD:main
-            echo "✅ 注册信息已成功提交"
+            echo "✅ Registration information successfully committed"
           fi
 
       - name: Comment and close issue
-        # 仅当脚本执行成功时才添加成功评论并关闭 Issue
+        # Only add success comment and close Issue when script execution is successful
         if: steps.extract-signup.outputs.script_success == 'true'
         uses: actions/github-script@v7
         with:
@@ -112,12 +115,12 @@ jobs:
             const user = context.payload.issue.user.login;
 
             try {
-              // 根据触发动作设置评论中的类型（Auto/Edit/Manual）
+              // Set comment type based on trigger action (Auto/Edit/Manual)
               let actionType = 'Manual';
               if (context.payload.action === 'opened') actionType = 'Auto';
               else if (context.payload.action === 'edited') actionType = 'Edit';
               
-              // 添加成功评论
+              // Add success comment
               await github.rest.issues.createComment({
                 owner,
                 repo,
@@ -125,7 +128,7 @@ jobs:
                 body: `✅ Registration processed successfully! (${actionType})`
               });
               
-              // 自动触发或编辑时关闭 Issue
+              // Close Issue when auto-triggered or edited
               if (context.payload.action === 'opened' || context.payload.action === 'edited') {
                 await github.rest.issues.update({
                   owner,

@@ -1,27 +1,26 @@
 /**
- * 提交状态表格更新脚本
  * Submission status table update script
  * 
- * 用于更新 README.md 中的项目提交状态表格
+ * Used to update project submission status table in README.md
  */
 
 const SubmissionProcessor = require('./processors/submission-processor');
 
 /**
- * 更新提交表格
+ * Update submission table
  */
 function updateSubmissionTable() {
     try {
-        console.log('开始更新提交表格...');
+        console.log('Starting submission table update...');
         SubmissionProcessor.updateSubmissionTable();
-        console.log('提交表格更新完成');
+        console.log('Submission table update completed');
     } catch (error) {
-        console.error('更新提交表格失败:', error.message);
+        console.error('Failed to update submission table:', error.message);
         throw error;
     }
 }
 
-// 如果作为主程序运行，直接执行更新
+// If run as main program, execute update directly
 if (require.main === module) {
     updateSubmissionTable();
 }

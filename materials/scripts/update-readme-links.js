@@ -1,7 +1,6 @@
 #!/usr/bin/env node
 
 /**
- * 更新README中的链接
  * Update links in README.md
  */
 
@@ -9,14 +8,14 @@ const fs = require('fs');
 const path = require('path');
 const { FIELD_NAMES, GITHUB_CONFIG, REQUIRED_FIELDS } = require('./config/constants');
 
-// 获取命令行参数
+// Get command line arguments
 const args = process.argv.slice(2);
 const repoUrl = args[0] || GITHUB_CONFIG.REPO_URL;
 
-console.log('🔗 正在更新README中的链接...');
-console.log(`📦 仓库URL: ${repoUrl}`);
+console.log('🔗 Updating links in README...');
+console.log(`📦 Repository URL: ${repoUrl}`);
 
-// 生成链接的函数
+// Function to generate links
 function generateIssueUrl(title, body) {
     const encodedTitle = encodeURIComponent(title);
     const encodedBody = encodeURIComponent(body);
@@ -25,7 +24,7 @@ function generateIssueUrl(title, body) {
 
 const NOTE = `> 📝 **Please fill in the content after ">"**`;
 
-// 生成带必填标识的字段
+// Generate fields with required markers
 function generateFieldWithRequired(fieldName, description, fieldType) {
     const requiredFields = REQUIRED_FIELDS[fieldType];
     const isRequired = requiredFields.includes(fieldName);
@@ -33,7 +32,7 @@ function generateFieldWithRequired(fieldName, description, fieldType) {
     return `**${fieldName}** (${description}${requiredMark})`;
 }
 
-// 生成注册链接
+// Generate registration link
 const registrationLink = generateIssueUrl(`${GITHUB_CONFIG.ISSUE_TITLE_PREFIXES.REGISTRATION} - New`, `## Registration Form
 
 ${NOTE}
@@ -53,7 +52,7 @@ ${generateFieldWithRequired(FIELD_NAMES.REGISTRATION.WALLET_ADDRESS, 'Your walle
 ${generateFieldWithRequired(FIELD_NAMES.REGISTRATION.TEAM_WILLINGNESS, 'Choose one: Yes | No | Maybe', 'REGISTRATION')}
 >`);
 
-// 生成提交链接
+// Generate submission link
 const submissionLink = generateIssueUrl(`${GITHUB_CONFIG.ISSUE_TITLE_PREFIXES.SUBMISSION} - New`, `## Project Submission Form
 
 ${NOTE}
@@ -73,26 +72,26 @@ ${generateFieldWithRequired(FIELD_NAMES.SUBMISSION.PROJECT_MEMBERS, 'List all te
 ${generateFieldWithRequired(FIELD_NAMES.SUBMISSION.REPOSITORY_URL, 'Open source repository URL - project must be open source', 'SUBMISSION')}
 >`);
 
-console.log('\n📝 生成的链接:');
-console.log('注册链接:', registrationLink);
-console.log('提交链接:', submissionLink);
+console.log('\n📝 Generated links:');
+console.log('Registration link:', registrationLink);
+console.log('Submission link:', submissionLink);
 
-// 读取README文件
+// Read README file
 const readmePath = path.join(__dirname, '../../README.md');
 let readmeContent = fs.readFileSync(readmePath, 'utf8');
 
-// 更新注册链接（替换注释标记之间的所有内容）
+// Update registration link (replace all content between comment markers)
 const registrationPattern = /(<!-- Registration link start -->)[\s\S]*?(<!-- Registration link end -->)/;
 const newRegistrationContent = `$1\n[Register ➡️](${registrationLink})\n$2`;
 readmeContent = readmeContent.replace(registrationPattern, newRegistrationContent);
 
-// 更新提交链接（替换注释标记之间的所有内容）
+// Update submission link (replace all content between comment markers)
 const submissionPattern = /(<!-- Submission link start -->)[\s\S]*?(<!-- Submission link end -->)/;
 const newSubmissionContent = `$1\n\n[Submit ➡️](${submissionLink})\n\n$2`;
 readmeContent = readmeContent.replace(submissionPattern, newSubmissionContent);
 
-// 写回文件
+// Write back to file
 fs.writeFileSync(readmePath, readmeContent, 'utf8');
 
-console.log('\n✅ README链接更新完成！');
-console.log('📄 文件路径:', readmePath);
+console.log('\n✅ README links update completed!');
+console.log('📄 File path:', readmePath);

@@ -7,38 +7,37 @@ const FieldValidator = require('../utils/field-validator');
 const { DIRECTORIES, FILE_NAMES, FIELD_NAMES } = require('../config/constants');
 
 /**
- * 项目提交处理器
  * Submission processor
  */
 class SubmissionProcessor {
     /**
-     * 处理项目提交
-     * @param {string} issueBody - Issue 内容
-     * @param {string} githubUser - GitHub 用户名
+     * Process project submission
+     * @param {string} issueBody - Issue content
+     * @param {string} githubUser - GitHub username
      */
     static processSubmission(issueBody, githubUser) {
-        console.log('开始处理项目提交...');
+        console.log('Starting project submission processing...');
 
-        // 检查用户是否已注册
+        // Check if user is registered
         FieldValidator.checkUserRegistration(githubUser, UserManager, FileManager);
 
-        // 验证必填字段
+        // Validate required fields
         FieldValidator.validateRequiredFields(issueBody, 'SUBMISSION');
 
-        // 保存原始issue内容
+        // Save original issue content
         this.createSubmissionFile(issueBody, githubUser);
 
-        // 更新提交表格
+        // Update submission table
         this.updateSubmissionTable();
 
-        console.log('项目提交处理完成');
+        console.log('Project submission processing completed');
     }
 
 
     /**
-     * 获取提交文件路径
-     * @param {string} githubUser - GitHub 用户名
-     * @returns {string} 提交文件路径
+     * Get submission file path
+     * @param {string} githubUser - GitHub username
+     * @returns {string} Submission file path
      */
     static getSubmissionFilePath(githubUser) {
         const submissionDir = path.join(__dirname, DIRECTORIES.SUBMISSION);
@@ -46,18 +45,18 @@ class SubmissionProcessor {
     }
 
     /**
-     * 创建提交文件
-     * @param {string} originalIssueBody - 原始issue内容
-     * @param {string} githubUser - GitHub 用户名
+     * Create submission file
+     * @param {string} originalIssueBody - Original issue content
+     * @param {string} githubUser - GitHub username
      */
     static createSubmissionFile(originalIssueBody, githubUser) {
-        // 创建提交文件，使用 GitHub 用户名作为文件名
+        // Create submission file using GitHub username as filename
         const filePath = this.getSubmissionFilePath(githubUser);
-        FileManager.saveFile(filePath, originalIssueBody, '项目提交信息已写入');
+        FileManager.saveFile(filePath, originalIssueBody, 'Project submission information written');
     }
 
     /**
-     * 更新提交表格
+     * Update submission table
      */
     static updateSubmissionTable() {
         const submissionRoot = path.join(__dirname, DIRECTORIES.SUBMISSION);
@@ -69,10 +68,10 @@ class SubmissionProcessor {
 
             if (!content) return null;
 
-            // 从文件名获取 GitHub 用户名（去掉.md扩展名）
+            // Get GitHub username from filename (remove .md extension)
             const githubUser = file.replace('.md', '');
 
-            // 尝试解析字段，解析失败则跳过
+            // Try to parse fields, skip if parsing fails
             try {
                 const projectName = parseFieldFromContent(content, FIELD_NAMES.SUBMISSION.PROJECT_NAME);
                 const projectDescription = parseFieldFromContent(content, FIELD_NAMES.SUBMISSION.PROJECT_DESCRIPTION);
@@ -80,9 +79,9 @@ class SubmissionProcessor {
                 const projectLeader = parseFieldFromContent(content, FIELD_NAMES.SUBMISSION.PROJECT_LEADER);
                 const repositoryUrl = parseFieldFromContent(content, FIELD_NAMES.SUBMISSION.REPOSITORY_URL);
 
-                // 如果解析失败或关键字段为空，跳过这个文件
+                // Skip this file if parsing fails or key fields are empty
                 if (!projectName || !projectDescription || !projectLeader) {
-                    console.log(`跳过文件 ${file}：解析失败或缺少关键字段`);
+                    console.log(`Skipping file ${file}: parsing failed or missing key fields`);
                     return null;
                 }
 
@@ -96,31 +95,31 @@ class SubmissionProcessor {
                     repositoryUrl
                 };
             } catch (error) {
-                console.log(`跳过文件 ${file}：解析失败 - ${error.message}`);
+                console.log(`Skipping file ${file}: parsing failed - ${error.message}`);
                 return null;
             }
         }).filter(Boolean);
 
-        // 按项目名称首字母升序排序
+        // Sort by project name alphabetically
         rows.sort((a, b) => {
             const nameA = (a.projectName || '').toLowerCase();
             const nameB = (b.projectName || '').toLowerCase();
             return nameA.localeCompare(nameB);
         });
 
-        // 直接生成表格内容
+        // Generate table content directly
         let table = '| Project | Description | Members | Leader | Repository | Operate |\n| ----------- | ----------------- | -------------- | ------- | ---------- | -------- |\n';
 
         rows.forEach((row) => {
             const issueTitle = `Submission - ${row.projectName}`;
 
-            // 直接读取MD文件内容作为编辑链接的body
+            // Read MD file content directly as body for edit link
             const filePath = path.join(submissionRoot, row.fileName);
             const issueBody = FileManager.readFileContent(filePath);
 
             const issueUrl = ReadmeManager.generateIssueUrl(issueTitle, issueBody);
 
-            // 生成仓库链接：存在显示🔗，不存在显示❌
+            // Generate repository link: show 🔗 if exists, ❌ if not
             const repoLink = row.repositoryUrl && row.repositoryUrl.trim() !== '' ? `[🔗](${row.repositoryUrl})` : '❌';
 
             table += `| ${row.projectName} | ${row.projectDescription} | ${row.projectMembers} | ${row.projectLeader} | ${repoLink} | [Edit](${issueUrl}) |\n`;

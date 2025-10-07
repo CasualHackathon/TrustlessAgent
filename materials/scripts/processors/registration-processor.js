@@ -7,43 +7,42 @@ const FieldValidator = require('../utils/field-validator');
 const { DIRECTORIES, FIELD_NAMES, GITHUB_CONFIG } = require('../config/constants');
 
 /**
- * 注册处理器
  * Registration processor
  */
 class RegistrationProcessor {
     /**
-     * 处理注册请求
-     * @param {string} issueBody - Issue 内容
-     * @param {string} githubUser - GitHub 用户名
+     * Process registration request
+     * @param {string} issueBody - Issue content
+     * @param {string} githubUser - GitHub username
      */
     static processRegistration(issueBody, githubUser) {
-        console.log('开始处理注册请求...');
+        console.log('Starting registration processing...');
 
-        // 验证必填字段
+        // Validate required fields
         FieldValidator.validateRequiredFields(issueBody, 'REGISTRATION');
 
-        // 保存原始issue内容
+        // Save original issue content
         this.createRegistrationFile(githubUser, issueBody);
 
-        // 更新 README 表格
+        // Update README table
         this.updateRegistrationTable();
 
-        console.log('注册处理完成');
+        console.log('Registration processing completed');
     }
 
 
     /**
-     * 创建注册文件
-     * @param {string} githubUser - GitHub 用户名
-     * @param {string} originalIssueBody - 原始issue内容
+     * Create registration file
+     * @param {string} githubUser - GitHub username
+     * @param {string} originalIssueBody - Original issue content
      */
     static createRegistrationFile(githubUser, originalIssueBody) {
         const filePath = UserManager.getRegistrationFilePath(githubUser);
-        FileManager.saveFile(filePath, originalIssueBody, '报名信息已写入');
+        FileManager.saveFile(filePath, originalIssueBody, 'Registration information written');
     }
 
     /**
-     * 更新注册表格
+     * Update registration table
      */
     static updateRegistrationTable() {
         const registrationDir = path.join(__dirname, DIRECTORIES.REGISTRATION);
@@ -53,7 +52,7 @@ class RegistrationProcessor {
             const filePath = path.join(registrationDir, file);
             const content = FileManager.readFileContent(filePath);
 
-            // 尝试解析字段，解析失败则跳过
+            // Try to parse fields, skip if parsing fails
             try {
                 const name = parseFieldFromContent(content, FIELD_NAMES.REGISTRATION.NAME);
                 const description = parseFieldFromContent(content, FIELD_NAMES.REGISTRATION.DESCRIPTION);
@@ -61,9 +60,9 @@ class RegistrationProcessor {
                 const walletAddress = parseFieldFromContent(content, FIELD_NAMES.REGISTRATION.WALLET_ADDRESS);
                 const teamWillingness = parseFieldFromContent(content, FIELD_NAMES.REGISTRATION.TEAM_WILLINGNESS);
 
-                // 如果解析失败或关键字段为空，跳过这个文件
+                // Skip this file if parsing fails or key fields are empty
                 if (!name || !contact || !walletAddress) {
-                    console.log(`跳过文件 ${file}：解析失败或缺少关键字段`);
+                    console.log(`Skipping file ${file}: parsing failed or missing key fields`);
                     return null;
                 }
 
@@ -76,25 +75,25 @@ class RegistrationProcessor {
                     fileName: file
                 };
             } catch (error) {
-                console.log(`跳过文件 ${file}：解析失败 - ${error.message}`);
+                console.log(`Skipping file ${file}: parsing failed - ${error.message}`);
                 return null;
             }
-        }).filter(Boolean); // 过滤掉null值
+        }).filter(Boolean); // Filter out null values
 
-        // 按姓名首字母升序排序
+        // Sort by name alphabetically
         rows.sort((a, b) => {
             const nameA = (a.name || '').toLowerCase();
             const nameB = (b.name || '').toLowerCase();
             return nameA.localeCompare(nameB);
         });
 
-        // 直接生成表格内容
+        // Generate table content directly
         let table = '| Name | Description | Contact | Team Willingness | Operate |\n| ---- | ----------- | ------- | ---------------- | ------- |\n';
 
         rows.forEach((row) => {
             const issueTitle = `${GITHUB_CONFIG.ISSUE_TITLE_PREFIXES.REGISTRATION} - ${row.name}`;
 
-            // 直接读取MD文件内容作为编辑链接的body
+            // Read MD file content directly as body for edit link
             const githubUser = row.fileName.replace('.md', '');
             const filePath = UserManager.getRegistrationFilePath(githubUser);
             const issueBody = FileManager.readFileContent(filePath);

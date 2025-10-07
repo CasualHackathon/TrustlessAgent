@@ -2,191 +2,191 @@
 alwaysApply: true
 ---
 
-# TrustlessAgent 黑客松报名仓库规则归档
+# TrustlessAgent Hackathon Registration Repository Rules Archive
 
-## 📋 仓库概述
+## 📋 Repository Overview
 
-这是一个基于GitHub Issues的自动化黑客松报名和项目提交管理系统，通过GitHub Actions实现issue的自动处理和文档更新。
+This is an automated hackathon registration and project submission management system based on GitHub Issues, implementing automatic issue processing and document updates through GitHub Actions.
 
-## 🏗️ 系统架构
+## 🏗️ System Architecture
 
-### 核心组件
-- **GitHub Issues**: 作为用户交互入口
-- **GitHub Actions**: 自动化工作流引擎
-- **Node.js脚本**: 数据处理和文件管理
-- **README.md**: 动态更新的展示页面
+### Core Components
+- **GitHub Issues**: User interaction entry point
+- **GitHub Actions**: Automated workflow engine
+- **Node.js Scripts**: Data processing and file management
+- **README.md**: Dynamically updated display page
 
-### 目录结构
+### Directory Structure
 ```
 TrustlessAgent/
-├── .github/workflows/          # GitHub Actions工作流
-├── materials/scripts/          # 核心处理脚本
-│   ├── config/                # 配置文件
-│   ├── processors/            # 业务处理器
-│   ├── services/              # 服务层
-│   └── utils/                 # 工具类
-├── registration/              # 用户注册文件
-├── submission/                # 项目提交文件
-├── test/                      # 本地测试脚本目录
-└── README.md                  # 主展示页面
+├── .github/workflows/          # GitHub Actions workflows
+├── materials/scripts/          # Core processing scripts
+│   ├── config/                # Configuration files
+│   ├── processors/            # Business processors
+│   ├── services/              # Service layer
+│   └── utils/                 # Utility classes
+├── registration/              # User registration files
+├── submission/                # Project submission files
+├── test/                      # Local test scripts directory
+└── README.md                  # Main display page
 ```
 
-## 🔄 工作流程
+## 🔄 Workflow Process
 
-### 1. 用户注册流程
-1. 用户通过GitHub Issue提交注册信息
-2. GitHub Actions自动触发`signup-automation.yml`
-3. 脚本解析issue内容，创建用户注册文件
-4. 更新README.md中的注册表格
-5. 自动关闭issue并添加确认评论
+### 1. User Registration Process
+1. User submits registration information through GitHub Issue
+2. GitHub Actions automatically triggers `signup-automation.yml`
+3. Script parses issue content and creates user registration file
+4. Updates registration table in README.md
+5. Automatically closes issue and adds confirmation comment
 
-### 2. 项目提交流程
-1. 用户通过GitHub Issue提交项目信息
-2. GitHub Actions自动触发`submission-automation.yml`
-3. 验证用户是否已注册
-4. 创建项目文件夹和文件
-5. 更新README.md中的提交表格
-6. 自动关闭issue并添加确认评论
+### 2. Project Submission Process
+1. User submits project information through GitHub Issue
+2. GitHub Actions automatically triggers `submission-automation.yml`
+3. Verifies if user is registered
+4. Creates project folder and files
+5. Updates submission table in README.md
+6. Automatically closes issue and adds confirmation comment
 
-### 3. 状态同步流程
-1. 当submission目录发生变化时触发
-2. 运行`submission-table.yml`工作流
-3. 自动更新项目提交状态表格
+### 3. Status Synchronization Process
+1. Triggers when submission directory changes
+2. Runs `submission-table.yml` workflow
+3. Automatically updates project submission status table
 
-## 📝 Issue格式规范
+## 📝 Issue Format Specifications
 
-### 注册Issue格式
-- **标题**: 必须以"Registration"开头
-- **内容格式**: 使用表单样式，包含以下字段
-  - `**Name:**`: 用户姓名
-  - `**Description:**`: 个人技能和经验介绍
-  - `**Contact Method:**`: 联系方式类型 (Telegram | WeChat | Discord | Email | X(Twitter) | GitHub)
-  - `**Contact:**`: 具体联系账号
+### Registration Issue Format
+- **Title**: Must start with "Registration"
+- **Content Format**: Use form style with the following fields
+  - `**Name:**`: User's full name
+  - `**Description:**`: Personal skills and experience introduction
+  - `**Contact Method:**`: Contact method type (Telegram | WeChat | Discord | Email | X(Twitter) | GitHub)
+  - `**Contact:**`: Specific contact account
 
-### 提交Issue格式
-- **标题**: 必须以"Submission"开头
-- **内容格式**: 使用表单样式，包含以下字段
-  - `**Project Name:**`: 项目名称
-  - `**Project Description:**`: 项目描述
-  - `**Project Members:**`: 项目成员列表 (逗号分隔)
-  - `**Wallet Address:**`: 以太坊钱包地址或ENS域名
+### Submission Issue Format
+- **Title**: Must start with "Submission"
+- **Content Format**: Use form style with the following fields
+  - `**Project Name:**`: Project name
+  - `**Project Description:**`: Project description
+  - `**Project Members:**`: Project member list (comma-separated)
+  - `**Wallet Address:**`: Ethereum wallet address or ENS domain
 
-## 🛠️ 脚本架构
+## 🛠️ Script Architecture
 
-### 处理器层 (Processors)
-- `RegistrationProcessor`: 处理用户注册逻辑
-- `SubmissionProcessor`: 处理项目提交逻辑
+### Processor Layer (Processors)
+- `RegistrationProcessor`: Handles user registration logic
+- `SubmissionProcessor`: Handles project submission logic
 
-### 服务层 (Services)
-- `UserManager`: 用户信息管理
-- `ReadmeManager`: README文件管理
+### Service Layer (Services)
+- `UserManager`: User information management
+- `ReadmeManager`: README file management
 
-### 工具层 (Utils)
-- `FieldParser`: 字段解析工具 (支持新英文格式 `**Field:**` 和旧中文格式 `Field[中文]:`)
-- `FileManager`: 文件操作工具
-- `GitManager`: Git操作工具
+### Utility Layer (Utils)
+- `FieldParser`: Field parsing utility (supports new English format `**Field:**` and old Chinese format `Field[中文]:`)
+- `FileManager`: File operation utility
+- `GitManager`: Git operation utility
 
-## ⚙️ 配置管理
+## ⚙️ Configuration Management
 
-### 常量配置 (`constants.js`)
-- 目录路径配置
-- 字段名称映射
-- README标记配置
-- 状态指示符定义
+### Constants Configuration (`constants.js`)
+- Directory path configuration
+- Field name mapping
+- README marker configuration
+- Status indicator definitions
 
-### 环境变量
-- `ISSUE_BODY`: Issue内容
-- `ISSUE_USER`: GitHub用户名
+### Environment Variables
+- `ISSUE_BODY`: Issue content
+- `ISSUE_USER`: GitHub username
 
-## 🔧 自动化规则
+## 🔧 Automation Rules
 
-### 触发条件
-1. **自动触发**: Issue被打开时
-2. **手动触发**: Issue被手动关闭且状态为"completed"
+### Trigger Conditions
+1. **Auto Trigger**: When issue is opened
+2. **Manual Trigger**: When issue is manually closed with status "completed"
 
-### 处理逻辑
-1. 解析issue内容
-2. 验证必填字段
-3. 创建相应文件
-4. 更新README表格
-5. 提交Git更改
-6. 关闭issue并添加评论
+### Processing Logic
+1. Parse issue content
+2. Validate required fields
+3. Create corresponding files
+4. Update README table
+5. Commit Git changes
+6. Close issue and add comment
 
-### 错误处理
-- 字段验证失败时终止处理
-- 用户未注册时禁止提交项目
-- 文件操作失败时回滚更改
+### Error Handling
+- Terminate processing when field validation fails
+- Prohibit project submission when user is not registered
+- Rollback changes when file operations fail
 
-## 📊 数据管理
+## 📊 Data Management
 
-### 文件命名规范
-- 注册文件: `{githubUser}.md`
-- 项目文件夹: `submission/{githubUser}/`
-- 项目文件: `HACKATHON.md`, `code.txt`
-- 测试脚本: `test/*.js` (本地测试用)
+### File Naming Conventions
+- Registration files: `{githubUser}.md`
+- Project folders: `submission/{githubUser}/`
+- Project files: `HACKATHON.md`, `code.txt`
+- Test scripts: `test/*.js` (for local testing)
 
-### 表格更新机制
-- 使用HTML注释标记定位更新区域
-- 正则表达式匹配和替换内容
-- 保持表格格式一致性
+### Table Update Mechanism
+- Use HTML comment markers to locate update areas
+- Regular expression matching and content replacement
+- Maintain table format consistency
 
-### 测试目录管理
-- `./test/` 目录用于存放本地测试脚本
-- 测试脚本用于验证解析器、处理器等功能
-- 测试文件不应提交到版本控制系统
-- 建议在 `.gitignore` 中排除测试目录
+### Test Directory Management
+- `./test/` directory for storing local test scripts
+- Test scripts for validating parsers, processors, etc.
+- Test files should not be committed to version control
+- Recommend excluding test directory in `.gitignore`
 
-## 🔒 安全考虑
+## 🔒 Security Considerations
 
-### 权限控制
-- 使用GitHub Token进行文件操作
-- 限制Actions的写入权限范围
-- 防止恶意文件操作
+### Permission Control
+- Use GitHub Token for file operations
+- Limit Actions write permission scope
+- Prevent malicious file operations
 
-### 数据验证
-- 必填字段验证
-- 用户注册状态检查
-- 文件路径安全检查
+### Data Validation
+- Required field validation
+- User registration status check
+- File path security check
 
-## 🚀 扩展指南
+## 🚀 Extension Guide
 
-### 添加新字段
-1. 在`constants.js`中添加字段定义
-2. 更新相应的处理器逻辑
-3. 修改README模板
+### Adding New Fields
+1. Add field definitions in `constants.js`
+2. Update corresponding processor logic
+3. Modify README template
 
-### 添加新功能
-1. 创建新的处理器类
-2. 添加对应的GitHub Action
-3. 更新文档和配置
+### Adding New Features
+1. Create new processor class
+2. Add corresponding GitHub Action
+3. Update documentation and configuration
 
-## 📋 维护清单
+## 📋 Maintenance Checklist
 
-### 定期检查
-- [ ] 检查GitHub Actions运行状态
-- [ ] 验证文件创建和更新功能
-- [ ] 测试issue处理流程
-- [ ] 检查README表格格式
-- [ ] 运行本地测试脚本验证功能
-- [ ] 清理过期的测试文件
+### Regular Checks
+- [ ] Check GitHub Actions running status
+- [ ] Verify file creation and update functionality
+- [ ] Test issue processing workflow
+- [ ] Check README table format
+- [ ] Run local test scripts to verify functionality
+- [ ] Clean up expired test files
 
-### 故障排除
-- [ ] 查看GitHub Actions日志
-- [ ] 检查脚本执行错误
-- [ ] 验证文件权限设置
-- [ ] 确认Git配置正确
+### Troubleshooting
+- [ ] Check GitHub Actions logs
+- [ ] Check script execution errors
+- [ ] Verify file permission settings
+- [ ] Confirm Git configuration is correct
 
-## 🎯 最佳实践
+## 🎯 Best Practices
 
-1. **Issue管理**: 保持issue标题格式一致
-2. **文件组织**: 按用户和项目分类存储
-3. **错误处理**: 提供清晰的错误信息
-4. **文档更新**: 保持README内容同步
-5. **版本控制**: 使用有意义的提交信息
-6. **测试驱动**: 在修改功能前先编写测试脚本
-7. **测试隔离**: 将测试脚本放在独立的 `./test/` 目录中
-8. **测试清理**: 定期清理不再需要的测试文件
+1. **Issue Management**: Maintain consistent issue title format
+2. **File Organization**: Store by user and project classification
+3. **Error Handling**: Provide clear error messages
+4. **Documentation Updates**: Keep README content synchronized
+5. **Version Control**: Use meaningful commit messages
+6. **Test-Driven**: Write test scripts before modifying functionality
+7. **Test Isolation**: Place test scripts in independent `./test/` directory
+8. **Test Cleanup**: Regularly clean up unnecessary test files
 
 ---
 
-*此规则归档基于TrustlessAgent仓库的当前实现，如有更新请及时同步修改。*
+*This rules archive is based on the current implementation of the TrustlessAgent repository. Please update promptly if there are any changes.*

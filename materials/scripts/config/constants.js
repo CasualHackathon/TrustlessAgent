@@ -1,23 +1,22 @@
 /**
- * 配置常量
  * Configuration constants
  */
 
-// 目录路径配置
+// Directory path configuration
 const DIRECTORIES = {
     REGISTRATION: '../../../registration',
     SUBMISSION: '../../../submission',
     SCRIPTS: __dirname
 };
 
-// 文件名配置
+// File name configuration
 const FILE_NAMES = {
     README: '../../README.md'
 };
 
-// 字段名配置
+// Field name configuration
 const FIELD_NAMES = {
-    // 注册字段
+    // Registration fields
     REGISTRATION: {
         NAME: 'Name',
         DESCRIPTION: 'Description',
@@ -25,7 +24,7 @@ const FIELD_NAMES = {
         WALLET_ADDRESS: 'Wallet Address',
         TEAM_WILLINGNESS: 'Team Willingness'
     },
-    // 项目提交字段
+    // Project submission fields
     SUBMISSION: {
         PROJECT_NAME: 'Project Name',
         PROJECT_DESCRIPTION: 'Project Description',
@@ -35,7 +34,7 @@ const FIELD_NAMES = {
     }
 };
 
-// 必填字段配置
+// Required fields configuration
 const REQUIRED_FIELDS = {
     REGISTRATION: [
         FIELD_NAMES.REGISTRATION.NAME,
@@ -50,16 +49,16 @@ const REQUIRED_FIELDS = {
 };
 
 
-// GitHub 相关配置
+// GitHub related configuration
 const GITHUB_CONFIG = {
-    REPO_URL: 'https://github.com/CasualHackathon/Template', // TODO: 替换为实际仓库地址
+    REPO_URL: 'https://github.com/CasualHackathon/Template', // TODO: Replace with actual repository URL
     ISSUE_TITLE_PREFIXES: {
         REGISTRATION: 'Registration',
         SUBMISSION: 'Submission'
     }
 };
 
-// README 更新标记
+// README update markers
 const README_MARKERS = {
     REGISTRATION: {
         START: '<!-- Registration start -->',

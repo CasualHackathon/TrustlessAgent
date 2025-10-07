@@ -1,5 +1,4 @@
 /**
- * 字段验证工具类
  * Field validation utilities
  */
 
@@ -8,15 +7,15 @@ const { REQUIRED_FIELDS } = require('../config/constants');
 
 class FieldValidator {
     /**
-     * 验证必填字段
-     * @param {string} issueBody - Issue 内容
-     * @param {string} type - 类型 (REGISTRATION 或 SUBMISSION)
-     * @returns {void} 验证通过则继续，失败则抛出错误
+     * Validate required fields
+     * @param {string} issueBody - Issue content
+     * @param {string} type - Type (REGISTRATION or SUBMISSION)
+     * @returns {void} Continue if validation passes, throw error if fails
      */
     static validateRequiredFields(issueBody, type) {
         const requiredFields = REQUIRED_FIELDS[type];
         if (!requiredFields) {
-            throw new Error(`未知的类型: ${type}`);
+            throw new Error(`Unknown type: ${type}`);
         }
 
         const missingFields = [];
@@ -31,58 +30,58 @@ class FieldValidator {
         if (missingFields.length > 0) {
             const errorMessage = this.generateValidationErrorMessage(type, missingFields);
 
-            // 将错误信息写入环境变量，供工作流使用
+            // Write error message to environment variable for workflow use
             if (process.env.GITHUB_OUTPUT) {
                 const fs = require('fs');
                 fs.appendFileSync(process.env.GITHUB_OUTPUT, `error_message<<EOF\n${errorMessage}\nEOF\n`);
             }
-            // 同时输出到控制台
+            // Also output to console
             console.error('ERROR_MESSAGE:', errorMessage);
 
-            console.error(`字段验证失败: ${missingFields.join(', ')}`);
+            console.error(`Field validation failed: ${missingFields.join(', ')}`);
             process.exit(1);
         }
     }
 
     /**
-     * 生成字段验证错误信息
-     * @param {string} type - 类型
-     * @param {Array} missingFields - 缺失的字段
-     * @returns {string} 错误信息
+     * Generate field validation error message
+     * @param {string} type - Type
+     * @param {Array} missingFields - Missing fields
+     * @returns {string} Error message
      */
     static generateValidationErrorMessage(type, missingFields) {
-        let errorMessage = `❌ **字段验证失败**\n\n`;
-        errorMessage += `**缺失的必填字段:** ${missingFields.join(', ')}\n\n`;
-        errorMessage += `请填写所有必填字段后重新提交。`;
+        let errorMessage = `❌ **Field Validation Failed**\n\n`;
+        errorMessage += `**Missing required fields:** ${missingFields.join(', ')}\n\n`;
+        errorMessage += `Please fill in all required fields and resubmit.`;
 
         return errorMessage;
     }
 
     /**
-     * 检查用户是否已注册
-     * @param {string} githubUser - GitHub 用户名
-     * @param {Object} UserManager - 用户管理器
-     * @param {Object} FileManager - 文件管理器
-     * @returns {void} 已注册则继续，未注册则抛出错误
+     * Check if user is registered
+     * @param {string} githubUser - GitHub username
+     * @param {Object} UserManager - User manager
+     * @param {Object} FileManager - File manager
+     * @returns {void} Continue if registered, throw error if not
      */
     static checkUserRegistration(githubUser, UserManager, FileManager) {
         const registrationFile = UserManager.getRegistrationFilePath(githubUser);
         const isRegistered = FileManager.fileExists(registrationFile);
 
         if (!isRegistered) {
-            const errorMessage = `❌ **用户未注册**\n\n` +
-                `用户 \`${githubUser}\` 尚未注册参加黑客松。`;
+            const errorMessage = `❌ **User Not Registered**\n\n` +
+                `User \`${githubUser}\` has not registered for the hackathon.`;
 
-            // 将错误信息写入环境变量，供工作流使用
+            // Write error message to environment variable for workflow use
             if (process.env.GITHUB_OUTPUT) {
                 const fs = require('fs');
                 fs.appendFileSync(process.env.GITHUB_OUTPUT, `error_message<<EOF\n${errorMessage}\nEOF\n`);
             }
-            // 同时输出到控制台
+            // Also output to console
             console.error('ERROR_MESSAGE:', errorMessage);
 
-            // throw new Error(`用户 ${githubUser} 未注册`);
-            console.error(`用户 ${githubUser} 未注册`);
+            // throw new Error(`User ${githubUser} not registered`);
+            console.error(`User ${githubUser} not registered`);
             process.exit(1);
         }
     }

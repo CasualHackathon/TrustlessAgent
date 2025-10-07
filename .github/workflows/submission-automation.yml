@@ -28,26 +28,26 @@ jobs:
       - name: Extract Submission Info, Create Project Folder and Update Table
         id: extract-submission
         run: |
-          # 捕获脚本输出和错误信息
-          node materials/scripts/submission_extract.js 2>&1 | tee script_output.log
+          # Execute script and capture output
+          SCRIPT_OUTPUT=$(node materials/scripts/submission_extract.js 2>&1)
           SCRIPT_EXIT_CODE=$?
           
-          echo "脚本退出码: $SCRIPT_EXIT_CODE"
+          echo "Script exit code: $SCRIPT_EXIT_CODE"
           
           if [ $SCRIPT_EXIT_CODE -eq 0 ]; then
-            # 脚本执行成功
+            # Script executed successfully
             echo "script_success=true" >> $GITHUB_OUTPUT
-            echo "✅ 脚本执行成功"
+            echo "✅ Script executed successfully"
           else
-            # 脚本执行失败，提取错误信息
+            # Script execution failed, extract error message
             echo "script_success=false" >> $GITHUB_OUTPUT
-            if grep -q "ERROR_MESSAGE:" script_output.log; then
-              ERROR_MSG=$(grep "ERROR_MESSAGE:" script_output.log | sed 's/ERROR_MESSAGE: //')
+            if echo "$SCRIPT_OUTPUT" | grep -q "ERROR_MESSAGE:"; then
+              ERROR_MSG=$(echo "$SCRIPT_OUTPUT" | grep "ERROR_MESSAGE:" | sed 's/ERROR_MESSAGE: //')
               echo "error_message=$ERROR_MSG" >> $GITHUB_OUTPUT
             else
-              echo "error_message=❌ **处理失败**\n\n处理过程中发生未知错误，请检查提交格式是否正确。" >> $GITHUB_OUTPUT
+              echo "error_message=❌ **Processing Failed**\n\nAn unknown error occurred during processing. Please check if the submission format is correct." >> $GITHUB_OUTPUT
             fi
-            echo "❌ 脚本执行失败"
+            echo "❌ Script execution failed"
             exit 1
           fi
         env:
@@ -64,8 +64,8 @@ jobs:
             const { owner, repo } = context.repo;
             const issue_number = context.payload.issue.number;
             
-            // 从步骤输出中获取错误信息
-            const errorMessage = steps.extract-submission.outputs.error_message || '❌ **处理失败**\n\n处理过程中发生未知错误，请检查提交格式是否正确。';
+            // Get error message from step output
+            const errorMessage = steps.extract-submission.outputs.error_message || '❌ **Processing Failed**\n\nAn unknown error occurred during processing. Please check if the submission format is correct.';
             
             await github.rest.issues.createComment({
               owner,
@@ -74,7 +74,7 @@ jobs:
               body: errorMessage
             });
             
-            console.log(`❌ 错误已通过评论告知用户: Issue #${issue_number}`);
+            console.log(`❌ Error reported to user via comment: Issue #${issue_number}`);
 
       - name: Commit & Push Changes
         if: steps.extract-submission.outputs.script_success == 'true'
@@ -84,22 +84,22 @@ jobs:
           git config --global user.email "action@github.com"
           git config --global user.name "GitHub Action"
           
-          # 获取最新代码，但保留本地更改
+          # Get latest code but preserve local changes
           git fetch origin main
           git merge origin/main --no-edit || true
           
-          # 添加所有更改
+          # Add all changes
           git add .
           
-          # 检查是否有更改需要提交
+          # Check if there are changes to commit
           if git diff --staged --quiet; then
             echo "No changes to commit"
           else
-            # 提交更改
+            # Commit changes
             git commit -m "Add submission from ${{ github.event.issue.user.login }}"
-            # 推送更改
+            # Push changes
             git push origin HEAD:main
-            echo "✅ 项目提交已成功提交"
+            echo "✅ Project submission successfully committed"
           fi
 
       - name: Comment and close issue
@@ -113,7 +113,7 @@ jobs:
             const user = context.payload.issue.user.login;
             
             try {
-              // 添加成功处理的评论
+              // Add success processing comment
               let actionType = 'Manual';
               if (context.payload.action === 'opened') {
                 actionType = 'Auto';
@@ -128,7 +128,7 @@ jobs:
                 body: `✅ Submission processed successfully! (${actionType})`
               });
               
-              // 在自动触发或编辑时关闭 issue
+              // Close issue when auto-triggered or edited
               if (context.payload.action === 'opened' || context.payload.action === 'edited') {
                 await github.rest.issues.update({
                   owner,

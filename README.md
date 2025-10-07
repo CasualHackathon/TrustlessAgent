@@ -35,8 +35,7 @@
 <!-- Submission link end -->
 
 - Complete registration before submitting.
-- Fork this repository, place your project resources in `/submission/[your-github-account]`, then submit a PR to wait for merging.
-- Do not modify or delete the `HACKATHON.md` file in your folder, nor modify others' files.
+- Note: Please do not modify other people's information.
 
 <!-- Submission start -->
 

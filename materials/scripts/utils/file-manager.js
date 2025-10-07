@@ -2,13 +2,12 @@ const fs = require('fs');
 const path = require('path');
 
 /**
- * 文件操作工具类
  * File operations utilities
  */
 class FileManager {
     /**
-     * 确保目录存在，不存在则创建
-     * @param {string} dirPath - 目录路径
+     * Ensure directory exists, create if not
+     * @param {string} dirPath - Directory path
      */
     static ensureDirectoryExists(dirPath) {
         if (!fs.existsSync(dirPath)) {
@@ -17,39 +16,39 @@ class FileManager {
     }
 
     /**
-     * 安全读取文件内容
-     * @param {string} filePath - 文件路径
-     * @returns {string} 文件内容，文件不存在返回空字符串
+     * Safely read file content
+     * @param {string} filePath - File path
+     * @returns {string} File content, empty string if file does not exist
      */
     static readFileContent(filePath) {
         try {
             return fs.existsSync(filePath) ? fs.readFileSync(filePath, 'utf8') : '';
         } catch (error) {
-            console.error(`读取文件失败: ${filePath}`, error.message);
+            console.error(`Failed to read file: ${filePath}`, error.message);
             return '';
         }
     }
 
     /**
-     * 安全写入文件内容
-     * @param {string} filePath - 文件路径
-     * @param {string} content - 文件内容
+     * Safely write file content
+     * @param {string} filePath - File path
+     * @param {string} content - File content
      */
     static writeFileContent(filePath, content) {
         try {
             fs.writeFileSync(filePath, content, 'utf8');
-            console.log(`文件写入成功: ${filePath}`);
+            console.log(`File written successfully: ${filePath}`);
         } catch (error) {
-            console.error(`文件写入失败: ${filePath}`, error.message);
+            console.error(`Failed to write file: ${filePath}`, error.message);
             throw error;
         }
     }
 
     /**
-     * 获取目录下的所有文件
-     * @param {string} dirPath - 目录路径
-     * @param {string} extension - 文件扩展名过滤，如 '.md'
-     * @returns {Array} 文件路径数组
+     * Get all files in directory
+     * @param {string} dirPath - Directory path
+     * @param {string} extension - File extension filter, e.g. '.md'
+     * @returns {Array} Array of file paths
      */
     static getDirectoryFiles(dirPath, extension = '') {
         if (!fs.existsSync(dirPath)) {
@@ -59,17 +58,17 @@ class FileManager {
         try {
             return fs.readdirSync(dirPath)
                 .filter(file => !extension || file.endsWith(extension))
-                .filter(file => file !== '.DS_Store'); // 过滤系统文件
+                .filter(file => file !== '.DS_Store'); // Filter system files
         } catch (error) {
-            console.error(`读取目录失败: ${dirPath}`, error.message);
+            console.error(`Failed to read directory: ${dirPath}`, error.message);
             return [];
         }
     }
 
     /**
-     * 获取目录下的所有子目录
-     * @param {string} dirPath - 目录路径
-     * @returns {Array} 子目录名称数组
+     * Get all subdirectories in directory
+     * @param {string} dirPath - Directory path
+     * @returns {Array} Array of subdirectory names
      */
     static getSubDirectories(dirPath) {
         if (!fs.existsSync(dirPath)) {
@@ -83,48 +82,48 @@ class FileManager {
                     return fs.statSync(itemPath).isDirectory();
                 });
         } catch (error) {
-            console.error(`读取子目录失败: ${dirPath}`, error.message);
+            console.error(`Failed to read subdirectories: ${dirPath}`, error.message);
             return [];
         }
     }
 
     /**
-     * 通用文件存储方法 - 直接保存内容到文件
-     * @param {string} filePath - 文件路径
-     * @param {string} content - 文件内容
-     * @param {string} logMessage - 日志消息
+     * Generic file storage method - directly save content to file
+     * @param {string} filePath - File path
+     * @param {string} content - File content
+     * @param {string} logMessage - Log message
      */
-    static saveFile(filePath, content, logMessage = '文件已保存') {
+    static saveFile(filePath, content, logMessage = 'File saved') {
         try {
-            // 确保目录存在
+            // Ensure directory exists
             const dirPath = path.dirname(filePath);
             this.ensureDirectoryExists(dirPath);
 
-            // 写入文件
+            // Write file
             fs.writeFileSync(filePath, content, 'utf8');
             console.log(`${logMessage}: ${filePath}`);
         } catch (error) {
-            console.error(`文件保存失败: ${filePath}`, error.message);
+            console.error(`Failed to save file: ${filePath}`, error.message);
             throw error;
         }
     }
 
     /**
-     * 检查文件是否存在
-     * @param {string} filePath - 文件路径
-     * @returns {boolean} 文件是否存在
+     * Check if file exists
+     * @param {string} filePath - File path
+     * @returns {boolean} Whether file exists
      */
     static fileExists(filePath) {
         return fs.existsSync(filePath);
     }
 
     /**
-     * 通用文件更新方法 - 更新或创建文件
-     * @param {string} filePath - 文件路径
-     * @param {string} content - 文件内容
-     * @param {string} logMessage - 日志消息
+     * Generic file update method - update or create file
+     * @param {string} filePath - File path
+     * @param {string} content - File content
+     * @param {string} logMessage - Log message
      */
-    static updateFile(filePath, content, logMessage = '文件已更新') {
+    static updateFile(filePath, content, logMessage = 'File updated') {
         this.saveFile(filePath, content, logMessage);
     }
 }
