@@ -29,18 +29,21 @@ jobs:
         id: extract-signup
         run: |
           # 捕获脚本输出和错误信息
-          if ! node materials/scripts/signup_extract.js 2>&1 | tee script_output.log; then
+          if node materials/scripts/signup_extract.js 2>&1 | tee script_output.log; then
+            # 脚本执行成功
+            echo "script_success=true" >> $GITHUB_OUTPUT
+            echo "✅ 脚本执行成功"
+          else
             # 脚本执行失败，提取错误信息
+            echo "script_success=false" >> $GITHUB_OUTPUT
             if grep -q "ERROR_MESSAGE:" script_output.log; then
               ERROR_MSG=$(grep "ERROR_MESSAGE:" script_output.log | sed 's/ERROR_MESSAGE: //')
               echo "error_message=$ERROR_MSG" >> $GITHUB_OUTPUT
             else
               echo "error_message=❌ **处理失败**\n\n处理过程中发生未知错误，请检查提交格式是否正确。" >> $GITHUB_OUTPUT
             fi
-            echo "script_success=false" >> $GITHUB_OUTPUT
+            echo "❌ 脚本执行失败"
             exit 1
-          else
-            echo "script_success=true" >> $GITHUB_OUTPUT
           fi
         env:
           ISSUE_BODY: ${{ github.event.issue.body }}
