@@ -9,7 +9,7 @@ permissions:
   issues: write
 
 concurrency:
-  group: hackathon-automation-${{ github.event.issue.number }}
+  group: hackathon-automation-global
   cancel-in-progress: false
 
 jobs:
@@ -28,7 +28,17 @@ jobs:
       - name: Extract Signup Info, Create Registration File and Update Table
         id: extract-signup
         run: |
-          node materials/scripts/signup_extract.js
+          # 捕获脚本输出和错误信息
+          if ! node materials/scripts/signup_extract.js 2>&1 | tee script_output.log; then
+            # 脚本执行失败，提取错误信息
+            if grep -q "ERROR_MESSAGE:" script_output.log; then
+              ERROR_MSG=$(grep "ERROR_MESSAGE:" script_output.log | sed 's/ERROR_MESSAGE: //')
+              echo "error_message=$ERROR_MSG" >> $GITHUB_OUTPUT
+            else
+              echo "error_message=❌ **处理失败**\n\n处理过程中发生未知错误，请检查提交格式是否正确。" >> $GITHUB_OUTPUT
+            fi
+            exit 1
+          fi
         env:
           ISSUE_BODY: ${{ github.event.issue.body }}
           ISSUE_USER: ${{ github.event.issue.user.login }}
@@ -43,8 +53,8 @@ jobs:
             const { owner, repo } = context.repo;
             const issue_number = context.payload.issue.number;
             
-            // 从脚本输出中提取错误信息
-            const errorMessage = process.env.ERROR_MESSAGE || '处理过程中发生未知错误';
+            // 从步骤输出中获取错误信息
+            const errorMessage = steps.extract-signup.outputs.error_message || '❌ **处理失败**\n\n处理过程中发生未知错误，请检查提交格式是否正确。';
             
             await github.rest.issues.createComment({
               owner,
@@ -62,18 +72,23 @@ jobs:
         run: |
           git config --global user.email "action@github.com"
           git config --global user.name "GitHub Action"
-          # Add all changes first
+          
+          # 获取最新代码
+          git fetch origin main
+          git reset --hard origin/main
+          
+          # 添加所有更改
           git add .
-          # Check if there are any changes to commit
+          
+          # 检查是否有更改需要提交
           if git diff --staged --quiet; then
             echo "No changes to commit"
           else
-            # Commit the changes
+            # 提交更改
             git commit -m "Add registration for ${{ github.event.issue.user.login }}"
-            # Pull the latest main to avoid non-fast-forward
-            git pull --rebase origin main
-            # Push the changes
+            # 推送更改
             git push origin HEAD:main
+            echo "✅ 注册信息已成功提交"
           fi
 
       - name: Comment and close issue
@@ -102,8 +117,8 @@ jobs:
                 body: `✅ Registration processed successfully! (${actionType})`
               });
               
-              // 只有在自动触发时才关闭 issue
-              if (context.payload.action === 'opened') {
+              // 在自动触发或编辑时关闭 issue
+              if (context.payload.action === 'opened' || context.payload.action === 'edited') {
                 await github.rest.issues.update({
                   owner,
                   repo,

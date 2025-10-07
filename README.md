@@ -16,15 +16,12 @@
 ## 📝 Registration
 
 <!-- Registration link start -->
-[Register ➡️](https://github.com/CasualHackathon/Template/issues/new?title=Registration%20-%20%5BYour%20Name%20Here%5D&body=%23%23%20Registration%20Form%0A%0A%3E%20%F0%9F%93%9D%20**Please%20replace%20%22%5BYour%20Name%20Here%5D%22%20in%20the%20title%20above%20with%20your%20actual%20name%2C%20then%20fill%20in%20the%20content%20after%20each%20%3E%20arrow%20below.**%0A%0A**Name**%20(Please%20enter%20your%20full%20name)%0A%3E%0A%0A**Description**%20(Brief%20personal%20introduction%20including%20skills%20and%20experience)%0A%3E%0A%0A**Contact**%20(Format%3A%20Contact%20Method%3A%20Contact%20Account%2C%20e.g.%2C%20Telegram%3A%20%40username%2C%20WeChat%3A%20username%2C%20Email%3A%20email%40example.com)%0A%3E%0A%0A**Wallet%20Address**%20(Your%20wallet%20address%20or%20ENS%20domain%20on%20Ethereum%20mainnet)%0A%3E%0A%0A**Team%20Willingness**%20(Choose%20one%3A%20Yes%20%7C%20No%20%7C%20Maybe)%0A%3E)
+[Register ➡️](https://github.com/CasualHackathon/Template/issues/new?title=Registration%20-%20New&body=%23%23%20Registration%20Form%0A%0A%3E%20%F0%9F%93%9D%20**Please%20fill%20in%20the%20content%20after%20%22%3E%22**%0A%0A**Name**%20(Please%20enter%20your%20full%20name%20%7C%20Required)%0A%3E%0A%0A**Description**%20(Brief%20personal%20introduction%20including%20skills%20and%20experience%20%7C%20Required)%0A%3E%0A%0A**Contact**%20(Format%3A%20Contact%20Method%3A%20Contact%20Account%2C%20e.g.%2C%20Telegram%3A%20%40username%2C%20WeChat%3A%20username%2C%20Email%3A%20email%40example.com%20%7C%20Required)%0A%3E%0A%0A**Wallet%20Address**%20(Your%20wallet%20address%20or%20ENS%20domain%20on%20Ethereum%20mainnet)%0A%3E%0A%0A**Team%20Willingness**%20(Choose%20one%3A%20Yes%20%7C%20No%20%7C%20Maybe)%0A%3E)
 <!-- Registration link end -->
 
 - Note: Please do not modify other people's information.
 
 <!-- Registration start -->
-| Name | Description | Contact | Team Willingness | Operate |
-| ---- | ----------- | ------- | ---------------- | ------- |
-| test22 | this is desc text... | tg:alicetg | Yes | [Edit](https://github.com/CasualHackathon/Template/issues/new?title=Registration%20-%20test22&body=%23%23%20Registration%20Form%0A%0A%3E%20%F0%9F%93%9D%20**Please%20replace%20%22%5BYour%20Name%20Here%5D%22%20in%20the%20title%20above%20with%20your%20actual%20name%2C%20then%20fill%20in%20the%20content%20after%20each%20%3E%20arrow%20below.**%0A%0A**Name**%20(Please%20enter%20your%20full%20name)%0A%3Etest22%0A%0A**Description**%20(Brief%20personal%20introduction%20including%20skills%20and%20experience)%0A%3Ethis%20is%20desc%20text...%0A%0A**Contact**%20(Format%3A%20Contact%20Method%3A%20Contact%20Account%2C%20e.g.%2C%20Telegram%3A%20%40username%2C%20WeChat%3A%20username%2C%20Email%3A%20email%40example.com)%0A%3Etg%3Aalicetg%0A%0A**Wallet%20Address**%20(Your%20wallet%20address%20or%20ENS%20domain%20on%20Ethereum%20mainnet)%0A%3E0x12345888%0A%0A**Team%20Willingness**%20(Choose%20one%3A%20Yes%20%7C%20No%20%7C%20Maybe)%0A%3EYes) |
 
 <!-- Registration end -->
 
@@ -33,7 +30,7 @@
 
 <!-- Submission link start -->
 
-[Submit ➡️](https://github.com/CasualHackathon/Template/issues/new?title=Submission%20-%20%5BYour%20Project%20Name%20Here%5D&body=%23%23%20Project%20Submission%20Form%0A%0A%3E%20%F0%9F%93%9D%20**Please%20replace%20%22%5BYour%20Project%20Name%20Here%5D%22%20in%20the%20title%20above%20with%20your%20actual%20project%20name%2C%20then%20fill%20in%20the%20content%20after%20each%20%3E%20arrow%20below.**%0A%0A**Project%20Name**%20(Enter%20your%20project%20name)%0A%3E%0A%0A**Project%20Description**%20(Brief%20description%20about%20your%20project%20in%20one%20sentence)%0A%3E%0A%0A**Project%20Members**%20(List%20all%20team%20members%2C%20comma-separated)%0A%3E%0A%0A**Project%20Leader**%20(Project%20leader%20name)%0A%3E%0A%0A**Repository%20URL**%20(Open%20source%20repository%20URL%20-%20project%20must%20be%20open%20source)%0A%3E)
+[Submit ➡️](https://github.com/CasualHackathon/Template/issues/new?title=Submission%20-%20New&body=%23%23%20Project%20Submission%20Form%0A%0A%3E%20%F0%9F%93%9D%20**Please%20fill%20in%20the%20content%20after%20%22%3E%22**%0A%0A**Project%20Name**%20(Enter%20your%20project%20name%20%7C%20Required)%0A%3E%0A%0A**Project%20Description**%20(Brief%20description%20about%20your%20project%20in%20one%20sentence%20%7C%20Required)%0A%3E%0A%0A**Project%20Leader**%20(Project%20leader%20name%20%7C%20Required)%0A%3E%0A%0A**Project%20Members**%20(List%20all%20team%20members%2C%20comma-separated)%0A%3E%0A%0A**Repository%20URL**%20(Open%20source%20repository%20URL%20-%20project%20must%20be%20open%20source)%0A%3E)
 
 <!-- Submission link end -->
 
@@ -42,10 +39,6 @@
 - Do not modify or delete the `HACKATHON.md` file in your folder, nor modify others' files.
 
 <!-- Submission start -->
-| Project | Description | Members | Leader | Repository | Operate |
-| ----------- | ----------------- | -------------- | ------- | ---------- | -------- |
-| pro test | test edit desc2 | alice,bob2 | alice2 | [🔗](https://github.com/CasualHackathon/T) | [Edit](https://github.com/CasualHackathon/Template/issues/new?title=Submission%20-%20pro%20test&body=%23%23%20Project%20Submission%20Form%0A%0A%3E%20%F0%9F%93%9D%20**Please%20replace%20%22%5BYour%20Project%20Name%20Here%5D%22%20in%20the%20title%20above%20with%20your%20actual%20project%20name%2C%20then%20fill%20in%20the%20content%20after%20each%20%3E%20arrow%20below.**%0A%0A**Project%20Name**%20(Enter%20your%20project%20name)%0A%3Epro%20test%0A%0A**Project%20Description**%20(Brief%20description%20about%20your%20project%20in%20one%20sentence)%0A%3Etest%20edit%20desc2%0A%0A**Project%20Members**%20(List%20all%20team%20members%2C%20comma-separated)%0A%3Ealice%2Cbob2%0A%0A**Project%20Leader**%20(Project%20leader%20name)%0A%3Ealice2%0A%0A**Repository%20URL**%20(Open%20source%20repository%20URL%20-%20project%20must%20be%20open%20source)%0A%3Ehttps%3A%2F%2Fgithub.com%2FCasualHackathon%2FT) |
-| pro test2 | test edit desc2 | alice,bob2 | alice2 | [🔗](https://github.com/CasualHackathon/T) | [Edit](https://github.com/CasualHackathon/Template/issues/new?title=Submission%20-%20pro%20test2&body=%23%23%20Project%20Submission%20Form%0A%0A%3E%20%F0%9F%93%9D%20**Please%20replace%20%22%5BYour%20Project%20Name%20Here%5D%22%20in%20the%20title%20above%20with%20your%20actual%20project%20name%2C%20then%20fill%20in%20the%20content%20after%20each%20%3E%20arrow%20below.**%0A%0A**Project%20Name**%20(Enter%20your%20project%20name)%0A%3Epro%20test2%0A%0A**Project%20Description**%20(Brief%20description%20about%20your%20project%20in%20one%20sentence)%0A%3Etest%20edit%20desc2%0A%0A**Project%20Members**%20(List%20all%20team%20members%2C%20comma-separated)%0A%3Ealice%2Cbob2%0A%0A**Project%20Leader**%20(Project%20leader%20name)%0A%3Ealice2%0A%0A**Repository%20URL**%20(Open%20source%20repository%20URL%20-%20project%20must%20be%20open%20source)%0A%3Ehttps%3A%2F%2Fgithub.com%2FCasualHackathon%2FT) |
 
 <!-- Submission end -->
 

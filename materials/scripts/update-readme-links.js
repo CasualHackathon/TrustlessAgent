@@ -7,7 +7,7 @@
 
 const fs = require('fs');
 const path = require('path');
-const { FIELD_NAMES, GITHUB_CONFIG } = require('./config/constants');
+const { FIELD_NAMES, GITHUB_CONFIG, REQUIRED_FIELDS } = require('./config/constants');
 
 // 获取命令行参数
 const args = process.argv.slice(2);
@@ -23,44 +23,54 @@ function generateIssueUrl(title, body) {
     return `${repoUrl}/issues/new?title=${encodedTitle}&body=${encodedBody}`;
 }
 
+const NOTE = `> 📝 **Please fill in the content after ">"**`;
+
+// 生成带必填标识的字段
+function generateFieldWithRequired(fieldName, description, fieldType) {
+    const requiredFields = REQUIRED_FIELDS[fieldType];
+    const isRequired = requiredFields.includes(fieldName);
+    const requiredMark = isRequired ? ' | Required' : '';
+    return `**${fieldName}** (${description}${requiredMark})`;
+}
+
 // 生成注册链接
-const registrationLink = generateIssueUrl(`${GITHUB_CONFIG.ISSUE_TITLE_PREFIXES.REGISTRATION} - [Your Name Here]`, `## Registration Form
+const registrationLink = generateIssueUrl(`${GITHUB_CONFIG.ISSUE_TITLE_PREFIXES.REGISTRATION} - New`, `## Registration Form
 
-> 📝 **Please replace "[Your Name Here]" in the title above with your actual name, then fill in the content after each > arrow below.**
+${NOTE}
 
-**${FIELD_NAMES.REGISTRATION.NAME}** (Please enter your full name)
+${generateFieldWithRequired(FIELD_NAMES.REGISTRATION.NAME, 'Please enter your full name', 'REGISTRATION')}
 >
 
-**${FIELD_NAMES.REGISTRATION.DESCRIPTION}** (Brief personal introduction including skills and experience)
+${generateFieldWithRequired(FIELD_NAMES.REGISTRATION.DESCRIPTION, 'Brief personal introduction including skills and experience', 'REGISTRATION')}
 >
 
-**${FIELD_NAMES.REGISTRATION.CONTACT}** (Format: Contact Method: Contact Account, e.g., Telegram: @username, WeChat: username, Email: email@example.com)
+${generateFieldWithRequired(FIELD_NAMES.REGISTRATION.CONTACT, 'Format: Contact Method: Contact Account, e.g., Telegram: @username, WeChat: username, Email: email@example.com', 'REGISTRATION')}
 >
 
-**${FIELD_NAMES.REGISTRATION.WALLET_ADDRESS}** (Your wallet address or ENS domain on Ethereum mainnet)
+${generateFieldWithRequired(FIELD_NAMES.REGISTRATION.WALLET_ADDRESS, 'Your wallet address or ENS domain on Ethereum mainnet', 'REGISTRATION')}
 >
 
-**${FIELD_NAMES.REGISTRATION.TEAM_WILLINGNESS}** (Choose one: Yes | No | Maybe)
+${generateFieldWithRequired(FIELD_NAMES.REGISTRATION.TEAM_WILLINGNESS, 'Choose one: Yes | No | Maybe', 'REGISTRATION')}
 >`);
 
 // 生成提交链接
-const submissionLink = generateIssueUrl(`${GITHUB_CONFIG.ISSUE_TITLE_PREFIXES.SUBMISSION} - [Your Project Name Here]`, `## Project Submission Form
+const submissionLink = generateIssueUrl(`${GITHUB_CONFIG.ISSUE_TITLE_PREFIXES.SUBMISSION} - New`, `## Project Submission Form
 
-> 📝 **Please replace "[Your Project Name Here]" in the title above with your actual project name, then fill in the content after each > arrow below.**
+${NOTE}
 
-**${FIELD_NAMES.SUBMISSION.PROJECT_NAME}** (Enter your project name)
+${generateFieldWithRequired(FIELD_NAMES.SUBMISSION.PROJECT_NAME, 'Enter your project name', 'SUBMISSION')}
 >
 
-**${FIELD_NAMES.SUBMISSION.PROJECT_DESCRIPTION}** (Brief description about your project in one sentence)
+${generateFieldWithRequired(FIELD_NAMES.SUBMISSION.PROJECT_DESCRIPTION, 'Brief description about your project in one sentence', 'SUBMISSION')}
 >
 
-**${FIELD_NAMES.SUBMISSION.PROJECT_MEMBERS}** (List all team members, comma-separated)
+${generateFieldWithRequired(FIELD_NAMES.SUBMISSION.PROJECT_LEADER, 'Project leader name', 'SUBMISSION')}
 >
 
-**${FIELD_NAMES.SUBMISSION.PROJECT_LEADER}** (Project leader name)
+${generateFieldWithRequired(FIELD_NAMES.SUBMISSION.PROJECT_MEMBERS, 'List all team members, comma-separated', 'SUBMISSION')}
 >
 
-**${FIELD_NAMES.SUBMISSION.REPOSITORY_URL}** (Open source repository URL - project must be open source)
+${generateFieldWithRequired(FIELD_NAMES.SUBMISSION.REPOSITORY_URL, 'Open source repository URL - project must be open source', 'SUBMISSION')}
 >`);
 
 console.log('\n📝 生成的链接:');

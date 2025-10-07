@@ -26,7 +26,7 @@ class SubmissionProcessor {
         FieldValidator.validateRequiredFields(issueBody, 'SUBMISSION');
 
         // 保存原始issue内容
-        this.createSubmissionFile(issueBody);
+        this.createSubmissionFile(issueBody, githubUser);
 
         // 更新提交表格
         this.updateSubmissionTable();
@@ -37,34 +37,22 @@ class SubmissionProcessor {
 
     /**
      * 获取提交文件路径
-     * @param {string} projectName - 项目名称
+     * @param {string} githubUser - GitHub 用户名
      * @returns {string} 提交文件路径
      */
-    static getSubmissionFilePath(projectName) {
+    static getSubmissionFilePath(githubUser) {
         const submissionDir = path.join(__dirname, DIRECTORIES.SUBMISSION);
-        return path.join(submissionDir, `${projectName}.md`);
+        return path.join(submissionDir, `${githubUser}.md`);
     }
 
     /**
      * 创建提交文件
      * @param {string} originalIssueBody - 原始issue内容
+     * @param {string} githubUser - GitHub 用户名
      */
-    static createSubmissionFile(originalIssueBody) {
-        // 尝试从issue内容中提取项目名称，解析失败则阻断程序
-        const projectNameMatch = originalIssueBody.match(/\*\*Project Name\*\*[^>]*>([^\n]+)/);
-        if (!projectNameMatch) {
-            console.error('项目提交字段不全，缺少项目名称信息');
-            process.exit(1);
-        }
-
-        const projectName = projectNameMatch[1].trim();
-        if (!projectName) {
-            console.error('项目名称不能为空');
-            process.exit(1);
-        }
-
-        // 创建提交文件
-        const filePath = this.getSubmissionFilePath(projectName);
+    static createSubmissionFile(originalIssueBody, githubUser) {
+        // 创建提交文件，使用 GitHub 用户名作为文件名
+        const filePath = this.getSubmissionFilePath(githubUser);
         FileManager.saveFile(filePath, originalIssueBody, '项目提交信息已写入');
     }
 
@@ -81,26 +69,27 @@ class SubmissionProcessor {
 
             if (!content) return null;
 
-            // 从文件名获取项目名称（去掉.md扩展名）
-            const projectName = file.replace('.md', '');
+            // 从文件名获取 GitHub 用户名（去掉.md扩展名）
+            const githubUser = file.replace('.md', '');
 
             // 尝试解析字段，解析失败则跳过
             try {
-                const parsedProjectName = parseFieldFromContent(content, FIELD_NAMES.SUBMISSION.PROJECT_NAME) || projectName;
+                const projectName = parseFieldFromContent(content, FIELD_NAMES.SUBMISSION.PROJECT_NAME);
                 const projectDescription = parseFieldFromContent(content, FIELD_NAMES.SUBMISSION.PROJECT_DESCRIPTION);
                 const projectMembers = parseFieldFromContent(content, FIELD_NAMES.SUBMISSION.PROJECT_MEMBERS);
                 const projectLeader = parseFieldFromContent(content, FIELD_NAMES.SUBMISSION.PROJECT_LEADER);
                 const repositoryUrl = parseFieldFromContent(content, FIELD_NAMES.SUBMISSION.REPOSITORY_URL);
 
                 // 如果解析失败或关键字段为空，跳过这个文件
-                if (!parsedProjectName || !projectDescription || !projectLeader) {
+                if (!projectName || !projectDescription || !projectLeader) {
                     console.log(`跳过文件 ${file}：解析失败或缺少关键字段`);
                     return null;
                 }
 
                 return {
                     fileName: file,
-                    projectName: parsedProjectName,
+                    githubUser: githubUser,
+                    projectName: projectName,
                     projectDescription,
                     projectMembers,
                     projectLeader,
