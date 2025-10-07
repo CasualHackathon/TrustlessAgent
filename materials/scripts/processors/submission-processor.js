@@ -90,7 +90,7 @@ class SubmissionProcessor {
                 const repositoryUrl = parseFieldFromContent(content, FIELD_NAMES.SUBMISSION.REPOSITORY_URL);
 
                 // 如果解析失败或关键字段为空，跳过这个文件
-                if (!parsedProjectName || !projectMembers || !projectLeader) {
+                if (!parsedProjectName || !projectDescription || !projectLeader) {
                     console.log(`跳过文件 ${file}：解析失败或缺少关键字段`);
                     return null;
                 }
