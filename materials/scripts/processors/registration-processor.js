@@ -3,7 +3,7 @@ const FileManager = require('../utils/file-manager');
 const { parseFieldFromContent } = require('../utils/parser-manager');
 const UserManager = require('../utils/user-manager');
 const ReadmeManager = require('../utils/readme-manager');
-const GitManager = require('../utils/git-manager');
+const FieldValidator = require('../utils/field-validator');
 const { DIRECTORIES, FIELD_NAMES, GITHUB_CONFIG } = require('../config/constants');
 
 /**
@@ -19,20 +19,14 @@ class RegistrationProcessor {
     static processRegistration(issueBody, githubUser) {
         console.log('开始处理注册请求...');
 
-        // 直接保存原始issue内容，不做任何验证
+        // 验证必填字段
+        FieldValidator.validateRequiredFields(issueBody, 'REGISTRATION');
+
+        // 保存原始issue内容
         this.createRegistrationFile(githubUser, issueBody);
 
         // 更新 README 表格
         this.updateRegistrationTable();
-
-        // 提交到 Git
-        const registrationFile = UserManager.getRegistrationFilePath(githubUser);
-        const readmePath = ReadmeManager.getReadmePath();
-        GitManager.commitWorkflow(
-            `Add registration for ${githubUser}`,
-            registrationFile,
-            readmePath
-        );
 
         console.log('注册处理完成');
     }

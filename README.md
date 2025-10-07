@@ -22,6 +22,8 @@
 - Note: Please do not modify other people's information.
 
 <!-- Registration start -->
+| Name | Description | Contact | Team Willingness | Operate |
+| ---- | ----------- | ------- | ---------------- | ------- |
 
 <!-- Registration end -->
 
@@ -39,6 +41,8 @@
 - Do not modify or delete the `HACKATHON.md` file in your folder, nor modify others' files.
 
 <!-- Submission start -->
+| Project | Description | Members | Leader | Repository | Operate |
+| ----------- | ----------------- | -------------- | ------- | ---------- | -------- |
 
 <!-- Submission end -->
 

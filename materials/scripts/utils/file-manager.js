@@ -110,6 +110,15 @@ class FileManager {
     }
 
     /**
+     * 检查文件是否存在
+     * @param {string} filePath - 文件路径
+     * @returns {boolean} 文件是否存在
+     */
+    static fileExists(filePath) {
+        return fs.existsSync(filePath);
+    }
+
+    /**
      * 通用文件更新方法 - 更新或创建文件
      * @param {string} filePath - 文件路径
      * @param {string} content - 文件内容

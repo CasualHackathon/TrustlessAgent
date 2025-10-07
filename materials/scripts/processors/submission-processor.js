@@ -3,7 +3,7 @@ const FileManager = require('../utils/file-manager');
 const { parseFieldFromContent } = require('../utils/parser-manager');
 const UserManager = require('../utils/user-manager');
 const ReadmeManager = require('../utils/readme-manager');
-const GitManager = require('../utils/git-manager');
+const FieldValidator = require('../utils/field-validator');
 const { DIRECTORIES, FILE_NAMES, FIELD_NAMES } = require('../config/constants');
 
 /**
@@ -19,18 +19,17 @@ class SubmissionProcessor {
     static processSubmission(issueBody, githubUser) {
         console.log('开始处理项目提交...');
 
-        // 直接保存原始issue内容
+        // 检查用户是否已注册
+        FieldValidator.checkUserRegistration(githubUser, UserManager, FileManager);
+
+        // 验证必填字段
+        FieldValidator.validateRequiredFields(issueBody, 'SUBMISSION');
+
+        // 保存原始issue内容
         this.createSubmissionFile(issueBody);
 
         // 更新提交表格
         this.updateSubmissionTable();
-
-        // 提交到 Git
-        const readmePath = ReadmeManager.getReadmePath();
-        GitManager.commitWorkflow(
-            `Add submission`,
-            readmePath
-        );
 
         console.log('项目提交处理完成');
     }
@@ -63,6 +62,10 @@ class SubmissionProcessor {
             console.error('项目名称不能为空');
             process.exit(1);
         }
+
+        // 创建提交文件
+        const filePath = this.getSubmissionFilePath(projectName);
+        FileManager.saveFile(filePath, originalIssueBody, '项目提交信息已写入');
     }
 
     /**
