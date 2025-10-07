@@ -29,7 +29,12 @@ jobs:
         id: extract-submission
         run: |
           # 捕获脚本输出和错误信息
-          if node materials/scripts/submission_extract.js 2>&1 | tee script_output.log; then
+          node materials/scripts/submission_extract.js 2>&1 | tee script_output.log
+          SCRIPT_EXIT_CODE=$?
+          
+          echo "脚本退出码: $SCRIPT_EXIT_CODE"
+          
+          if [ $SCRIPT_EXIT_CODE -eq 0 ]; then
             # 脚本执行成功
             echo "script_success=true" >> $GITHUB_OUTPUT
             echo "✅ 脚本执行成功"
