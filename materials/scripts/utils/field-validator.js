@@ -39,7 +39,8 @@ class FieldValidator {
             // 同时输出到控制台
             console.error('ERROR_MESSAGE:', errorMessage);
 
-            throw new Error(`字段验证失败: ${missingFields.join(', ')}`);
+            console.error(`字段验证失败: ${missingFields.join(', ')}`);
+            process.exit(1);
         }
     }
 
@@ -80,7 +81,9 @@ class FieldValidator {
             // 同时输出到控制台
             console.error('ERROR_MESSAGE:', errorMessage);
 
-            throw new Error(`用户 ${githubUser} 未注册`);
+            // throw new Error(`用户 ${githubUser} 未注册`);
+            console.error(`用户 ${githubUser} 未注册`);
+            process.exit(1);
         }
     }
 }
