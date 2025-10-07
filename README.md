@@ -44,6 +44,7 @@
 <!-- Submission start -->
 | Project | Description | Members | Leader | Repository | Operate |
 | ----------- | ----------------- | -------------- | ------- | ---------- | -------- |
+| pro test | test edit desc | alice,bob | alice | ❌ | [Edit](https://github.com/CasualHackathon/Template/issues/new?title=Submission%20-%20pro%20test&body=%23%23%20Project%20Submission%20Form%0A%0A%3E%20%F0%9F%93%9D%20**Please%20replace%20%22%5BYour%20Project%20Name%20Here%5D%22%20in%20the%20title%20above%20with%20your%20actual%20project%20name%2C%20then%20fill%20in%20the%20content%20after%20each%20%3E%20arrow%20below.**%0A%0A**Project%20Name**%20(Enter%20your%20project%20name)%0A%3Epro%20test%0A%0A**Project%20Description**%20(Brief%20description%20about%20your%20project%20in%20one%20sentence)%0A%3Etest%20edit%20desc%0A%0A**Project%20Members**%20(List%20all%20team%20members%2C%20comma-separated)%0A%3Ealice%2Cbob%0A%0A**Project%20Leader**%20(Project%20leader%20name)%0A%3Ealice%0A%0A**Repository%20URL**%20(Open%20source%20repository%20URL%20-%20project%20must%20be%20open%20source)%0A%3E) |
 
 <!-- Submission end -->
 
