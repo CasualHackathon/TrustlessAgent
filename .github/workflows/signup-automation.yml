@@ -27,19 +27,16 @@ jobs:
 
       - name: Extract Signup Info, Create Registration File and Update Table
         id: extract-signup
+        # 关键：允许步骤失败后继续执行后续步骤（否则错误处理步骤会被跳过）
+        continue-on-error: true
         run: |
           # 捕获脚本输出和错误信息
-          node materials/scripts/signup_extract.js 2>&1 | tee script_output.log
-          SCRIPT_EXIT_CODE=$?
-          
-          echo "脚本退出码: $SCRIPT_EXIT_CODE"
-          
-          if [ $SCRIPT_EXIT_CODE -eq 0 ]; then
-            # 脚本执行成功
+          if node materials/scripts/signup_extract.js 2>&1 | tee script_output.log; then
+            # 脚本执行成功：设置成功状态
             echo "script_success=true" >> $GITHUB_OUTPUT
             echo "✅ 脚本执行成功"
           else
-            # 脚本执行失败，提取错误信息
+            # 脚本执行失败：设置失败状态+提取错误信息
             echo "script_success=false" >> $GITHUB_OUTPUT
             if grep -q "ERROR_MESSAGE:" script_output.log; then
               ERROR_MSG=$(grep "ERROR_MESSAGE:" script_output.log | sed 's/ERROR_MESSAGE: //')
@@ -48,7 +45,7 @@ jobs:
               echo "error_message=❌ **处理失败**\n\n处理过程中发生未知错误，请检查提交格式是否正确。" >> $GITHUB_OUTPUT
             fi
             echo "❌ 脚本执行失败"
-            exit 1
+            # 移除 exit 1：避免提前终止步骤，确保输出变量能正常写入
           fi
         env:
           ISSUE_BODY: ${{ github.event.issue.body }}
@@ -56,17 +53,19 @@ jobs:
           GITHUB_OUTPUT: ${{ github.output }}
 
       - name: Handle Script Errors
-        if: failure()
+        # 关键：仅当 extract-signup 步骤输出的 script_success 为 false 时执行
+        if: steps.extract-signup.outputs.script_success == 'false'
+        # 移除错误的 needs 字段！同一个 Job 内步骤默认按顺序执行，无需 needs
         uses: actions/github-script@v7
         with:
           github-token: ${{ secrets.GITHUB_TOKEN }}
           script: |
             const { owner, repo } = context.repo;
             const issue_number = context.payload.issue.number;
-            
-            // 从步骤输出中获取错误信息
+            // 从 extract-signup 步骤的输出中获取错误信息（若未获取到则用默认值）
             const errorMessage = steps.extract-signup.outputs.error_message || '❌ **处理失败**\n\n处理过程中发生未知错误，请检查提交格式是否正确。';
             
+            // 向 Issue 中添加错误评论
             await github.rest.issues.createComment({
               owner,
               repo,
@@ -75,8 +74,11 @@ jobs:
             });
             
             console.log(`❌ 错误已通过评论告知用户: Issue #${issue_number}`);
+            // 标记整个作业为失败（符合错误场景的预期状态）
+            core.setFailed(errorMessage);
 
       - name: Commit & Push Changes
+        # 仅当脚本执行成功时才提交代码
         if: steps.extract-signup.outputs.script_success == 'true'
         env:
           GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
@@ -84,25 +86,22 @@ jobs:
           git config --global user.email "action@github.com"
           git config --global user.name "GitHub Action"
           
-          # 获取最新代码
+          # 拉取最新代码，避免冲突
           git fetch origin main
           git reset --hard origin/main
           
-          # 添加所有更改
           git add .
-          
-          # 检查是否有更改需要提交
+          # 仅当有变更时才提交
           if git diff --staged --quiet; then
             echo "No changes to commit"
           else
-            # 提交更改
             git commit -m "Add registration for ${{ github.event.issue.user.login }}"
-            # 推送更改
             git push origin HEAD:main
             echo "✅ 注册信息已成功提交"
           fi
 
       - name: Comment and close issue
+        # 仅当脚本执行成功时才添加成功评论并关闭 Issue
         if: steps.extract-signup.outputs.script_success == 'true'
         uses: actions/github-script@v7
         with:
@@ -113,14 +112,12 @@ jobs:
             const user = context.payload.issue.user.login;
 
             try {
-              // 添加成功处理的评论
+              // 根据触发动作设置评论中的类型（Auto/Edit/Manual）
               let actionType = 'Manual';
-              if (context.payload.action === 'opened') {
-                actionType = 'Auto';
-              } else if (context.payload.action === 'edited') {
-                actionType = 'Edit';
-              }
+              if (context.payload.action === 'opened') actionType = 'Auto';
+              else if (context.payload.action === 'edited') actionType = 'Edit';
               
+              // 添加成功评论
               await github.rest.issues.createComment({
                 owner,
                 repo,
@@ -128,7 +125,7 @@ jobs:
                 body: `✅ Registration processed successfully! (${actionType})`
               });
               
-              // 在自动触发或编辑时关闭 issue
+              // 自动触发或编辑时关闭 Issue
               if (context.payload.action === 'opened' || context.payload.action === 'edited') {
                 await github.rest.issues.update({
                   owner,
