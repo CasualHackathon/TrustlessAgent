@@ -86,9 +86,9 @@ jobs:
           git config --global user.email "action@github.com"
           git config --global user.name "GitHub Action"
           
-          # 拉取最新代码，避免冲突
+          # 拉取最新代码，但保留本地更改
           git fetch origin main
-          git reset --hard origin/main
+          git merge origin/main --no-edit || true
           
           git add .
           # 仅当有变更时才提交
