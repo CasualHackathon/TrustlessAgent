@@ -1,0 +1,25 @@
+处理用户: BiscuitCoder
+Issue 内容:
+ ## Project Submission Form
+
+> 📝 **Please fill in the content after ">"**
+
+**Project Name** (Enter your project name | Required)
+>pro
+
+**Project Description** (Brief description about your project in one sentence | Required)
+>pro desc
+
+**Project Leader** (Project leader name | Required)
+>alice
+
+**Project Members** (List all team members, comma-separated)
+>alice,bob
+
+**Repository URL** (Open source repository URL - project must be open source)
+>https://github.com/CasualHackathon/Template
+开始处理项目提交...
+项目提交信息已写入: /home/runner/work/Template/Template/submission/BiscuitCoder.md
+文件写入成功: /home/runner/work/Template/Template/README.md
+README.md SUBMISSION 区域已更新
+项目提交处理完成

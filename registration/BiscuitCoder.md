@@ -12,7 +12,7 @@
 >tg:alice
 
 **Wallet Address** (Your wallet address or ENS domain on Ethereum mainnet)
->0x123123
+>0x23432
 
 **Team Willingness** (Choose one: Yes | No | Maybe)
->Yes
+>No
