@@ -62,11 +62,19 @@ jobs:
         run: |
           git config --global user.email "action@github.com"
           git config --global user.name "GitHub Action"
-          # Pull the latest main to avoid non-fast-forward
-          git pull --rebase origin main
+          # Add all changes first
           git add .
-          git commit -m "Add registration for ${{ github.event.issue.user.login }}" || echo "No changes to commit"
-          git push origin HEAD:main
+          # Check if there are any changes to commit
+          if git diff --staged --quiet; then
+            echo "No changes to commit"
+          else
+            # Commit the changes
+            git commit -m "Add registration for ${{ github.event.issue.user.login }}"
+            # Pull the latest main to avoid non-fast-forward
+            git pull --rebase origin main
+            # Push the changes
+            git push origin HEAD:main
+          fi
 
       - name: Comment and close issue
         if: success()
