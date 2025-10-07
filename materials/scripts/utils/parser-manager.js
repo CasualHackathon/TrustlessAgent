@@ -3,59 +3,6 @@
  * Common field parsing utilities for issue body and file content
  */
 
-/**
- * 解析 Issue Body 中的字段
- * @param {string} bodyString - Issue body 内容
- * @returns {Object} 解析后的字段对象
- */
-function parseIssueFields(bodyString) {
-    const cleanBody = bodyString
-        .split('\n')
-        .map(line => line.trim())
-        .join('\n');
-
-    const lines = cleanBody.split('\n');
-    const fields = {};
-
-    // 提取所有 **Field Name** 格式的字段名
-    const fieldNames = [];
-    const fieldValues = [];
-
-    // 先收集所有字段名（排除指令行）
-    for (const line of lines) {
-        // 匹配 **Field Name** (description) 格式，但排除指令行
-        const match = line.match(/^\*\*(.+?)\*\*\s*\([^)]+\)$/);
-        if (match && !line.includes('Instructions') && !line.includes('Example')) {
-            fieldNames.push(match[1].trim());
-        }
-    }
-
-    // 再收集所有 > 格式的值（排除指令行）
-    for (const line of lines) {
-        if (line.startsWith('>') && !line.includes('Instructions') && !line.includes('Example') && !line.includes('**')) {
-            fieldValues.push(line.substring(1).trim());
-        }
-    }
-
-    // 按索引一一对应
-    for (let i = 0; i < Math.min(fieldNames.length, fieldValues.length); i++) {
-        fields[fieldNames[i]] = fieldValues[i];
-    }
-
-    // 兼容旧格式: Field[中文]: 或 Field:
-    for (const line of lines) {
-        const colonIndex = line.indexOf(':') !== -1 ? line.indexOf(':') : line.indexOf('：');
-        if (colonIndex !== -1 && !line.startsWith('**')) {
-            const key = line.slice(0, colonIndex).trim();
-            const value = line.slice(colonIndex + 1).trim();
-            if (value && !fields[key]) {
-                fields[key] = value;
-            }
-        }
-    }
-
-    return fields;
-}
 
 /**
  * 从文件内容中解析指定字段
@@ -105,6 +52,5 @@ function parseFieldFromContent(content, fieldName) {
 }
 
 module.exports = {
-    parseIssueFields,
     parseFieldFromContent
 };

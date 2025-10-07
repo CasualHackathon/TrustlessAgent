@@ -12,8 +12,7 @@ const DIRECTORIES = {
 
 // 文件名配置
 const FILE_NAMES = {
-    README: '../../README.md',
-    HACKATHON_INFO: 'HACKATHON.md'
+    README: '../../README.md'
 };
 
 // 字段名配置
@@ -36,11 +35,6 @@ const FIELD_NAMES = {
     }
 };
 
-// Git 相关配置
-const GIT_CONFIG = {
-    USER_EMAIL: 'action@github.com',
-    USER_NAME: 'GitHub Action'
-};
 
 // GitHub 相关配置
 const GITHUB_CONFIG = {
@@ -63,18 +57,11 @@ const README_MARKERS = {
     }
 };
 
-// 状态指示符
-const STATUS_INDICATORS = {
-    NOT_SUBMITTED: '⚪',
-    SUBMITTED: '🟢'
-};
 
 module.exports = {
     DIRECTORIES,
     FILE_NAMES,
     FIELD_NAMES,
-    GIT_CONFIG,
     GITHUB_CONFIG,
-    README_MARKERS,
-    STATUS_INDICATORS
+    README_MARKERS
 };

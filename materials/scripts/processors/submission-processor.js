@@ -1,10 +1,10 @@
 const path = require('path');
 const FileManager = require('../utils/file-manager');
-const { parseIssueFields, parseFieldFromContent } = require('../utils/field-parser');
-const UserManager = require('../services/user-manager');
-const ReadmeManager = require('../services/readme-manager');
+const { parseFieldFromContent } = require('../utils/parser-manager');
+const UserManager = require('../utils/user-manager');
+const ReadmeManager = require('../utils/readme-manager');
 const GitManager = require('../utils/git-manager');
-const { DIRECTORIES, FILE_NAMES, FIELD_NAMES, STATUS_INDICATORS } = require('../config/constants');
+const { DIRECTORIES, FILE_NAMES, FIELD_NAMES } = require('../config/constants');
 
 /**
  * 项目提交处理器
@@ -19,28 +19,16 @@ class SubmissionProcessor {
     static processSubmission(issueBody, githubUser) {
         console.log('开始处理项目提交...');
 
-        // 简单验证：检查是否包含基本字段（不做复杂解析）
-        if (!issueBody.includes('**Project Name**') || !issueBody.includes('**Project Members**') || !issueBody.includes('**Project Leader**')) {
-            console.error('项目提交字段不全，缺少必填信息');
-            process.exit(1);
-        }
-
-        // 从issue内容中提取项目名称（用于文件名）
-        const projectNameMatch = issueBody.match(/\*\*Project Name\*\*[^>]*>([^\n]+)/);
-        const projectName = projectNameMatch ? projectNameMatch[1].trim() : `Project-${Date.now()}`;
-
         // 直接保存原始issue内容
-        this.createSubmissionFile(projectName, issueBody);
+        this.createSubmissionFile(issueBody);
 
         // 更新提交表格
         this.updateSubmissionTable();
 
         // 提交到 Git
-        const submissionFile = this.getSubmissionFilePath(projectName);
         const readmePath = ReadmeManager.getReadmePath();
         GitManager.commitWorkflow(
-            `Add submission for ${projectName}`,
-            submissionFile,
+            `Add submission`,
             readmePath
         );
 
@@ -60,29 +48,21 @@ class SubmissionProcessor {
 
     /**
      * 创建提交文件
-     * @param {string} projectName - 项目名称
      * @param {string} originalIssueBody - 原始issue内容
      */
-    static createSubmissionFile(projectName, originalIssueBody) {
-        const submissionDir = path.join(__dirname, DIRECTORIES.SUBMISSION);
-        FileManager.ensureDirectoryExists(submissionDir);
+    static createSubmissionFile(originalIssueBody) {
+        // 尝试从issue内容中提取项目名称，解析失败则阻断程序
+        const projectNameMatch = originalIssueBody.match(/\*\*Project Name\*\*[^>]*>([^\n]+)/);
+        if (!projectNameMatch) {
+            console.error('项目提交字段不全，缺少项目名称信息');
+            process.exit(1);
+        }
 
-        const content = this.generateSubmissionFileContent(projectName, originalIssueBody);
-        const filePath = this.getSubmissionFilePath(projectName);
-
-        FileManager.writeFileContent(filePath, content);
-        console.log(`项目信息已写入: ${filePath}`);
-    }
-
-    /**
-     * 生成提交文件内容 - 直接保存原始issue内容，不做任何处理
-     * @param {string} projectName - 项目名称
-     * @param {string} originalIssueBody - 原始issue内容
-     * @returns {string} 文件内容
-     */
-    static generateSubmissionFileContent(projectName, originalIssueBody) {
-        // 直接返回原始issue内容，不做任何转换
-        return originalIssueBody;
+        const projectName = projectNameMatch[1].trim();
+        if (!projectName) {
+            console.error('项目名称不能为空');
+            process.exit(1);
+        }
     }
 
     /**
@@ -101,7 +81,7 @@ class SubmissionProcessor {
             // 从文件名获取项目名称（去掉.md扩展名）
             const projectName = file.replace('.md', '');
 
-            // 尝试解析字段，解析失败则返回null（会被过滤掉）
+            // 尝试解析字段，解析失败则跳过
             try {
                 const parsedProjectName = parseFieldFromContent(content, FIELD_NAMES.SUBMISSION.PROJECT_NAME) || projectName;
                 const projectDescription = parseFieldFromContent(content, FIELD_NAMES.SUBMISSION.PROJECT_DESCRIPTION);
@@ -109,9 +89,9 @@ class SubmissionProcessor {
                 const projectLeader = parseFieldFromContent(content, FIELD_NAMES.SUBMISSION.PROJECT_LEADER);
                 const repositoryUrl = parseFieldFromContent(content, FIELD_NAMES.SUBMISSION.REPOSITORY_URL);
 
-                // 如果关键字段为空，跳过这个文件
+                // 如果解析失败或关键字段为空，跳过这个文件
                 if (!parsedProjectName || !projectMembers || !projectLeader) {
-                    console.log(`跳过文件 ${file}：缺少关键字段`);
+                    console.log(`跳过文件 ${file}：解析失败或缺少关键字段`);
                     return null;
                 }
 
@@ -139,7 +119,7 @@ class SubmissionProcessor {
         // 直接生成表格内容
         let table = '| Project | Description | Members | Leader | Repository | Operate |\n| ----------- | ----------------- | -------------- | ------- | ---------- | -------- |\n';
 
-        rows.forEach((row, index) => {
+        rows.forEach((row) => {
             const issueTitle = `Submission - ${row.projectName}`;
 
             // 直接读取MD文件内容作为编辑链接的body

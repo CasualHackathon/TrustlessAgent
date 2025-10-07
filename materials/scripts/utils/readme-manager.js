@@ -1,5 +1,5 @@
 const path = require('path');
-const FileManager = require('../utils/file-manager');
+const FileManager = require('./file-manager');
 const { README_MARKERS, GITHUB_CONFIG } = require('../config/constants');
 
 /**
@@ -60,23 +60,6 @@ class ReadmeManager {
         return `${GITHUB_CONFIG.REPO_URL}/issues/new?title=${encodedTitle}&body=${encodedBody}`;
     }
 
-    /**
-     * 生成文件夹链接
-     * @param {string} folderPath - 文件夹路径
-     * @returns {string} 文件夹链接
-     */
-    static generateFolderUrl(folderPath) {
-        return `${GITHUB_CONFIG.REPO_URL}/tree/main/${folderPath}`;
-    }
-
-    /**
-     * 生成文件链接
-     * @param {string} filePath - 文件路径
-     * @returns {string} 文件链接
-     */
-    static generateFileUrl(filePath) {
-        return `${GITHUB_CONFIG.REPO_URL}/blob/main/${filePath}`;
-    }
 }
 
 module.exports = ReadmeManager;

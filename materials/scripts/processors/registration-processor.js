@@ -1,9 +1,8 @@
 const path = require('path');
 const FileManager = require('../utils/file-manager');
-const { parseIssueFields } = require('../utils/field-parser');
-const { parseFieldFromContent } = require('../utils/field-parser');
-const UserManager = require('../services/user-manager');
-const ReadmeManager = require('../services/readme-manager');
+const { parseFieldFromContent } = require('../utils/parser-manager');
+const UserManager = require('../utils/user-manager');
+const ReadmeManager = require('../utils/readme-manager');
 const GitManager = require('../utils/git-manager');
 const { DIRECTORIES, FIELD_NAMES, GITHUB_CONFIG } = require('../config/constants');
 
@@ -20,13 +19,7 @@ class RegistrationProcessor {
     static processRegistration(issueBody, githubUser) {
         console.log('开始处理注册请求...');
 
-        // 简单验证：检查是否包含基本字段（不做复杂解析）
-        if (!issueBody.includes('**Name**') || !issueBody.includes('**Contact**') || !issueBody.includes('**Wallet Address**')) {
-            console.error('注册字段不全，缺少必填信息');
-            process.exit(1);
-        }
-
-        // 直接保存原始issue内容
+        // 直接保存原始issue内容，不做任何验证
         this.createRegistrationFile(githubUser, issueBody);
 
         // 更新 README 表格
@@ -51,25 +44,8 @@ class RegistrationProcessor {
      * @param {string} originalIssueBody - 原始issue内容
      */
     static createRegistrationFile(githubUser, originalIssueBody) {
-        const registrationDir = path.join(__dirname, DIRECTORIES.REGISTRATION);
-        FileManager.ensureDirectoryExists(registrationDir);
-
-        const content = this.generateRegistrationFileContent(githubUser, originalIssueBody);
         const filePath = UserManager.getRegistrationFilePath(githubUser);
-
-        FileManager.writeFileContent(filePath, content);
-        console.log(`报名信息已写入: ${filePath}`);
-    }
-
-    /**
-     * 生成注册文件内容 - 直接保存原始issue内容，不做任何处理
-     * @param {string} githubUser - GitHub 用户名
-     * @param {string} originalIssueBody - 原始issue内容
-     * @returns {string} 文件内容
-     */
-    static generateRegistrationFileContent(githubUser, originalIssueBody) {
-        // 直接返回原始issue内容，不做任何转换
-        return originalIssueBody;
+        FileManager.saveFile(filePath, originalIssueBody, '报名信息已写入');
     }
 
     /**
@@ -83,7 +59,7 @@ class RegistrationProcessor {
             const filePath = path.join(registrationDir, file);
             const content = FileManager.readFileContent(filePath);
 
-            // 尝试解析字段，解析失败则返回null（会被过滤掉）
+            // 尝试解析字段，解析失败则跳过
             try {
                 const name = parseFieldFromContent(content, FIELD_NAMES.REGISTRATION.NAME);
                 const description = parseFieldFromContent(content, FIELD_NAMES.REGISTRATION.DESCRIPTION);
@@ -91,9 +67,9 @@ class RegistrationProcessor {
                 const walletAddress = parseFieldFromContent(content, FIELD_NAMES.REGISTRATION.WALLET_ADDRESS);
                 const teamWillingness = parseFieldFromContent(content, FIELD_NAMES.REGISTRATION.TEAM_WILLINGNESS);
 
-                // 如果关键字段为空，跳过这个文件
+                // 如果解析失败或关键字段为空，跳过这个文件
                 if (!name || !contact || !walletAddress) {
-                    console.log(`跳过文件 ${file}：缺少关键字段`);
+                    console.log(`跳过文件 ${file}：解析失败或缺少关键字段`);
                     return null;
                 }
 
@@ -102,7 +78,8 @@ class RegistrationProcessor {
                     description,
                     contact,
                     walletAddress,
-                    teamWillingness
+                    teamWillingness,
+                    fileName: file
                 };
             } catch (error) {
                 console.log(`跳过文件 ${file}：解析失败 - ${error.message}`);
@@ -110,7 +87,7 @@ class RegistrationProcessor {
             }
         }).filter(Boolean); // 过滤掉null值
 
-        // 按项目名称首字母升序排序
+        // 按姓名首字母升序排序
         rows.sort((a, b) => {
             const nameA = (a.name || '').toLowerCase();
             const nameB = (b.name || '').toLowerCase();
@@ -120,12 +97,11 @@ class RegistrationProcessor {
         // 直接生成表格内容
         let table = '| Name | Description | Contact | Team Willingness | Operate |\n| ---- | ----------- | ------- | ---------------- | ------- |\n';
 
-        rows.forEach((row, index) => {
+        rows.forEach((row) => {
             const issueTitle = `${GITHUB_CONFIG.ISSUE_TITLE_PREFIXES.REGISTRATION} - ${row.name}`;
 
             // 直接读取MD文件内容作为编辑链接的body
-            // 从文件名获取githubUser（去掉.md扩展名）
-            const githubUser = files[index].replace('.md', '');
+            const githubUser = row.fileName.replace('.md', '');
             const filePath = UserManager.getRegistrationFilePath(githubUser);
             const issueBody = FileManager.readFileContent(filePath);
 

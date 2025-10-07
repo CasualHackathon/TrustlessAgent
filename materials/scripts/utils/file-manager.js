@@ -87,6 +87,37 @@ class FileManager {
             return [];
         }
     }
+
+    /**
+     * 通用文件存储方法 - 直接保存内容到文件
+     * @param {string} filePath - 文件路径
+     * @param {string} content - 文件内容
+     * @param {string} logMessage - 日志消息
+     */
+    static saveFile(filePath, content, logMessage = '文件已保存') {
+        try {
+            // 确保目录存在
+            const dirPath = path.dirname(filePath);
+            this.ensureDirectoryExists(dirPath);
+
+            // 写入文件
+            fs.writeFileSync(filePath, content, 'utf8');
+            console.log(`${logMessage}: ${filePath}`);
+        } catch (error) {
+            console.error(`文件保存失败: ${filePath}`, error.message);
+            throw error;
+        }
+    }
+
+    /**
+     * 通用文件更新方法 - 更新或创建文件
+     * @param {string} filePath - 文件路径
+     * @param {string} content - 文件内容
+     * @param {string} logMessage - 日志消息
+     */
+    static updateFile(filePath, content, logMessage = '文件已更新') {
+        this.saveFile(filePath, content, logMessage);
+    }
 }
 
 module.exports = FileManager;
