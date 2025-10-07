@@ -37,7 +37,10 @@ jobs:
             else
               echo "error_message=❌ **处理失败**\n\n处理过程中发生未知错误，请检查提交格式是否正确。" >> $GITHUB_OUTPUT
             fi
+            echo "script_success=false" >> $GITHUB_OUTPUT
             exit 1
+          else
+            echo "script_success=true" >> $GITHUB_OUTPUT
           fi
         env:
           ISSUE_BODY: ${{ github.event.issue.body }}
@@ -66,7 +69,7 @@ jobs:
             console.log(`❌ 错误已通过评论告知用户: Issue #${issue_number}`);
 
       - name: Commit & Push Changes
-        if: steps.extract-registration.outcome == 'success'
+        if: steps.extract-signup.outputs.script_success == 'true'
         env:
           GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         run: |
@@ -92,7 +95,7 @@ jobs:
           fi
 
       - name: Comment and close issue
-        if: steps.extract-registration.outcome == 'success'
+        if: steps.extract-signup.outputs.script_success == 'true'
         uses: actions/github-script@v7
         with:
           github-token: ${{ secrets.GITHUB_TOKEN }}
