@@ -278,7 +278,7 @@ We are actively seeking sponsorship support for this intensive learning program!
 </table>
 
 ## 🌐 Community Support
-
+<!-- 
 <table>
     <tr>
         <td align="center" valign="middle">
@@ -307,7 +307,7 @@ We are actively seeking sponsorship support for this intensive learning program!
             </a>
         </td>
     </tr>
-</table>
+</table> -->
 
 ## 🏷️ Tags
 
