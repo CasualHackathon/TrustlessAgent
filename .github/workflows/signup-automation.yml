@@ -34,6 +34,10 @@ jobs:
           SCRIPT_OUTPUT=$(node materials/scripts/signup_extract.js 2>&1)
           SCRIPT_EXIT_CODE=$?
           
+          echo "Script output:"
+          echo "$SCRIPT_OUTPUT"
+          echo "Exit code: $SCRIPT_EXIT_CODE"
+          
           if [ $SCRIPT_EXIT_CODE -eq 0 ]; then
             # Script executed successfully: set success status
             echo "script_success=true" >> $GITHUB_OUTPUT
@@ -41,24 +45,36 @@ jobs:
           else
             # Script execution failed: set failure status + extract error message
             echo "script_success=false" >> $GITHUB_OUTPUT
+            
+            # Extract error message using multiline format
             if echo "$SCRIPT_OUTPUT" | grep -q "ERROR_MESSAGE:"; then
-              ERROR_MSG=$(echo "$SCRIPT_OUTPUT" | grep "ERROR_MESSAGE:" | sed 's/ERROR_MESSAGE: //')
-              echo "error_message=$ERROR_MSG" >> $GITHUB_OUTPUT
+              ERROR_MSG=$(echo "$SCRIPT_OUTPUT" | sed -n 's/ERROR_MESSAGE: //p')
+              echo "error_message<<EOF" >> $GITHUB_OUTPUT
+              echo "$ERROR_MSG" >> $GITHUB_OUTPUT
+              echo "EOF" >> $GITHUB_OUTPUT
             else
-              echo "error_message=❌ **Processing Failed**\n\nAn unknown error occurred during processing. Please check if the submission format is correct." >> $GITHUB_OUTPUT
+              echo "error_message<<EOF" >> $GITHUB_OUTPUT
+              echo "❌ **Processing Failed**" >> $GITHUB_OUTPUT
+              echo "" >> $GITHUB_OUTPUT
+              echo "An unknown error occurred during processing. Please check if the submission format is correct." >> $GITHUB_OUTPUT
+              echo "EOF" >> $GITHUB_OUTPUT
             fi
             echo "❌ Script execution failed"
-            # Remove exit 1: avoid premature step termination, ensure output variables are written properly
           fi
         env:
           ISSUE_BODY: ${{ github.event.issue.body }}
           ISSUE_USER: ${{ github.event.issue.user.login }}
           GITHUB_OUTPUT: ${{ github.output }}
 
+      - name: Debug Output Values
+        run: |
+          echo "script_success value: '${{ steps.extract-signup.outputs.script_success }}'"
+          echo "error_message value: '${{ steps.extract-signup.outputs.error_message }}'"
+          echo "Condition check: ${{ steps.extract-signup.outputs.script_success == 'false' }}"
+
       - name: Handle Script Errors
         # Key: Only execute when extract-signup step outputs script_success as false
         if: steps.extract-signup.outputs.script_success == 'false'
-        # Remove incorrect needs field! Steps within the same job execute in order by default, no needs required
         uses: actions/github-script@v7
         with:
           github-token: ${{ secrets.GITHUB_TOKEN }}
@@ -66,7 +82,7 @@ jobs:
             const { owner, repo } = context.repo;
             const issue_number = context.payload.issue.number;
             // Get error message from extract-signup step output (use default if not available)
-            const errorMessage = steps.extract-signup.outputs.error_message || '❌ **Processing Failed**\n\nAn unknown error occurred during processing. Please check if the submission format is correct.';
+            const errorMessage = `${{ steps.extract-signup.outputs.error_message }}` || '❌ **Processing Failed**\n\nAn unknown error occurred during processing. Please check if the submission format is correct.';
             
             // Add error comment to Issue
             await github.rest.issues.createComment({

@@ -18,7 +18,9 @@ console.log('Issue content:\n', issueBody);
 try {
     // Process registration
     RegistrationProcessor.processRegistration(issueBody, githubUser);
+    console.log('✅ Registration processing completed successfully');
 } catch (error) {
+    console.error('ERROR_MESSAGE:', `❌ **Processing Failed**\n\nRegistration processing failed: ${error.message}`);
     console.error('Registration processing failed:', error.message);
     process.exit(1);
 }

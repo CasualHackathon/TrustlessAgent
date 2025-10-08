@@ -2,8 +2,12 @@
  * Field validation utilities
  */
 
-const { parseFieldFromContent } = require('./parser-manager');
-const { REQUIRED_FIELDS } = require('../config/constants');
+const {
+    parseFieldFromContent
+} = require('./parser-manager');
+const {
+    REQUIRED_FIELDS
+} = require('../config/constants');
 
 class FieldValidator {
     /**
@@ -16,6 +20,7 @@ class FieldValidator {
         const requiredFields = REQUIRED_FIELDS[type];
         if (!requiredFields) {
             throw new Error(`Unknown type: ${type}`);
+            process.exit(1);
         }
 
         const missingFields = [];
