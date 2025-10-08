@@ -15,10 +15,10 @@ Stay up to date by joining our Telegram group: https://t.me/ERC8004.
 
 ## 💬 Meeting Arrangement
 
-### 💡 Topic: Trustless Agent Intensive Co-Learning Kickoff
+### 💡 Topic: Trustless Agents Intensive Co-Learning Kickoff
 - Time: Oct 13, 2025 04:00 PM UTC+8 Online
 
-### 🎤 Topic: Trustless Agent Demo Day
+### 🎤 Topic: Trustless Agents Demo Day
 - Time: Nov 2, 2025 04:00 PM UTC+8 Online
 
 ## 🌿 What is Casual Hackathon?
