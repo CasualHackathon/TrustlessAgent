@@ -38,14 +38,17 @@ jobs:
           echo "$SCRIPT_OUTPUT"
           echo "Exit code: $SCRIPT_EXIT_CODE"
           
+          # Always set script_success first
           if [ $SCRIPT_EXIT_CODE -eq 0 ]; then
-            # Script executed successfully: set success status
             echo "script_success=true" >> $GITHUB_OUTPUT
             echo "✅ Script executed successfully"
           else
-            # Script execution failed: set failure status + extract error message
             echo "script_success=false" >> $GITHUB_OUTPUT
-            
+            echo "❌ Script execution failed"
+          fi
+          
+          # Then handle error message extraction
+          if [ $SCRIPT_EXIT_CODE -ne 0 ]; then
             # Extract error message using multiline format
             if echo "$SCRIPT_OUTPUT" | grep -q "ERROR_MESSAGE:"; then
               ERROR_MSG=$(echo "$SCRIPT_OUTPUT" | sed -n 's/ERROR_MESSAGE: //p')
@@ -59,7 +62,6 @@ jobs:
               echo "An unknown error occurred during processing. Please check if the submission format is correct." >> $GITHUB_OUTPUT
               echo "EOF" >> $GITHUB_OUTPUT
             fi
-            echo "❌ Script execution failed"
           fi
         env:
           ISSUE_BODY: ${{ github.event.issue.body }}
