@@ -35,9 +35,12 @@ class FieldValidator {
         if (missingFields.length > 0) {
             const errorMessage = this.generateValidationErrorMessage(type, missingFields);
 
-            // Write error message to environment variable for workflow use
+            // Write both script_success and error_message to environment variable for workflow use
             if (process.env.GITHUB_OUTPUT) {
                 const fs = require('fs');
+                // Set script_success to false first
+                fs.appendFileSync(process.env.GITHUB_OUTPUT, `script_success=false\n`);
+                // Then set error_message
                 fs.appendFileSync(process.env.GITHUB_OUTPUT, `error_message<<EOF\n${errorMessage}\nEOF\n`);
             }
             // Also output to console
@@ -77,9 +80,12 @@ class FieldValidator {
             const errorMessage = `❌ **User Not Registered**\n\n` +
                 `User \`${githubUser}\` has not registered for the hackathon.`;
 
-            // Write error message to environment variable for workflow use
+            // Write both script_success and error_message to environment variable for workflow use
             if (process.env.GITHUB_OUTPUT) {
                 const fs = require('fs');
+                // Set script_success to false first
+                fs.appendFileSync(process.env.GITHUB_OUTPUT, `script_success=false\n`);
+                // Then set error_message
                 fs.appendFileSync(process.env.GITHUB_OUTPUT, `error_message<<EOF\n${errorMessage}\nEOF\n`);
             }
             // Also output to console

@@ -38,17 +38,28 @@ jobs:
           echo "$SCRIPT_OUTPUT"
           echo "Exit code: $SCRIPT_EXIT_CODE"
           
-          # Always set script_success first
-          if [ $SCRIPT_EXIT_CODE -eq 0 ]; then
-            echo "script_success=true" >> $GITHUB_OUTPUT
-            echo "✅ Script executed successfully"
+          # Check if script already set script_success (new behavior)
+          if grep -q "script_success=" $GITHUB_OUTPUT; then
+            echo "✅ Script already set script_success value"
+            SCRIPT_SUCCESS_VALUE=$(grep "script_success=" $GITHUB_OUTPUT | cut -d'=' -f2)
+            if [ "$SCRIPT_SUCCESS_VALUE" = "true" ]; then
+              echo "✅ Script executed successfully"
+            else
+              echo "❌ Script execution failed"
+            fi
           else
-            echo "script_success=false" >> $GITHUB_OUTPUT
-            echo "❌ Script execution failed"
+            # Fallback: set script_success based on exit code (legacy behavior)
+            if [ $SCRIPT_EXIT_CODE -eq 0 ]; then
+              echo "script_success=true" >> $GITHUB_OUTPUT
+              echo "✅ Script executed successfully (fallback)"
+            else
+              echo "script_success=false" >> $GITHUB_OUTPUT
+              echo "❌ Script execution failed (fallback)"
+            fi
           fi
           
-          # Then handle error message extraction
-          if [ $SCRIPT_EXIT_CODE -ne 0 ]; then
+          # Handle error message extraction for cases where script didn't set it
+          if [ $SCRIPT_EXIT_CODE -ne 0 ] && ! grep -q "error_message<<EOF" $GITHUB_OUTPUT; then
             # Extract error message using multiline format
             if echo "$SCRIPT_OUTPUT" | grep -q "ERROR_MESSAGE:"; then
               ERROR_MSG=$(echo "$SCRIPT_OUTPUT" | sed -n 's/ERROR_MESSAGE: //p')
