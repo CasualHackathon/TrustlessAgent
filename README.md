@@ -256,7 +256,7 @@ We are actively seeking sponsorship support for this intensive learning program!
 ---
 
 **Current Sponsors:**
-
+<!-- 
 <table>
     <tr>
         <td align="center" valign="middle">
@@ -275,7 +275,7 @@ We are actively seeking sponsorship support for this intensive learning program!
             </a>
         </td>
     </tr>
-</table>
+</table> -->
 
 ## 🌐 Community Support
 <!-- 
