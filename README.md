@@ -1,4 +1,4 @@
-# Trustless Agents Casual Hackathon
+# Trustless Agents (ERC-8004) Casual Hackathon
 
 **Decentralized AI Agents** are becoming one of the most transformative topics in the Ethereum ecosystem. The introduction of **ERC-8004** marks a pragmatic and visionary step forward in this domain.
 
@@ -12,14 +12,6 @@ Bring your creativity, code, and maybe a cup of iced coffee — and help shape t
 - **Demo Day**: Nov 2, 2025. Submit on GitHub, live show, fun prizes
 
 Stay up to date by joining our Telegram group: https://t.me/ERC8004.
-
-## 💬 Meeting Arrangement
-
-### 💡 Topic: Trustless Agents Intensive Co-Learning Kickoff
-- Time: Oct 13, 2025 04:00 PM UTC+8 Online
-
-### 🎤 Topic: Trustless Agents Demo Day
-- Time: Nov 2, 2025 04:00 PM UTC+8 Online
 
 ## 🌿 What is Casual Hackathon?
 
@@ -72,53 +64,7 @@ If you're ready to:
 
 **This hackathon is for you.**
 
-## 🎁 Awards and Prizes
-
-**📝 1. Project Submission Requirements**
-
-Deadline: Before 4:00 PM (GMT+8), November 2 (Demo Day)
-
-Please submit the following materials via the designated GitHub form before the deadline:
-
-- ✅ Project GitHub Repository (must be open-source)
-- ✅ Presentation Slides (PDF or slide format)
-- ✅ Project Summary (including feature overview, use cases, and key highlights)
-- ✅ Optional: Demo video or user guide
-- ✅ Contact Information for each core team member (Telegram / Email / Wallet Address)
-
-**🎤 2. Demo Day Presentation Guidelines**
-
-Time: 4:00 PM (GMT+8), November 2
-- Each team will have 5–8 minutes to present—please manage your time accordingly
-- Suggested content for the demo:
-  - Project introduction
-  - Feature demonstration
-  - Technical insights
-- Projects will present in the order of submission
-- A Zoom link will be sent in advance to the email address used during registration
-
-**🏆 3. Awards & Prizes**
-- Judging Panel: Composed of Ethereum core developers and researchers
-- Everyone Wins: All submitted projects will receive a commemorative NFT award
-- Example Award Categories:
-  - Most Creative Project
-  - Best Integration
-  - Most Practical Application
-  - Technical Excellence
-  - Prize Details:
-    - USDT Airdrop:
-        - Project must be open-source
-        - Provide a live demo
-
-🎁 All prizes will be coordinated by LXDAO & ETHPanda and announced via the official GitHub repo.
-
-**🎙️ 4. Post-Hackathon Interviews**
-- Selected teams will be invited for a 5 – 10 minute online interview after the hackathon
-- Topics may include:
-  - Project vision
-  - Team collaboration
-  - Development experience
-- Interview videos or summaries will be shared across social media and community platforms for wider exposure
+## 🎁 Awards and Prizes (Work in progress)
 
 ## 🧩 Why ERC-8004? Why Now?
 
