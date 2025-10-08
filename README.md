@@ -1,93 +1,205 @@
 # Trustless Agent Intensive Co-Learning
 
-🤖 Building the Future of Decentralized AI Agents Together!
+**Decentralized AI Agents** are becoming one of the most transformative topics in the Ethereum ecosystem. The introduction of **ERC-8004** marks a pragmatic and visionary step forward in this domain.
 
+We believe that meaningful innovation doesn't always come from boardrooms or conference stages — it often starts with a late-night hack or a sudden spark in your code editor.
 
-## 📚 Program Overview
-
-This is an intensive co-learning program for developers, designed to deeply explore the technology behind decentralized AI agents. We focus on the core tech stack required to build "trustless" agents, including **ERC-8004, A2A Architecture, the AP2 Protocol, and the x402 Payment Protocol**. Through code-level analysis and hands-on projects, we help participants systematically master the complete framework for the next generation of AI agent collaboration and value exchange.
+Bring your creativity, code, and maybe a cup of iced coffee — and help shape the next chapter of Decentralized AI Agents.
 
 ## ⏰ Program Timeline
 
-| Event           | Time                  | Format    | Description                |
-| --------------- | --------------------- | --------- | ------------------------------ |
-| **Registration**  | Oct 6-12, 2025 | Online | Registration period for participants |
-| **Program Duration** | Oct 13-27, 2025 | Online | Intensive co-learning program |
-| **Intensity Warning** | 15-20 hours/week | - | High commitment required for success |
+- **Casual Hackathon**: Oct 27 - Nov 2, 2025. Hands-on implementation and creative exploration
+- **Demo Day**: Nov 2, 2025. Submit on GitHub, live show, fun prizes
 
+Stay up to date by joining our Telegram group: https://t.me/ERC8004.
 
-## 🎯 Who Should Join?
+## 💬 Meeting Arrangement
 
-**Different Foundations, Shared Breakthrough!** This program is ideal for:
+### 💡 Topic: Trustless Agent Intensive Co-Learning Kickoff
+- Time: Oct 13, 2025 04:00 PM Beijing, Shanghai
 
-- **Ethereum Developers**: Looking to expand smart contract capabilities into the decentralized AI space.
-- **AI/ML Engineers & Researchers**: Eager to learn how to build trustless, verifiable, and economically autonomous AI agents.
-- **Web3 Product Managers & Entrepreneurs**: Aiming to explore next-generation dApps and business models within the A2A ecosystem.
-- **Seasoned Tech Enthusiasts**: With a strong interest in cryptography, distributed systems, and agent economics.
+### 🎤 Topic: Trustless Agent Demo Day
+- Time: Nov 2, 2025 04:00 PM Beijing, Shanghai
+
+## 🌿 What is Intensive Co-Learning?
+
+Intensive co-learning programs that let anyone revel in the pure joy of creating — and spark real innovation in return. This program is an open-source public good created by LXDAO and ETHPanda.
+
+### ✨ Core Principles
+
+- **Lightweight operation**: Online-first, casual participation, no pressure — extremely low operational overhead.
+- **Open-source public good**: Fully open-source with no patent restrictions; any group can adopt or fork it.
+- **De-commercialized**: No mandatory prize pools or sponsor KPIs — bounty hunters stay away, creativity comes first.
+- **Relaxed participation**: No forced all-nighters or on-site attendance; health and enjoyment matter.
+- **Everyone wins**: Mentors present a unique award to every project, giving all ideas their moment.
+- **Curated themes**: Carefully curated prompts that spark imagination and encourage playful, cutting-edge development
+
+## ✍️ How to Participate
+
+1. **How to Register**
+
+   - Fork this repository
+   - In the [./registration](./registration/) folder, copy the [registration template](./registration/template.md) and create a new file named `[your-github-id].md`
+   - Add your participant details to `[your-github-id].md` (please do not edit `template.md`)
+   - Submit a PR — once merged, you're officially registered 🎉
+
+2. **How to Build**
+
+   - Fork the repo and clone it locally
+   - Create a folder under `/submission` for your project
+   - Start building your magic within your project folder (please do not edit others' folder) 🧙‍♂️
+
+3. **How to Submit**
+
+   - When done, submit a PR with your project before the Demo day deadline
+   - Make sure your project folder includes a `README.md`
+   - Add your project details to the `README.md`, please follow the [submission template](./submission/template.md) for consistency
+
+## 👨‍💻 Who Should Join?
+
+This isn't a bootcamp for beginners — it's a high-bar, low-ego program designed for:
+
+- **Ethereum Developers**: Looking to expand smart contract capabilities into the decentralized AI space
+- **AI/ML Engineers & Researchers**: Eager to learn how to build trustless, verifiable, and economically autonomous AI agents
+- **Web3 Product Managers & Entrepreneurs**: Aiming to explore next-generation dApps and business models within the A2A ecosystem
+- **Seasoned Tech Enthusiasts**: With a strong interest in cryptography, distributed systems, and agent economics
 - **Motivated Learners**: Even from diverse backgrounds, if you have strong motivation and a solid computer science foundation, we welcome you to join!
 
-## 📝 Registration
+If you're ready to:
 
-[Submit ➡️](https://github.com/CasualHackathon/TrustlessAgent/issues/new?title=Registration&body=Name%5BName%5D:%0A%0ABrief%20personal%20introduction%20including%20skills%20and%20experience%0ADescription%5BDescription%5D:%0A%0ATelegram%20%7C%20WeChat%20%7C%20Discord%20%7C%20Email%20%7C%20X(Twitter)%20%7C%20GitHub%0AContactMethod%5BContact%20Method%5D:%0A%0Ae.g.,%20@username,%20email@example.com%0AContact%5BContact%20Account%5D:)
+- Dive deep into ERC-8004 and build production-ready apps around it.
+- Turn abstract concepts into working code that showcases the latest Ethereum features.
 
-- Note: Please do not modify other people's information.
+**This hackathon is for you.**
 
-<!-- Registration star -->
-| Name | Description | Contact | Operate |
-| ---- | ----------- | ------- | ------- |
-| Alice | I am an experienced smart contract developer, and I also do frontend. | alicexxx (X) | [Edit](https://github.com/CasualHackathon/Template/issues/new?title=Registration%20-%20Alice&body=Name%5BName%5D%3A%20Alice%0ADescription%5BDescription%5D%3A%20I%20am%20an%20experienced%20smart%20contract%20developer%2C%20and%20I%20also%20do%20frontend.%0AContactMethod%5BContact%20Method%5D%3A%20X%0AContact%5BContact%20Account%5D%3A%20alicexxx) |
-| Lau ack | I am currently an embedded developer, previously worked on game backend servers. I'm curious about Web3 and want to explore it. I also enjoy cooking. | liu1204518465 (WeChat) | [Edit](https://github.com/CasualHackathon/Template/issues/new?title=Registration%20-%20Lau%20ack&body=Name%5BName%5D%3A%20Lau%20ack%0ADescription%5BDescription%5D%3A%20I%20am%20currently%20an%20embedded%20developer%2C%20previously%20worked%20on%20game%20backend%20servers.%20I%27m%20curious%20about%20Web3%20and%20want%20to%20explore%20it.%20I%20also%20enjoy%20cooking.%0AContactMethod%5BContact%20Method%5D%3A%20WeChat%0AContact%5BContact%20Account%5D%3A%20liu1204518465) |
+## 🎁 Awards and Prizes
 
-<!-- Registration end -->
+**📝 1. Project Submission Requirements**
 
-## 📖 Learning Modules
+Deadline: Before 4:00 PM (GMT+8), November 2 (Demo Day)
 
-### Module 1: The Trust Foundation — ERC-8004 Identity & Reputation Layer
+Please submit the following materials via the designated GitHub form before the deadline:
 
-- In-depth analysis of the ERC-8004 standard: Identity Registry, Reputation Registry, and Verification Registry.
-- Hands-on: Create an on-chain identity for your agent and implement a simple off-chain reputation feedback mechanism.
+- ✅ Project GitHub Repository (must be open-source)
+- ✅ Presentation Slides (PDF or slide format)
+- ✅ Project Summary (including feature overview, use cases, and key highlights)
+- ✅ Optional: Demo video or user guide
+- ✅ Contact Information for each core team member (Telegram / Email / Wallet Address)
 
-### Module 2: The Collaboration Language — A2A Architecture & AP2 Protocol
+**🎤 2. Demo Day Presentation Guidelines**
 
-- Master how agents autonomously discover and communicate via the Agent-to-Agent (A2A) architecture.
-- Decode the AP2 protocol: Understand agent descriptor files, capability declarations, and interaction flows.
-- Hands-on: Enable your agent to discover other agents and initiate collaboration requests.
+Time: 4:00 PM (GMT+8), November 2
+- Each team will have 5–8 minutes to present—please manage your time accordingly
+- Suggested content for the demo:
+  - Project introduction
+  - Feature demonstration
+  - Technical insights
+- Projects will present in the order of submission
+- A Zoom link will be sent in advance to the email address used during registration
 
-### Module 3: The Value Engine — x402 Payment Protocol
+**🏆 3. Awards & Prizes**
+- Judging Panel: Composed of Ethereum core developers and researchers
+- Everyone Wins: All submitted projects will receive a commemorative NFT award
+- Example Award Categories:
+  - Most Creative Project
+  - Best Integration
+  - Most Practical Application
+  - Technical Excellence
+  - Prize Details:
+    - USDT Airdrop:
+        - Project must be open-source
+        - Provide a live demo
 
-- Dissect how the x402 protocol utilizes the HTTP 402 status code to enable "gasless" micro-payments.
-- Integrate EIP-3009 to achieve automated settlement for agent services and resource access control.
-- Hands-on: Integrate x402 payment functionality into your agent service, enabling "pay-per-call".
+🎁 All prizes will be coordinated by LXDAO & ETHPanda and announced via the official GitHub repo.
 
-### Module 4: Capstone Project — Building an Autonomous Agent
+**🎙️ 4. Post-Hackathon Interviews**
+- Selected teams will be invited for a 5 – 10 minute online interview after the hackathon
+- Topics may include:
+  - Project vision
+  - Team collaboration
+  - Development experience
+- Interview videos or summaries will be shared across social media and community platforms for wider exposure
 
-- Integrate knowledge from the first three modules to build a full-lifecycle Trustless Agent.
-- Implement the full automated workflow: from identity registration and reputation accumulation to autonomous collaboration and service settlement.
-- Project Demo & Code Review: Receive direct feedback from the community and mentors.
+## 🧩 Why ERC-8004? Why Now?
 
-## 🎯 Project Submission
+**ERC-8004** addresses key limitations of traditional AI agent systems while preserving their core strength: enabling trustless, verifiable, and economically autonomous AI agents.
 
-[Submit ➡️](https://github.com/CasualHackathon/TrustlessAgent/issues/new?title=Submission&body=ProjectName%5BProject%20Name%5D:%0A%0ABrief%20description%20about%20your%20project%20in%20one%20sentence%0AProjectDescription%5BProject%20Description%5D:%0A%0AYour%20wallet%20address%20or%20ENS%20domain%20on%20Ethereum%20mainnet%0AWalletAddress%5BWallet%20Address%5D:) 
+Key benefits:
 
-- Complete registration before submitting.
-- Fork this repository, place your project resources in `/submission/[your-github-account]`, then submit a PR to wait for merging.
-- Do not modify or delete the `HACKATHON.md` file in your folder, nor modify others' files.
+- ✅ **Decentralized Identity** (works with existing Ethereum infrastructure)
+- ✅ **Highly extensible** (supports custom validation logic and reputation systems)
+- ✅ **Improved security model** (avoids centralized control and single points of failure)
 
-<!-- Submission start -->
-| Project | Description | Members | Submitted | Operate |
-| ----------- | ----------------- | -------------- | ------ | -------- |
-| uniswap | An AMM-based DEX project, open to collaboration. | Alice, Bob | 🟢 | [Edit](https://github.com/CasualHackathon/Template/issues/new?title=Submission%20-%20uniswap&body=ProjectName%5BProject%20Name%5D%3Auniswap%0AProjectDescription%5BProject%20Description%5D%3AAn%20AMM-based%20DEX%20project%2C%20open%20to%20collaboration.%0AProjectMembers%5BProject%20Members%5D%3AAlice%2C%20Bob%0AWalletAddress%5BWallet%20Address%5D%3A0xxxxxxxxxxxx) &#124; [Folder](https://github.com/CasualHackathon/Template/tree/main/submission/BiscuitCoder) |
+This isn't just a fix — it's a new design space for AI agents, dApps, security, identity, and permissions.
 
-<!-- Submission end -->
+**Now** is the time to build, test, question, and innovate — hands-on, from the ground up.
+
+## 🛠 Highlights
+
+✨ **Tech Talks**
+
+- Deep dives into ERC-8004
+- Evolution of Decentralized AI Agents
+- Modular agent architecture trends
+
+💬 **Online Learning Space**
+
+- Small, high-signal discussion groups
+- Shared collab code zones
+- Global devs co-building across time zones
+
+🧑‍⚖️ **Expert Mentors**
+
+- Ethereum core devs / researchers
+- AI/ML experts, security researchers
+
+<table>
+    <tr>
+         <td  align="center" valign="middle" width="120">
+            <img src="https://pbs.twimg.com/profile_images/1906994546455822336/OEoYVc1W_400x400.jpg" alt="brucexu_eth" width="50" />
+            Bruce Xu
+        </td>
+        <td>
+             <a href="https://x.com/brucexu_eth" target="_blank">@brucexu_eth</a>
+        </td>
+        <td>
+             ETH x AI | Ethernaut | Cypherpunk-aligned | INTJ | Co-initiator @LXDAO_Official @ethpanda_org | 面向酷炫工作
+        </td>
+    </tr>
+    
+</table>
+
+**🌟 Guests**
 
 
-## 🏆 Rewards & Recognition
+<table>
+    <tr>
+         <td  align="center" valign="middle"  width="120">
+            <img src="https://pbs.twimg.com/profile_images/1097527657766535168/lmQ95bkh_400x400.jpg" alt="brucexu_eth" width="50" />
+            Adam Fuller
+        </td>
+        <td>
+             <a href="https://x.com/azacharyf" target="_blank">@azacharyf</a>
+        </td>
+        <td>
+             Product Manager and developer, worked on USDC, The Graph, Scaffold Eth, BuildlGuidl and others. Currently focusing on emerging Ethereum UX and apps
+        </td>
+    </tr>
+</table>
 
-- **Official Certification**: Graduates receive a jointly issued Technical Certification from LXDAO
-- **Ecosystem Access**: Outstanding projects may receive referrals to ecosystem projects
-- **Knowledge**: The greatest reward is gaining deep understanding of trustless agent technology!
 
-## 📚 Learning Resources
+## 👥 Participants
+
+| Name | Role | Team Status | Project Name | Project Description | Contact |
+|------|------|-------------|--------------|----------------------|---------|
+| [BiscuitCoder](./registration/BiscuitCoder.md) | Developer | Looking for teammates | Trustless Data Marketplace | A decentralized data marketplace powered by ERC-8004 for AI agents | @BiscuitCoder (Telegram) |
+| [mrnewliu-gif](./registration/mrnewliu-gif.md) | Full-stack Developer | Solo participation | Agent Task Automation | Automated task execution system using A2A protocol | @mrnewliu (Telegram) |
+
+## 📚 Resources
+
+- [Idea](./docs/idea.md)
+- [Articles](./docs/articles.md)
+- [Examples](./docs/examples/README.md)
 
 ### Core Documentation
 - [ERC-8004 EIP](https://eips.ethereum.org/EIPS/eip-8004)
@@ -101,12 +213,11 @@ This is an intensive co-learning program for developers, designed to deeply expl
 - [x402 Whitepaper](https://www.x402.org/x402-whitepaper.pdf)
 - [Awesome A2A Agents](https://github.com/isekOS/awesome-a2a-agents)
 
-## 🤝 Organizers
-
+## 🤝 Co-organizers
 
 <table>
     <tr>
-        <td  align="center" valign="middle">
+         <td  align="center" valign="middle">
             <a href="https://lxdao.io/" target="_blank">
                 <img src="./materials/images/LXDAO.png" alt="LXDAO" width="130" />
             </a>
@@ -119,9 +230,52 @@ This is an intensive co-learning program for developers, designed to deeply expl
     </tr>
 </table>
 
-## 🏷️ Tags
+## 💰 Sponsors
 
-`ERC8004` `AP2` `A2A` `x402` `TrustlessAgent` `DecentralizedAI` `AgentEconomy`
+**🎯 Seeking Sponsorship Support**
+
+We are actively seeking sponsorship support for this intensive learning program! Your sponsorship will help us:
+
+- **Enhanced Learning Resources**: Provide cutting-edge tools and infrastructure for participants
+- **Project Development Support**: Fund outstanding project development and showcase opportunities  
+- **Community Growth**: Expand program reach to benefit more developers in decentralized AI agent technology
+- **Ecosystem Building**: Foster innovation in the trustless agent space
+
+**🤝 Sponsorship Opportunities:**
+- **Financial Support**: Direct funding for program operations and participant rewards
+- **Technical Resources**: AI credits, compute resources, and development tools
+- **Infrastructure**: Cloud services, development environments, and testing platforms
+- **Community Promotion**: Marketing support and ecosystem outreach
+- **Mentorship**: Technical expertise and industry guidance
+- **Other Collaborations**: We welcome all forms of partnership and support
+
+**📞 Contact for Sponsorship:**
+- **Telegram**: [@brucexu_eth](https://t.me/brucexu_eth)
+- **We welcome all forms of sponsorship and partnership!**
+
+---
+
+**Current Sponsors:**
+
+<table>
+    <tr>
+        <td align="center" valign="middle">
+            <a href="https://chainforgood.org/" target="_blank">
+                <img src="./materials/images/BGA.png" alt="BGA" width="130" />
+            </a>
+        </td>
+        <td align="center" valign="middle">
+            <a href="https://onekey.so/" target="_blank">
+                <img src="./materials/images/onkey.png" alt="onkey" width="130" />
+            </a>
+        </td>
+        <td align="center" valign="middle">
+            <a href="https://slowmist.com/" target="_blank">
+                <img src="./materials/images/SlowMist.png" alt="SlowMist" width="130" />
+            </a>
+        </td>
+    </tr>
+</table>
 
 ## 🌐 Community Support
 
@@ -154,6 +308,10 @@ This is an intensive co-learning program for developers, designed to deeply expl
         </td>
     </tr>
 </table>
+
+## 🏷️ Tags
+
+`ERC8004` `AP2` `A2A` `x402` `TrustlessAgent` `DecentralizedAI` `AgentEconomy`
 
 ## 📞 Contact
 
