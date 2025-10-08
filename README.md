@@ -173,6 +173,11 @@ This isn't just a fix — it's a new design space for AI agents, dApps, security
                 <img src="./materials/images/ETHPanda.png" alt="ETHPanda" width="130" />
             </a>
         </td>
+        <td align="center" valign="middle">
+            <a href="https://dai.team/" target="_blank">
+                <div style="width: 130px; height: 130px; background-color: #f0f0f0; display: flex; align-items: center; justify-content: center; border-radius: 10px; font-weight: bold;">dAI team</div>
+            </a>
+        </td>
     </tr>
 </table>
 
@@ -198,66 +203,6 @@ We are actively seeking sponsorship support for this intensive learning program!
 **📞 Contact for Sponsorship:**
 - **Telegram**: [@brucexu_eth](https://t.me/brucexu_eth)
 - **We welcome all forms of sponsorship and partnership!**
-
----
-
-**Current Sponsors:**
-<!-- 
-<table>
-    <tr>
-        <td align="center" valign="middle">
-            <a href="https://chainforgood.org/" target="_blank">
-                <img src="./materials/images/BGA.png" alt="BGA" width="130" />
-            </a>
-        </td>
-        <td align="center" valign="middle">
-            <a href="https://onekey.so/" target="_blank">
-                <img src="./materials/images/onkey.png" alt="onkey" width="130" />
-            </a>
-        </td>
-        <td align="center" valign="middle">
-            <a href="https://slowmist.com/" target="_blank">
-                <img src="./materials/images/SlowMist.png" alt="SlowMist" width="130" />
-            </a>
-        </td>
-    </tr>
-</table> -->
-
-## 🌐 Community Support
-<!-- 
-<table>
-    <tr>
-        <td align="center" valign="middle">
-            <a href="https://learnblockchain.cn/" target="_blank">
-                <img src="./materials/images/learnblockchain.png" alt="learnblockchain" width="130" />
-            </a>
-        </td>
-        <td align="center" valign="middle">
-            <a href="https://seedao.xyz/" target="_blank">
-                <img src="./materials/images/SEEDDAO.png" alt="SEEDDAO" width="130" />
-            </a>
-        </td>
-        <td align="center" valign="middle">
-            <a href="https://openbuild.xyz/" target="_blank">
-                <img src="./materials/images/OpenBuild.png" alt="OpenBuild" width="130" />
-            </a>
-        </td>
-        <td align="center" valign="middle">
-            <a href="https://x.com/BUPT3DAO" target="_blank">
-                <img src="./materials/images/bupt3.png" alt="bupt3" width="130" />
-            </a>
-        </td>
-        <td align="center" valign="middle">
-            <a href="https://x.com/THUBA_DAO/" target="_blank">
-                <img src="./materials/images/thuba.png" alt="THUBA_DAO" width="130" />
-            </a>
-        </td>
-    </tr>
-</table> -->
-
-## 🏷️ Tags
-
-`ERC8004` `AP2` `A2A` `x402` `TrustlessAgent` `DecentralizedAI` `AgentEconomy`
 
 ## 📞 Contact
 
