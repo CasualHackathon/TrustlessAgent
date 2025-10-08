@@ -1,4 +1,4 @@
-# Trustless Agent Casual Hackathon
+# Trustless Agents Casual Hackathon
 
 **Decentralized AI Agents** are becoming one of the most transformative topics in the Ethereum ecosystem. The introduction of **ERC-8004** marks a pragmatic and visionary step forward in this domain.
 
@@ -13,8 +13,13 @@ Bring your creativity, code, and maybe a cup of iced coffee — and help shape t
 
 Stay up to date by joining our Telegram group: https://t.me/ERC8004.
 
+## 💬 Meeting Arrangement
+
+### 💡 Topic: Trustless Agent Intensive Co-Learning Kickoff
+- Time: Oct 13, 2025 04:00 PM UTC+8 Online
+
 ### 🎤 Topic: Trustless Agent Demo Day
-- Time: Nov 2, 2025 04:00 PM online
+- Time: Nov 2, 2025 04:00 PM UTC+8 Online
 
 ## 🌿 What is Casual Hackathon?
 
