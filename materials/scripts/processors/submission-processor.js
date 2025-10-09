@@ -1,5 +1,6 @@
 const path = require('path');
 const FileManager = require('../utils/file-manager');
+<<<<<<< HEAD
 const { parseIssueFields, parseFieldFromContent } = require('../utils/field-parser');
 const UserManager = require('../services/user-manager');
 const ReadmeManager = require('../services/readme-manager');
@@ -8,10 +9,20 @@ const { DIRECTORIES, FILE_NAMES, FIELD_NAMES, STATUS_INDICATORS } = require('../
 
 /**
  * 项目提交处理器
+=======
+const { parseFieldFromContent } = require('../utils/parser-manager');
+const UserManager = require('../utils/user-manager');
+const ReadmeManager = require('../utils/readme-manager');
+const FieldValidator = require('../utils/field-validator');
+const { DIRECTORIES, FILE_NAMES, FIELD_NAMES } = require('../config/constants');
+
+/**
+>>>>>>> temple/main
  * Submission processor
  */
 class SubmissionProcessor {
     /**
+<<<<<<< HEAD
      * 处理项目提交
      * @param {string} issueBody - Issue 内容
      * @param {string} githubUser - GitHub 用户名
@@ -130,10 +141,66 @@ class SubmissionProcessor {
 
         const rows = userFolders.map(folder => {
             const submissionFile = path.join(submissionRoot, folder, FILE_NAMES.HACKATHON_INFO);
+=======
+     * Process project submission
+     * @param {string} issueBody - Issue content
+     * @param {string} githubUser - GitHub username
+     */
+    static processSubmission(issueBody, githubUser) {
+        console.log('Starting project submission processing...');
+
+        // Check if user is registered
+        FieldValidator.checkUserRegistration(githubUser, UserManager, FileManager);
+
+        // Validate required fields
+        FieldValidator.validateRequiredFields(issueBody, 'SUBMISSION');
+
+        // Save original issue content
+        this.createSubmissionFile(issueBody, githubUser);
+
+        // Update submission table
+        this.updateSubmissionTable();
+
+        console.log('Project submission processing completed');
+    }
+
+
+    /**
+     * Get submission file path
+     * @param {string} githubUser - GitHub username
+     * @returns {string} Submission file path
+     */
+    static getSubmissionFilePath(githubUser) {
+        const submissionDir = path.join(__dirname, DIRECTORIES.SUBMISSION);
+        return path.join(submissionDir, `${githubUser}.md`);
+    }
+
+    /**
+     * Create submission file
+     * @param {string} originalIssueBody - Original issue content
+     * @param {string} githubUser - GitHub username
+     */
+    static createSubmissionFile(originalIssueBody, githubUser) {
+        // Create submission file using GitHub username as filename
+        const filePath = this.getSubmissionFilePath(githubUser);
+        FileManager.saveFile(filePath, originalIssueBody, 'Project submission information written');
+    }
+
+    /**
+     * Update submission table
+     */
+    static updateSubmissionTable() {
+        const submissionRoot = path.join(__dirname, DIRECTORIES.SUBMISSION);
+        const submissionFiles = FileManager.getDirectoryFiles(submissionRoot, '.md');
+
+        const rows = submissionFiles.map(file => {
+            const submissionFile = path.join(submissionRoot, file);
+>>>>>>> temple/main
             const content = FileManager.readFileContent(submissionFile);
 
             if (!content) return null;
 
+<<<<<<< HEAD
             const displayName = UserManager.getUserDisplayName(folder);
 
             return {
@@ -147,12 +214,48 @@ class SubmissionProcessor {
         }).filter(Boolean);
 
         // 按项目名称首字母升序排序
+=======
+            // Get GitHub username from filename (remove .md extension)
+            const githubUser = file.replace('.md', '');
+
+            // Try to parse fields, skip if parsing fails
+            try {
+                const projectName = parseFieldFromContent(content, FIELD_NAMES.SUBMISSION.PROJECT_NAME);
+                const projectDescription = parseFieldFromContent(content, FIELD_NAMES.SUBMISSION.PROJECT_DESCRIPTION);
+                const projectMembers = parseFieldFromContent(content, FIELD_NAMES.SUBMISSION.PROJECT_MEMBERS);
+                const projectLeader = parseFieldFromContent(content, FIELD_NAMES.SUBMISSION.PROJECT_LEADER);
+                const repositoryUrl = parseFieldFromContent(content, FIELD_NAMES.SUBMISSION.REPOSITORY_URL);
+
+                // Skip this file if parsing fails or key fields are empty
+                if (!projectName || !projectDescription || !projectLeader) {
+                    console.log(`Skipping file ${file}: parsing failed or missing key fields`);
+                    return null;
+                }
+
+                return {
+                    fileName: file,
+                    githubUser: githubUser,
+                    projectName: projectName,
+                    projectDescription,
+                    projectMembers,
+                    projectLeader,
+                    repositoryUrl
+                };
+            } catch (error) {
+                console.log(`Skipping file ${file}: parsing failed - ${error.message}`);
+                return null;
+            }
+        }).filter(Boolean);
+
+        // Sort by project name alphabetically
+>>>>>>> temple/main
         rows.sort((a, b) => {
             const nameA = (a.projectName || '').toLowerCase();
             const nameB = (b.projectName || '').toLowerCase();
             return nameA.localeCompare(nameB);
         });
 
+<<<<<<< HEAD
         const tableContent = this.generateSubmissionTable(rows, submissionRoot);
         ReadmeManager.updateReadmeSection('SUBMISSION', tableContent);
     }
@@ -184,6 +287,27 @@ class SubmissionProcessor {
         });
 
         return table;
+=======
+        // Generate table content directly
+        let table = '| Project | Description | Members | Leader | Repository | Operate |\n| ----------- | ----------------- | -------------- | ------- | ---------- | -------- |\n';
+
+        rows.forEach((row) => {
+            const issueTitle = `Submission - ${row.projectName}`;
+
+            // Read MD file content directly as body for edit link
+            const filePath = path.join(submissionRoot, row.fileName);
+            const issueBody = FileManager.readFileContent(filePath);
+
+            const issueUrl = ReadmeManager.generateIssueUrl(issueTitle, issueBody);
+
+            // Generate repository link: show 🔗 if exists, ❌ if not
+            const repoLink = row.repositoryUrl && row.repositoryUrl.trim() !== '' ? `[🔗](${row.repositoryUrl})` : '❌';
+
+            table += `| ${row.projectName} | ${row.projectDescription} | ${row.projectMembers} | ${row.projectLeader} | ${repoLink} | [Edit](${issueUrl}) |\n`;
+        });
+
+        ReadmeManager.updateReadmeSection('SUBMISSION', table);
+>>>>>>> temple/main
     }
 }
 

@@ -8,4 +8,10 @@ node_modules
 out
 cache
 broadcast
+<<<<<<< HEAD
 lib
+=======
+lib
+test
+.kiro
+>>>>>>> temple/main
